@@ -1,0 +1,23 @@
+.div1{
+	width:500px;
+	height:400px;
+	border: 1px solid red;
+}
+
+.faceul {
+	background-color: pink;
+	border:1px solid blue;
+	width: 100px;
+	height: 80px;
+}
+
+.faceul li{
+	list-style-type: none;
+}
+
+.faceul li img{
+	width: 60px;
+	border:1px solid green;
+	margin: 3px;
+}
+

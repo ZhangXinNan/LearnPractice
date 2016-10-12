@@ -1,0 +1,23 @@
+body{
+	border: 10px solid red;/*10px表示边框宽度，solid代表实线，red表示颜色为红*/
+	width: 400px;
+	height: 500px;
+	margin: 0 auto;
+}
+
+
+.div1{
+	width: 50px;
+	height: 52px;
+	border: 3px solid blue;
+
+	margin: 10px 0px 0px 20px;
+	
+
+}
+
+.div1 img{
+	width:40px;
+	height: 40px;
+	margin: 5px 2px 0px 5px;
+}

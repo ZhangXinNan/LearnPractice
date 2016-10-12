@@ -1,0 +1,45 @@
+.div1{
+	width:500px;
+	height:400px;
+	border: 1px solid red;
+}
+
+.div2 {
+	background-color: pink;
+	border:1px solid blue;
+	padding: 5px;
+}
+
+.span1{
+	display: block;
+}
+
+.span1 a{
+	/*float: right;*/
+	margin-right: 4px;
+}
+
+.faceul{
+	list-style:none;
+	padding: 0px;
+	width: 350px;
+	height: 65px;
+	list-style-type: none;
+	padding: 3px;
+}
+
+.faceul li{
+	/*list-style-type: none;*/
+	width: 100px;
+	height: 78px;
+	margin-left: 6px;
+	float: left;
+	text-align: center;
+}
+
+.faceul li img{
+	width: 60px;
+	border:1px solid green;
+	margin: 3px;
+}
+
