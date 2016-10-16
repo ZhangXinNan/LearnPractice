@@ -1,0 +1,19 @@
+.div1{
+	width: 70px;
+	height: 30px;
+	background-color: pink;
+	float: left;
+	margin-left: 5px;
+}
+
+#special{
+	position: absolute;
+	left: 210px;
+	top: 180px;
+}
+/*left top 属性对static没有效果，static是靠margin来定位的。*/
+/*relative 相对原位置*/
+/*absolute 相对父元素位置*/
+/*fixed 相对body位置*/
+
+/*z-index 相对层叠顺序*/

@@ -1,0 +1,24 @@
+.div1{
+	width: 150px;
+	height: 100px;
+	border: 1px solid blue;
+	background: pink;
+	margin-top: 20px;
+}
+
+/*id选择器，要求右浮动*/
+#special{
+	float:left;
+}
+
+/*id选择器，要求右浮动*/
+#special1{
+	float:left;
+	height: 110px;
+	width: 160px;
+}
+.div2{
+	width:500px;
+	height:600px;
+	border:1px solid red;
+}
