@@ -1,7 +1,10 @@
 #unicoding=utf8
 
+import math
 from perceptron import *
 
+def sigmoid(x):
+    return 1 / (1 + math.exp(-x));
 
 def f(x):
     '''
@@ -24,10 +27,11 @@ def train_and_perceptron():
     使用and真值表训练感知器
     '''
     # 创建感知器，输入参数个数为2（因为and是二元函数），激活函数为f
-    p = Perceptron(2, f)
+    #p = Perceptron(2, f)
+    p = Perceptron(2, sigmoid)
     # 训练，迭代10轮, 学习速率为0.1
     input_vecs, labels = get_training_dataset()
-    p.train(input_vecs, labels, 10, 0.1)
+    p.train(input_vecs, labels, 10000, 0.1)
     #返回训练好的感知器
     return p
 if __name__ == '__main__': 
@@ -36,7 +40,12 @@ if __name__ == '__main__':
     # 打印训练获得的权重
     print and_perception
     # 测试
-    print '1 and 1 = %d' % and_perception.predict([1, 1])
-    print '0 and 0 = %d' % and_perception.predict([0, 0])
-    print '1 and 0 = %d' % and_perception.predict([1, 0])
-    print '0 and 1 = %d' % and_perception.predict([0, 1])
+    # print '1 and 1 = %d' % and_perception.predict([1, 1])
+    # print '0 and 0 = %d' % and_perception.predict([0, 0])
+    # print '1 and 0 = %d' % and_perception.predict([1, 0])
+    # print '0 and 1 = %d' % and_perception.predict([0, 1])
+
+    print '1 and 1 = %f' % and_perception.predict_simple([1, 1])
+    print '0 and 0 = %f' % and_perception.predict_simple([0, 0])
+    print '1 and 0 = %f' % and_perception.predict_simple([1, 0])
+    print '0 and 1 = %f' % and_perception.predict_simple([0, 1])

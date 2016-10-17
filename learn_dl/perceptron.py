@@ -29,6 +29,11 @@ class Perceptron(object):
                    map(lambda (x, w): x * w,  
                        zip(input_vec, self.weights))
                 , 0.0) + self.bias)
+    def predict_simple(self, input_vec):
+        sum = self.bias
+        for i in range(len(input_vec)):
+            sum += input_vec[i] * self.weights[i]
+        return self.activator(sum)
     def train(self, input_vecs, labels, iteration, rate):
         '''
         输入训练数据：一组向量、与每个向量对应的label；以及训练轮数、学习率
@@ -47,7 +52,9 @@ class Perceptron(object):
             # 计算感知器在当前权重下的输出
             output = self.predict(input_vec)
             # 更新权重
-            self._update_weights(input_vec, output, label, rate)
+            #self._update_weights(input_vec, output, label, rate)
+            self._update_weights_simple(input_vec, output, label, rate)
+
     def _update_weights(self, input_vec, output, label, rate):
         '''
         按照感知器规则更新权重
@@ -61,3 +68,9 @@ class Perceptron(object):
             zip(input_vec, self.weights))
         # 更新bias
         self.bias += rate * delta
+
+    def _update_weights_simple(self, input_vec, output, label, rate):
+        delta = label - output
+        self.bias += rate * delta
+        for i in range(len(self.weights)):
+            self.weights[i] += rate * delta * input_vec[i];
