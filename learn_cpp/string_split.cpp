@@ -31,7 +31,6 @@ int main(int args, char* argv[]) {
     std::vector<std::string> vec = split(s, delim);
     for (size_t i = 0; i < vec.size(); i++) {
         std::cout << "[" + vec[i] + "]" << std::endl;
-        
     }
     return 0;
 
