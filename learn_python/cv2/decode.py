@@ -27,7 +27,7 @@ cv2.waitKey()
 _, img_obj_bytes = cv2.imencode(".jpg", img_obj)
 print type(img_obj_bytes)
 print img_obj_bytes
-img_obj_str = np.array(img_obj_bytes[1]).tostring()
+img_obj_str = np.array(img_obj_bytes).tostring()
 print type(img_obj_str), len(img_obj_str)
 # 保存图片文件到硬盘
 with open("tmp.jpg", "wb") as f:
