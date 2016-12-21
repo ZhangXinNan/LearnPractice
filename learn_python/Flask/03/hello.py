@@ -1,6 +1,7 @@
 # coding=utf-8
 from flask import Flask
 from flask import request
+from flask import render_template
 # 所有 Flask 程序都必须创建一个程序实例
 # Web服务器使用WSGI协议,把接收客户端的所有请求转交给这个对象处理
 app = Flask(__name__)
@@ -12,14 +13,16 @@ app = Flask(__name__)
 # 视图函数 (view funtion) 
 @app.route('/')
 def hello_world():
-    user_agent = request.headers.get('User-Agent')
-    return '<p>Your browser is %s</p>' % user_agent, 400
+    return render_template('index.html')
+    #user_agent = request.headers.get('User-Agent')
+    #return '<p>Your browser is %s</p>' % user_agent, 400
     #return '<h1>Hello World!<h1>'
 
 # <>中的是动态部分
 @app.route('/user/<name>')
 def user(name):
-    return '<h1>Hello , %s ! </h1>' % name
+    return render_template('user.html', name=name)
+    #return '<h1>Hello , %s ! </h1>' % name
 
 if __name__ == '__main__':
     # 程序实例用 run 方法启动 Flask 集成的开发Web 服务器
