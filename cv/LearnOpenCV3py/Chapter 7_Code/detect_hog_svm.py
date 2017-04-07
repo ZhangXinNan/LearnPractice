@@ -4,8 +4,8 @@ from os.path import join
 
 # placeholder path
 datapath = "/home/d3athmast3r/dev/python/CarData/TrainImages/"
-def path(cls,i):
-  return "%s/%s%d.pgm"  % (datapath,cls,i+1)
+def path(cls, i):
+  return "%s/%s%d.pgm" % (datapath, cls, i+1)
 
 pos, neg = "pos-", "neg-"
 
