@@ -33,4 +33,5 @@
 .DS_Store
 
 *.pyc
+*.pyo
 *.gz
