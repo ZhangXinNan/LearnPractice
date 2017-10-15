@@ -12,13 +12,14 @@
 > 每次开发 时根据需要（比如添加新功能、修改bug）从某个分支checkout创建新分支，个人在这个分支上可以随意修改，并push到自己仓库。如果要向上游提pr，则必须先合并代码、解决冲突、经过自己充分测试没问题。
 
 > 不参与线上代码开发 的，可以不用这个工作流。只要掌握clone, add, commit, push, fetch，checkout 就足够了。
-
+![这里写图片描述](http://img.blog.csdn.net/20171012125024342?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2RseXB5enE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 ![git flow](gitflow.png)
 
 
 ## 1. fork 这个项目（从网页上点fork）
 首先是fork这个项目。这样在自己的仓库里也有同样的一份代码。
 ![](gitflow_01_fork.png)
+![这里写图片描述](http://img.blog.csdn.net/20171012125054315?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2RseXB5enE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
 ## 2. clone 到本地 (git clone .....)
 ### 2.1 clone到本地
@@ -104,12 +105,16 @@ To git@git.corpautohome.com:zhangxin0627/test.git
 ![](gitflow_05_01_createpr.png)
 ![](gitflow_05_02_merge1.png)
 ![](gitflow_05_03_merge2.png)
+![这里写图片描述](http://img.blog.csdn.net/20171012125152971?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2RseXB5enE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](http://img.blog.csdn.net/20171012125350119?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2RseXB5enE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](http://img.blog.csdn.net/20171012125535058?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2RseXB5enE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
 ## 6. 大家review代码，修改没问题后，管理员会merge到上游dev 或者master分支
 
 ![](gitflow_06_01_mr3.png)
 ![](gitflow_06_02.png)
-
+![这里写图片描述](http://img.blog.csdn.net/20171012130758634?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2RseXB5enE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](http://img.blog.csdn.net/20171012130912619?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2RseXB5enE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
 ## 7. fetch 上游代码(git fetch upstream)，更新本地代码（例如git merge upstream/master）,将更新后的分支push 到自己的仓库(例如 git push origin master)
 ```
