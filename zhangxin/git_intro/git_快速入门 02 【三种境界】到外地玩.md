@@ -50,3 +50,8 @@ git push [alias] [branch]
 git push origin --delete <branchName>
 git push origin --delete tag <tagName>
 ```
+
+## 2.6 修改远程的URL
+```
+git remote set-url origin https://github.com/USERNAME/REPOSITORY.git
+```
