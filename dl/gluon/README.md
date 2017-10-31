@@ -1,10 +1,25 @@
+[动手深度学习](http://zh.gluon.ai/index.html)
+
 # 0 前言
 # 1 预备知识
 ## 1.1 机器学习简介
-## 1.2 [使用NDArray来处理数据](http://zh.gluon.ai/chapter_crashcourse/ndarray.html)
+## 1.2 使用NDArray来处理数据
 ## 1.3 使用autograd来自动求导
 
 # 2 监督学习
+## 2.1 线性回归——从0开始
+## 2.2 线性回归——使用Gluon
+## 2.3 多类逻辑回归——从0开始
+## 2.4 多类逻辑回归——使用Gluon
+## 2.5 多层感知机——从0开始
+## 2.6 多层感知机——使用Gluon
+## 2.7 欠拟合和过拟合
+## 2.8 正则化——从0开始
+## 2.9 正则化——使用Gluon
+## 2.10 Dropout——从0开始
+## 2.11 Dropout——使用Gluon
+## 2.12 实战Kaggle比赛——使用Gluon预测房价和K折交叉验证
+
 # 3 Gluon基础
 # 4 卷积神经网络
 # 5 循环神经网络
