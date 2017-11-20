@@ -53,11 +53,12 @@ docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
 ## 3.6 存出和载入镜像
 ### 3.6.1 存出镜像
 ```
-docker save
+docker save -o ubuntu_14.04.tar ubuntu:14.04
 ```
 ### 3.6.2 载入镜像
 ```
-docker load
+docker load --input ubuntu_14.04.tar
+docker load < ubuntu_14.04.tar
 ```
 
 ### 3.7 上传镜像
