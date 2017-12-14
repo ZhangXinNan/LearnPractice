@@ -40,6 +40,18 @@ python -c "from nets import cifarnet; mynet = cifarnet.cifarnet"
 # 4 从头训练
 
 # 5 微调一个新任务
+Fine-tuning a model from an existing checkpoint
+
+我们经常想从一个预训练模型开始微调，而不是从头开始。为了表示要微调的起始点，我们用```--checkpoint_path```标志来调用训练，并为检查点文件指定一个绝对路径。
+
+在微调模型时我们要注意恢复检查点权重。尤其当我们在一个不同输出标签数量的新任务上微调模型时，不能恢复最后的分类层。为此我们要使用```--checkpoint_exclude_scopes```标志。这个标志阻碍某些变量被加载。当对一个类别数量与训练好的模型不同的分类模型进行微调时，新模型将有最后的logits层，它的维度不同于预训练模型。比如，在Flowers数据集上用ImageNet-trained进行微调时，预训练模型的维度是[2048x1001]，但是新的分类层将是[2048x5]。因此，这个标志表示TF-Slim来避免从检查点加载这些参数。
+
+```
+--checkpoint_path 用来微调的检查点
+--checkpoint_exclude_scopes 阻碍某些变量被加载
+--trainable_scopes 指定被训练的部分
+```
+
 # 6 评价性能
 # 7 导出前向图
 # 8 问题解决
