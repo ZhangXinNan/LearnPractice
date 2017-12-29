@@ -59,9 +59,9 @@ TRAIN_DIR=/data/zhangxin/data/slim/flowers_train_logs
 DATASET_DIR=/data/zhangxin/data/slim/flowers
 python train_image_classifier.py \
   --train_dir=${TRAIN_DIR} \
+  --dataset_dir=${DATASET_DIR} \
   --dataset_name=flowers \
   --dataset_split_name=train \
-  --dataset_dir=${DATASET_DIR} \
   --model_name=inception_v3 \
   --checkpoint_path=${PRETRAINED_CHECKPOINT_DIR}/inception_v3.ckpt \
   --checkpoint_exclude_scopes=InceptionV3/Logits,InceptionV3/AuxLogits \
@@ -74,8 +74,8 @@ python train_image_classifier.py \
   --save_summaries_secs=60 \
   --log_every_n_steps=100 \
   --optimizer=rmsprop \
-  --weight_decay=0.00004 \
-  --clone_on_cpu=True
+  --weight_decay=0.00004
+#  --clone_on_cpu=True
 ```
 ### 评价
 ```
