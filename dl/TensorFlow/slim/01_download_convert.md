@@ -49,7 +49,7 @@ python download_and_convert_data.py \
     --dataset_dir="${DATA_DIR}"
 ```
 
-### 训练
+### 训练(需要提前下载好inception_v3.ckpt)
 ```
 # PRETRAINED_CHECKPOINT_DIR=$HOME/data_public/goolenet
 # TRAIN_DIR=$HOME/data/slim/flowers_train_logs

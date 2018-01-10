@@ -1,39 +1,39 @@
-from __future__ import absolute_import
-import time
 import logging
+import time
 
-def setup_logger(logger_name, log_file, level=logging.INFO):
-    l = logging.getLogger(logger_name)
-    formatter = logging.Formatter('%(asctime)s : %(message)s')
-    fileHandler = logging.FileHandler(log_file, mode='w')
-    fileHandler.setFormatter(formatter)
-    streamHandler = logging.StreamHandler()
-    streamHandler.setFormatter(formatter)
+formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+formatter2 = logging.Formatter("%(message)s")
 
-    l.setLevel(level)
-    l.addHandler(fileHandler)
-    l.addHandler(streamHandler)    
+def setup_logger(name, log_file, level=logging.INFO, format=formatter):
+    """Function setup as many loggers as you want"""
 
-def main():
-    l1 = '' 
-    l2 = ''
-    log1 = None
-    log2 = None
-    for i in range(300):
-	logfile1 = time.strftime("log_error_%Y%m%d_%H%M", time.localtime())
-	logfile2 = time.strftime("log_info_%Y%m%d_%H%M", time.localtime())
-	if l1 != logfile1:
-	    setup_logger('log_error', logfile1)
-    	    log1 = logging.getLogger('log_error')
-	    l1 = logfile1
-	if l2 != logfile2:
-	    setup_logger('log_info', logfile2)
-    	    log2 = logging.getLogger('log_info')
-	    l2 = logfile2
-    	log1.info('Info for log 1!')
-    	log2.info('Info for log 2!')
-    	# log1.error('Oh, no! Something went wrong!')
-	time.sleep(1)
+    handler = logging.FileHandler(log_file)
+    handler.setFormatter(format)
 
-if '__main__' == __name__:
-    main()
+    logger = logging.getLogger(name)
+    logger.setLevel(level)
+    logger.addHandler(handler)
+
+    return logger
+
+# first file logger
+logger = setup_logger('first_logger', 'first_logfile.log')
+logger.info('This is just info message')
+
+# second file logger
+super_logger = setup_logger('second_logger', 'second_logfile.log')
+super_logger.error('This is an error message')
+super_logger.info('aaabbbccc')
+
+logger3 = setup_logger('third_logger', '3rd.log', format=formatter2)
+logger3.info('abc123')
+logger3.info('567890')
+
+str_time_now = time.strftime("%Y%m%d_%H%M%S", time.localtime())
+logfilename = str_time_now + '.log'
+logging.basicConfig(
+                    filename=logfilename,
+                    level=logging.DEBUG,
+                    format="%(message)s",)
+logging.info('logging 0000001')
+logging.info('logging 0000002')

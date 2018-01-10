@@ -55,3 +55,6 @@ root@ac8da840c10b:/data/zhangxin/github/caffe# caffe
 ```
 ldconfig
 ```
+
+
+## 问题4
