@@ -1,4 +1,7 @@
-# 1 从0到1（使用几个命令来训练手写数字数据集）
+Caffe使用——01 以LeNet训练Mnist数据集为例
+
+
+# 1 CNN训练初体验（使用几个命令来训练手写数字数据集）
 ## 1.1 下载数据、转换数据格式
 设CAFFE_ROOT为caffe的安装路径。
 ```
@@ -17,13 +20,30 @@ cd $CAFFE_ROOT
 ```
 caffe train -solver lenet_solver.prototxt -gpu 0 -log_dir ./
 ```
-### 参数解释：
+### caffe命令参数解释：
+#### commands
+train 训练和微调一个模型
+test 对一个模型打分
+device_query 显示GPU诊断信息
+time 评估模型执行时间
+
+#### flags
 gpu : 指定用哪块GPU训练
+model : 模型定义文件
 log_dir : 指定log文件输出的路径。（这个路径必须事先存在）
+weights : 用已经训练好的模型来初始化参数。
+snapshot : 从之前训练的某个solver 状态恢复训练。
+iterations : 和solver中的test_iter类似，运行迭代次数。
+sighup_effect : 当收到SIGHUP信号时采取的动作，可选项：snap/stop/none。默认为snapshot，即打快照。
+sigint_effect : 当收到SIGINT信号时要采取的动作，可选项同上，默认为stop。
+solver : 指定求解器文本文件名。
 
+## 1.3 评估模型性能
+```
+caffe time -model lenet.prototxt -gpu 0
+```
 
-# 2 训练过程
-## 2.1 lenet_solver.prototxt
+# 2 求解器（solver）——训练超参数
 查看训练脚本：
 ```
 ➜  caffe git:(zxdev_mac) cat ./examples/mnist/train_lenet.sh
@@ -37,6 +57,7 @@ set -e
 ```
 ➜  caffe git:(zxdev_mac) cat examples/mnist/lenet_solver.prototxt
 # The train/test net protocol buffer definition
+# 用于训练测试的网络结构文件
 net: "examples/mnist/lenet_train_test.prototxt"
 # test_iter specifies how many forward passes the test should carry out.
 # In the case of MNIST, we have test batch size 100 and 100 test iterations,
@@ -44,9 +65,10 @@ net: "examples/mnist/lenet_train_test.prototxt"
 # test_iter 指定test执行的时候迭代次数
 test_iter: 100
 # Carry out testing every 500 training iterations.
-# 每训练多少次执行一次test
+# 每训练500次执行一次test
 test_interval: 500
 # The base learning rate, momentum and the weight decay of the network.
+# 网络的基础学习率，冲量，权衰量
 base_lr: 0.01
 momentum: 0.9
 weight_decay: 0.0005
@@ -69,24 +91,26 @@ snapshot_prefix: "examples/mnist/lenet"
 solver_mode: GPU
 ```
 
-## 2.2 定义网络结构 lenet_train_val.prototxt
+# 3 定义网络结构 lenet_train_val.prototxt
 网络结构定义在examples/mnist/lenet_train_test.prototxt中。
 ```
 ➜  caffe git:(zxdev_mac) cat examples/mnist/lenet_train_test.prototxt
+# 网络（net）的名称为LeNet
 name: "LeNet"
 layer {
   # 这一层的名字是mnist
   name: "mnist"
-  # 这一层的类型是Data
+  # 这一层的类型是Datao数据层
   type: "Data"
   # 这一层产生两个blobs，分别是data blob和label blob
   top: "data"
   top: "label"
   include {
+    # 该层参数 只在训练阶段有效
     phase: TRAIN
   }
   transform_param {
-    # 此处还可添加mean_value，数据先减mean_value，再乘scale
+    # 此处还可添加mean_value，数据先减mean_value，再乘scale。注意若有此项，需要在inference时减均值。
     # mean_value: 128
     # 1/256.0 = 0.00390625，像素值控制在0到1之间。
     scale: 0.00390625
@@ -151,6 +175,7 @@ layer {
   bottom: "conv1"
   top: "pool1"
   pooling_param {
+    # 采用最大值下采样
     pool: MAX
     # 池化核尺寸为2，步长为2
     kernel_size: 2
@@ -239,7 +264,7 @@ layer {
     }
   }
 }
-# Accuracy层只用在验证、测试阶段，用于计算分类的准确率
+# 分类准确率层，只在测试阶段有效。用于计算分类的准确率
 layer {
   name: "accuracy"
   type: "Accuracy"
@@ -260,7 +285,7 @@ layer {
 }
 ```
 
-# 3 查看训练过程中的准确率和loss
+# 4 查看训练过程中的准确率和loss
 将log_dir指定路径下的日志重命名后缀为log，例如mnist_train.log。
 在log_dir下生成准确率图片：
 ```
