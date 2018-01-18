@@ -6,11 +6,11 @@ import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
 
 import mnist_inference
-from mnist_inference import IMAGE_SIZE, NUM_CHANNELS
+from mnist_inference import IMAGE_SIZE, NUM_CHANNELS, OUTPUT_NODE
 import mnist_eval
 
 BATCH_SIZE = 100
-LEARNING_RATE_BASE = 0.8
+LEARNING_RATE_BASE = 0.01
 LEARNING_RATE_DECAY = 0.99
 REGULARAZTION_RATE = 0.0001
 TRAINING_STEPS = 10000
@@ -23,9 +23,9 @@ MODEL_NAME = 'model.ckpt'
 def train(mnist):
     # x = tf.placeholder(tf.float32, [None, mnist_inference.INPUT_NODE], name='x-input')
     x = tf.placeholder(tf.float32, [BATCH_SIZE, IMAGE_SIZE, IMAGE_SIZE, NUM_CHANNELS], name='x-input')
-    y_ = tf.placeholder(tf.float32, [None, mnist_inference.OUTPUT_NODE], name='y-input')
+    y_ = tf.placeholder(tf.float32, [None, OUTPUT_NODE], name='y-input')
     regularizer = tf.contrib.layers.l2_regularizer(REGULARAZTION_RATE)
-    y = mnist_inference.inference(x, True, regularizer)
+    y = mnist_inference.inference(x, False, regularizer)
     global_step = tf.Variable(0, trainable=False)
 
     # 滑动平均操作
@@ -35,7 +35,7 @@ def train(mnist):
     cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=y, labels=tf.arg_max(y_, 1))
     cross_entropy_mean = tf.reduce_mean(cross_entropy)
     loss = cross_entropy_mean + tf.add_n(tf.get_collection('losses'))
-    learning_rate = tf.train.exponential_decay(LEARNING_RATE_BASE, global_step, mnist.train.num_examples/BATCH_SIZE, LEARNING_RATE_DECAY)
+    learning_rate = tf.train.exponential_decay(LEARNING_RATE_BASE, global_step, mnist.train.num_examples/BATCH_SIZE, LEARNING_RATE_DECAY, staircase=True)
     # 训练过程
     train_step = tf.train.GradientDescentOptimizer(learning_rate).minimize(loss, global_step=global_step)
     with tf.control_dependencies([train_step, variable_averages_op]):
