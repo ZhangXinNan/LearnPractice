@@ -1,3 +1,10 @@
+# 0 介绍
+小数据集上。训练仅用了250张标注图片。MaxF1达到96%。Inference仅95ms每张图片。
+与TensorVision后端兼容。
+KittiBox
+MultiNet
+
+
 # 1 安装依赖
 ```
 pip install numpy scipy pillow matplotlib commentjson
