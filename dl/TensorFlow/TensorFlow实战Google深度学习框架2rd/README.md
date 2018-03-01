@@ -1,0 +1,10 @@
+01 深度学习简介
+02 TensorFlow环境搭建
+03 TensorFlow入门
+04 深层神经网络
+05 Mnist数字识别问题
+06 图像识别与卷积神经网络
+07 图像数据处理
+08 循环神经网络
+09 TensorBoard可视化
+10 TensorFlow加速计算
