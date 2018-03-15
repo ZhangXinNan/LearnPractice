@@ -7,6 +7,8 @@ cd lanms && make
 3. 安装shapely
 ```
 pip install shapely
+# or 
+conda install shapely
 ```
 
 # 测试
@@ -42,3 +44,10 @@ Fatal Python error: PyThreadState_Get: no current thread
 
 解决方法：
 Seem, there is many different python, so i got that error.
+```
+/usr/bin/python eval.py \
+        --test_data_path ~/work4sina/新建文件夹\ \(7\)/Text \
+        --gpu_list=0 \
+        --checkpoint_path models/east_icdar2015_resnet_v1_50_rbox \
+        --output_dir tmp_sina_text
+```
