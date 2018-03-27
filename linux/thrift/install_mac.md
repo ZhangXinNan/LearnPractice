@@ -5,6 +5,7 @@
 ```
 
 # 1 出现问题：Bison
+## 错误信息
 ```
 checking dynamic linker characteristics... darwin17.4.0 dyld
 checking how to hardcode library paths into programs... immediate
@@ -15,7 +16,7 @@ configure: error: Bison version 2.5 or higher must be installed on the system!
 ```
 
 
-解决办法：
+## 解决办法
 ```
 ➜  thrift git:(zxdev_mac) brew upgrade bison
 Updating Homebrew...
@@ -41,6 +42,7 @@ For compilers to find this software you may need to set:
 
 
 # 2  fatal error: 'openssl/opensslv.h' file not found
+## 错误信息
 ```
 ➜  cpp git:(zxdev_mac) make
 Making all in .
@@ -59,17 +61,15 @@ make: *** [all-recursive] Error 1
 
 
 
-解决办法：
-
-
-# 3 
+## 解决办法：
 ```
 ./configure --prefix=/usr/local/ --with-boost=/usr/local --with-libevent=/usr/local LDFLAGS='-L/usr/local/opt/openssl/lib' CPPFLAGS='-I/usr/local/opt/openssl/include'
 
 make
 ```
 
-出现 错误：
+# 3 
+## 错误信息
 ```
 find blib -name 'Makefile*' -exec rm -f {} \;
 Making all in php
@@ -83,3 +83,24 @@ make[1]: *** [all-recursive] Error 1
 make: *** [all] Error 2
 ```
 
+# 4
+## 错误信息
+```
+/Users/zhangxin/tools/thrift-0.11.0/lib/php/src/ext/thrift_protocol/php_thrift_protocol.cpp:23:10: fatal error: 'php.h' file not found
+#include "php.h"
+         ^~~~~~~
+1 error generated.
+make[5]: *** [php_thrift_protocol.lo] Error 1
+make[4]: *** [src/ext/thrift_protocol/modules/thrift_protocol.so] Error 2
+make[3]: *** [all-recursive] Error 1
+make[2]: *** [all-recursive] Error 1
+make[1]: *** [all-recursive] Error 1
+make: *** [all] Error 2
+
+```
+
+## 解决办法
+```
+./configure --prefix=/usr/local/ --with-boost=/usr/local --with-libevent=/usr/local LDFLAGS='-L/usr/local/opt/openssl/lib' CPPFLAGS='-I/usr/local/opt/openssl/include' --without-php --without-php_extension --without-go --without-js --without-perl --without-nodejs --without-lua
+
+```
