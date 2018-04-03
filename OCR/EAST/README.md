@@ -15,6 +15,12 @@ python eval.py \
 	--gpu_list=0 \
 	--checkpoint_path=/tmp/east_icdar2015_resnet_v1_50_rbox/ \
 	--output_dir=/tmp/
+
+python eval.py \
+	--test_data_path=training_samples/ \
+	--gpu_list=0 \
+	--checkpoint_path=models/east_icdar2015_resnet_v1_50_rbox/ \
+	--output_dir=training_samples_rst
 ```
 
 ## 1.4 train
@@ -31,4 +37,6 @@ python multigpu_train.py \
 	--learning_rate=0.0001 \
 	--num_readers=24 \
 	--pretrained_model_path=models/resnet_v1_50.ckpt
+
+
 ```

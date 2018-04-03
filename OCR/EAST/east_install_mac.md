@@ -51,3 +51,43 @@ Seem, there is many different python, so i got that error.
         --checkpoint_path models/east_icdar2015_resnet_v1_50_rbox \
         --output_dir tmp_sina_text
 ```
+
+
+## 问题2
+```
+$ python eval.py \
+> --test_data_path=training_images/ \
+> --gpu_list=0 \
+> --checkpoint_path=models/east_icdar2015_resnet_v1_50_rbox/ \
+> --output_dir=training_samples_rst
+make: Entering directory `/data1/sina_recmd/zhangxin22/EAST/lanms'
+make: `adaptor.so' is up to date.
+make: Leaving directory `/data1/sina_recmd/zhangxin22/EAST/lanms'
+Traceback (most recent call last):
+  File "eval.py", line 18, in <module>
+    from icdar import restore_rectangle
+  File "/data1/sina_recmd/zhangxin22/EAST/icdar.py", line 9, in <module>
+    import matplotlib.pyplot as plt
+  File "/data1/sina_recmd/local/Python-2.7.8/lib/python2.7/site-packages/matplotlib/pyplot.py", line 116, in <module>
+    _backend_mod, new_figure_manager, draw_if_interactive, _show = pylab_setup()
+  File "/data1/sina_recmd/local/Python-2.7.8/lib/python2.7/site-packages/matplotlib/backends/__init__.py", line 60, in pylab_setup
+    [backend_name], 0)
+  File "/data1/sina_recmd/local/Python-2.7.8/lib/python2.7/site-packages/matplotlib/backends/backend_tkagg.py", line 6, in <module>
+    from six.moves import tkinter as Tk
+  File "/data1/sina_recmd/local/Python-2.7.8/lib/python2.7/site-packages/six.py", line 203, in load_module
+    mod = mod._resolve()
+  File "/data1/sina_recmd/local/Python-2.7.8/lib/python2.7/site-packages/six.py", line 115, in _resolve
+    return _import_module(self.mod)
+  File "/data1/sina_recmd/local/Python-2.7.8/lib/python2.7/site-packages/six.py", line 82, in _import_module
+    __import__(name)
+  File "/data1/sina_recmd/local/Python-2.7.8/lib/python2.7/lib-tk/Tkinter.py", line 39, in <module>
+    import _tkinter # If this fails your Python may not be configured for Tk
+ImportError: No module named _tkinter
+```
+
+解决办法：
+```
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+```
