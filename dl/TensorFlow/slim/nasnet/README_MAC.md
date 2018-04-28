@@ -4,16 +4,12 @@
 
 download and convert
 ```
-DATASET_DIR=/data1/sina_recmd/home/zhangxin22/data/flowers
 DATASET_DIR=/Users/zhangxin/data/slim/flowers
 python download_and_convert_data.py \
     --dataset_name=flowers \
     --dataset_dir="${DATA_DIR}"
-```
 
-```
-DATASET_DIR=/data1/sina_recmd/home/zhangxin22/data/flower_photos
-
+DATASET_DIR=/Users/zhangxin/data/slim/flowers_photo
 # Convert the customized data into tfrecords. Be noted that the dataset_name must be "customized"!
 python convert_customized_data.py \
     --dataset_name=customized \
@@ -21,12 +17,8 @@ python convert_customized_data.py \
 ```
 
 finetune
-
-GPU
 ```
-# DATASET_DIR=/data1/sina_recmd/home/zhangxin22/data/flower_photos
-DATASET_DIR=/data1/sina_recmd/home/zhangxin22/data/flowers
-
+DATASET_DIR=/Users/zhangxin/data/slim/flowers
 TRAIN_DIR=./train
 CHECKPOINT_PATH=./pre-trained/nasnet-a_mobile_04_10_2017/model.ckpt
 
@@ -38,19 +30,19 @@ python train_image_classifier.py \
     --model_name=nasnet_mobile \
     --checkpoint_path=${CHECKPOINT_PATH} \
     --checkpoint_exclude_scopes=final_layer,aux_7 \
-    --trainable_scopes=final_layer,aux_7
-```
+    --trainable_scopes=final_layer,aux_7 \
+    --clone_on_cpu=True
 
-MAC
-```
-DATASET_DIR=/Users/zhangxin/data/slim/flowers
-TRAIN_DIR=./train
+
+# customized
+DATASET_DIR=/Users/zhangxin/data/slim/flowers_photo
+TRAIN_DIR=./train_flowers_photo
 CHECKPOINT_PATH=./pre-trained/nasnet-a_mobile_04_10_2017/model.ckpt
 
 python train_image_classifier.py \
     --train_dir=${TRAIN_DIR} \
     --dataset_dir=${DATASET_DIR} \
-    --dataset_name=flowers \
+    --dataset_name=customized \
     --dataset_split_name=train \
     --model_name=nasnet_mobile \
     --checkpoint_path=${CHECKPOINT_PATH} \
