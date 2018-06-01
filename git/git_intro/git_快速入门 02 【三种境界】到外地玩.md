@@ -50,6 +50,10 @@ git push [alias] [branch]
 git push origin --delete <branchName>
 git push origin --delete tag <tagName>
 ```
+或者：
+```
+git push origin :dev
+```
 
 ## 2.6 修改远程的URL
 ```
