@@ -6,9 +6,12 @@
 
 [论文阅读笔记：You Only Look Once: Unified, Real-Time Object Detection](https://blog.csdn.net/tangwei2014/article/details/50915317)
 
+[目标检测|YOLO原理与实现](https://zhuanlan.zhihu.com/p/32525231)
+
 # 开源实现：
 [https://github.com/gliese581gg/YOLO_tensorflow](https://github.com/gliese581gg/YOLO_tensorflow)
 
+# 0 前言
 
 # 1. 核心思想
 利用整张图作为网络的输入，直接在输出层回归bounding box的位置和bounding box所属的类别。
