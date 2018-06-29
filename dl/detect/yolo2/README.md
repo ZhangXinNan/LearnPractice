@@ -1,4 +1,11 @@
+# 代码
 [marvis/pytorch-yolo2](https://github.com/marvis/pytorch-yolo2)
+
+# 文章
+[YOLO2](https://zhuanlan.zhihu.com/p/25167153)
+[YOLOv2 论文笔记](https://blog.csdn.net/jesse_mx/article/details/53925356)
+
+
 
 
 ```
