@@ -21,3 +21,10 @@ Robust Text Detection implementation based on [ICIP2011_RobustTextDetection.pdf]
 
 [文字检测与识别](http://lufo.me/2016/08/text_detection/)
 [文字检测方法综述](http://lufo.me/2017/02/text_detect/)
+
+[[论文笔记]Arbitrary-Oriented Scene Text Detection via Rotation Proposals](https://blog.csdn.net/u013250416/article/details/78597557)
+```
+Arbitrary-Oriented Scene Text Detection via Rotation Proposals
+论文地址：https://arxiv.org/abs/1703.01086
+github地址：https://github.com/mjq11302010044/RRPN
+```
