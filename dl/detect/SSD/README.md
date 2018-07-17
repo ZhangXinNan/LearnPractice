@@ -60,3 +60,6 @@ SSD在Yolo的基础上主要改进了三点：多尺度特征图，利用卷积�
 
 # 参考
 [目标检测|SSD原理与实现](https://zhuanlan.zhihu.com/p/33544892)
+[基于深度学习的目标检测算法：SSD](https://blog.csdn.net/u013989576/article/details/73439202)
+[论文阅读：SSD: Single Shot MultiBox Detector](https://blog.csdn.net/u010167269/article/details/52563573)
+[SSD（single shot multibox detector）算法及Caffe代码详解](https://blog.csdn.net/u014380165/article/details/72824889)

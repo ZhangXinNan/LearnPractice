@@ -4,6 +4,7 @@
 [论文阅读笔记：You Only Look Once: Unified, Real-Time Object Detection](https://blog.csdn.net/tangwei2014/article/details/50915317)
 
 [目标检测|YOLO原理与实现](https://zhuanlan.zhihu.com/p/32525231)
+[目标检测|YOLOv2原理与实现(附YOLOv3)](https://zhuanlan.zhihu.com/p/35325884)
 
 [目标检测算法之YOLO](https://zhuanlan.zhihu.com/p/38125721)
 
