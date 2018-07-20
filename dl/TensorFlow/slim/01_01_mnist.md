@@ -3,7 +3,7 @@
 ## 下载数据
 ```
 DATA_DIR=$HOME/data/slim/mnist
-DATA_DIR=/data/zhangxin/data/slim/mnist
+DATA_DIR=/Users/zhangxin/data_public/slim/mnist
 
 python download_and_convert_data.py \
     --dataset_name=mnist \

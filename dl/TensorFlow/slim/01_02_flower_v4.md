@@ -1,11 +1,11 @@
 
 
 flowers
-
+-----------------------
 # 下载数据
 ```
 # DATA_DIR=$HOME/data/slim/flowers
-DATA_DIR=/data/zhangxin/data/slim/flowers
+DATA_DIR=/Users/zhangxin/data_public/slim/flowers
 python download_and_convert_data.py \
     --dataset_name=flowers \
     --dataset_dir="${DATA_DIR}"
@@ -18,9 +18,9 @@ python download_and_convert_data.py \
 # TRAIN_DIR=$HOME/data/slim/flowers_train_logs
 # DATASET_DIR=$HOME/data/slim/flowers
 
-PRETRAINED_CHECKPOINT_DIR=/data/zhangxin/data
-TRAIN_DIR=/data/zhangxin/data/slim/flowers_train_logs_v4
-DATASET_DIR=/data/zhangxin/data/slim/flowers
+PRETRAINED_CHECKPOINT_DIR=/Users/zhangxin/data_public/googlenet
+TRAIN_DIR=/Users/zhangxin/data_public/slim/flowers_train_logs_v4
+DATASET_DIR=/Users/zhangxin/data_public/slim/flowers
 python train_image_classifier.py \
   --train_dir=${TRAIN_DIR} \
   --dataset_dir=${DATASET_DIR} \
@@ -38,7 +38,8 @@ python train_image_classifier.py \
   --save_summaries_secs=60 \
   --log_every_n_steps=100 \
   --optimizer=rmsprop \
-  --weight_decay=0.00004
+  --weight_decay=0.00004 \
+  --clone_on_cpu=True
 ```
 # 评价
 ```

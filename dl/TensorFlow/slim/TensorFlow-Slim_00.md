@@ -1,3 +1,15 @@
+
+目录:
+- 1 安装和设置
+- 2 准备数据集
+- 3 使用训练好的模型
+- 4 从头训练
+- 5 微调一个新任务
+- 6 评价性能
+- 7 导出前向图
+- 8 问题
+
+
 # 0 前言
 TF-slim是Tensorflow的一个新的轻量级的高级API，用来定义、训练、评价复杂模型。这个目录包含了使用tf-slim训练和评价几个广泛使用的CNN图像分类模型的代码。它包含了一些脚本，可以让你来重新或者从已经训练好的权重微调来训练模型。它也包含了以下代码：下载标准数据集、转换数据到tf原生tfrecord格式、从tf-slim's数据读取和队列程序读取它们。你可以轻松地在这些数据集上训练模型，就像我们如下展示的一样。我们也提供了一个jupyter notebook， 它提供了如何使用tf-slim进行图像分类的示例。为了开发或者修改我们的模型，也可以看tf-slim主页。
 
@@ -31,6 +43,22 @@ python -c "from nets import cifarnet; mynet = cifarnet.cifarnet"
 对于每个数据集，我们需要下载原数据，并转成TFRecord格式。每个TFRecord包含一个TF-Example protocol buffer。
 
 ## 2.2 创建TF-Slim 数据描述子
+一旦TFRecord 文件创建好了，你可以很容易定义Slim数据，它保存了数据文件的指针，就像多种元数据，例如类的标签、训练测试，如何解析TFExample 。我们已经包含了TF-slim数据描述Cifar/ImageNet/Flowers/Mnist。
+如何使用一个TF-Slim描述子加载数据如下：
+```python
+import tensorflow as tf
+from datasets import flowers
+
+slim = tf.contrib.slim
+
+# Selects the 'validation' dataset.
+dataset = flowers.get_split('validation', DATA_DIR)
+
+# Creates a TF-Slim DataProvider which reads the dataset in the background
+# during both training and testing.
+provider = slim.dataset_data_provider.DatasetDataProvider(dataset)
+[image, label] = provider.get(['image', 'label'])
+```
 
 ## 2.3 处理ImageNet数据的自动脚本
 
@@ -60,6 +88,13 @@ Fine-tuning a model from an existing checkpoint
 
 # 6 评价性能
 # 7 导出前向图
+
+```
+python export_inference_graph.py \
+  --alsologtostderr \
+  --model_name=inception_v3 \
+  --output_file=/tmp/inception_v3_inf_graph.pb
+```
 # 8 问题解决
 
 # 9 参考资料

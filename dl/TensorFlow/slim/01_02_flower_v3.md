@@ -5,7 +5,7 @@ flowers
 # 下载数据
 ```
 # DATA_DIR=$HOME/data/slim/flowers
-DATA_DIR=/data/zhangxin/data/slim/flowers
+DATA_DIR=/Users/zhangxin/data_public/slim/flowers
 python download_and_convert_data.py \
     --dataset_name=flowers \
     --dataset_dir="${DATA_DIR}"
@@ -14,12 +14,9 @@ python download_and_convert_data.py \
 # 训练(需要提前下载好inception_v3.ckpt) Fine-tune only the new layers for 1000 steps.
 
 ```
-# PRETRAINED_CHECKPOINT_DIR=$HOME/data_public/goolenet
-# TRAIN_DIR=$HOME/data/slim/flowers_train_logs
-# DATASET_DIR=$HOME/data/slim/flowers
-PRETRAINED_CHECKPOINT_DIR=/data/zhangxin/data
-TRAIN_DIR=/data/zhangxin/data/slim/flowers_train_logs
-DATASET_DIR=/data/zhangxin/data/slim/flowers
+PRETRAINED_CHECKPOINT_DIR=/Users/zhangxin/data_public/googlenet
+TRAIN_DIR=/Users/zhangxin/data_public/slim/flowers_train_logs
+DATASET_DIR=/Users/zhangxin/data_public/slim/flowers
 python train_image_classifier.py \
   --train_dir=${TRAIN_DIR} \
   --dataset_dir=${DATASET_DIR} \
@@ -37,8 +34,8 @@ python train_image_classifier.py \
   --save_summaries_secs=60 \
   --log_every_n_steps=100 \
   --optimizer=rmsprop \
-  --weight_decay=0.00004
-#  --clone_on_cpu=True
+  --weight_decay=0.00004 \
+  --clone_on_cpu=True
 ```
 # 评价
 ```
