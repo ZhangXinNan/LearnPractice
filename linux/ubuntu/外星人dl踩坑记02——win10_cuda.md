@@ -26,7 +26,13 @@ cudnn下载后解压，复制到```C:\Program Files\NVIDIA GPU Computing Toolkit
 
 # 5. 使用anaconda安装tensorflow-gpu
 
-## 5.1 打开Anaconda Navigator，创建Tensorflow环境 
+## 5.1 打开Anaconda Navigator，创建Tensorflow环境
+根据自己的需要选择python2.7或者3.6
+```
+conda create -n tensorflow python=3.6
+# 这里又有一个坑，tensorflow在windows下不支持2.7版本了，只能用3.5或者3.6
+conda create -n tf_py2 python=2.7
+```
 
 ## 5.2 打开Anaconda Prompt，输入
 ```activate Tensorflow```

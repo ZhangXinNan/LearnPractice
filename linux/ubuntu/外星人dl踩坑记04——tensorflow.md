@@ -1,4 +1,4 @@
-0. 运行slim下的例子报错：
+# 运行slim下的例子报错：
 ```
 device:GPU:0' because no supported kernel for GPU devices is available.
 ```
@@ -45,4 +45,14 @@ I got the same problem. It is solved by changing the last few lines of codes def
                 sync_optimizer=optimizer if FLAGS.sync_replicas else None,
                 session_config=session_config,
                 )
+```
+
+
+参考：
+['InceptionV3/Predictions/Softmax': Could not satisfy explicit device specification '/device:GPU:0' #3118](https://github.com/tensorflow/models/issues/3118)
+
+# 安装其他包
+```
+conda install -c conda-forge opencv
+conda install -c conda-forge matplotlib
 ```
