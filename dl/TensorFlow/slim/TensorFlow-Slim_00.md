@@ -61,6 +61,8 @@ provider = slim.dataset_data_provider.DatasetDataProvider(dataset)
 ```
 
 ## 2.3 处理ImageNet数据的自动脚本
+训练一个ImageNet数据集的模型是共同的请求。为了解决处理ImageNet数据集的问题，我们提供了一个自动化的脚本来下载和处理ImageNet数据集，转成tfrecord格式。
+
 
 
 # 3 使用预训练模型
