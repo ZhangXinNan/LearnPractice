@@ -5,6 +5,8 @@ save_model2pb : [TensorFlow 保存模型为 PB 文件](https://zhuanlan.zhihu.co
 metaflow-ai/blog : [metaflow-ai/blog](https://github.com/metaflow-ai/blog/tree/master/tf-freeze)
 
 
+[TensorFlow saving into/loading a graph from a file](https://stackoverflow.com/questions/38947658/tensorflow-saving-into-loading-a-graph-from-a-file)
+
 1. CheckPoint文件（*.ckpt）
 在训练TensorFlow模型时，每迭代若干轮就保存一次权值到磁盘，称为checkpoint。
 只包含Variables对象序列化后的数据，不包含图结构。

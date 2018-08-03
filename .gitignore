@@ -37,3 +37,6 @@
 *.gz
 
 *.log
+
+.ipynb_checkpoints/
+
