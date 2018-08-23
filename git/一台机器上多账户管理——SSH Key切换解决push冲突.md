@@ -30,6 +30,7 @@ id_rsa.pub
 ### 生成公钥、密钥的同时指定文件名，Gitlab使用
 ```
 ssh-keygen -t rsa -f ~/.ssh/id_rsa.gitlab -C "zhangxin0627@autohome.com.cn"
+ssh-keygen -t rsa -f ~/.ssh/id_rsa -C "zhangxin19870504@163.com"
 ```
 上传public key 到github或者gitlab
  

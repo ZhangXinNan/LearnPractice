@@ -7,7 +7,6 @@
 # 安装显卡驱动
 ```
 sudo ubuntu-drivers autoinstall
-
 ```
 然后重启
 
@@ -46,6 +45,8 @@ make
 ```
 （若不愿等候太长时间也可进入子目录单独make一些示例程序）
 若编译成功（可能有warning）则可以进入bin目录运行其中的程序。以上皆成功时，则CUDA安装成功。
+
+
 # 安装cudnn
 ```
 sudo cp -P cuda/include/cudnn.h /usr/local/cuda-9.0/include
