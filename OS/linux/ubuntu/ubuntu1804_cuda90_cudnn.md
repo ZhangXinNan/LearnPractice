@@ -1,5 +1,5 @@
 
-
+参考此文章：
 [Mahedi-61/cuda_installation_on_ubuntu_18.04](https://gist.github.com/Mahedi-61/2a2f1579d4271717d421065168ce6a73)
 
 [Ubuntu 18.04上CUDA 9.0、cuDNN7.0及Tensorflow 1.8的安装](https://www.cnblogs.com/ArrowKeys/p/9007437.html)
