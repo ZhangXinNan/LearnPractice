@@ -1,13 +1,13 @@
-### 1 在本机安装git
-### 2 注册一个github账户
-### 3 生成ssh-key，并添加到github账户
+# 1 在本机安装git
+# 2 注册一个github账户
+# 3 生成ssh-key，并添加到github账户
 [Generating a new SSH key and adding it to the ssh-agent](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/)
-#### 3.1 Generating a new SSH key
+## 3.1 Generating a new SSH key
 ```
 ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 ```
 
-#### 3.2 adding your ssh to the ssg-agent
+## 3.2 adding your ssh to the ssg-agent
 
 
 1. Start the ssh-agent in the background.
@@ -26,7 +26,7 @@ Host *
 ssh-add -K ~/.ssh/id_rsa
 ```
 
-#### 3.3 复制
+## 3.3 复制
 
 ```
 # win
@@ -34,9 +34,12 @@ clip < ~/.ssh/id_rsa.pub
 
 # mac
 pbcopy < ~/.ssh/id_rsa.pub
+
+# linux
+xclip -sel clip < ~/.ssh/id_rsa.pub
 ```
 
-### 4 运行前的配置
+# 4 运行前的配置
 ```
 git config --global user.name "your_name"
 git config --global user.email "your_email@example.com"
