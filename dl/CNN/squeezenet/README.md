@@ -2,6 +2,8 @@
 
 # github code
 [DeepScale/SqueezeNet](https://github.com/DeepScale/SqueezeNet)
+[songhan/SqueezeNet-Residual](https://github.com/songhan/SqueezeNet-Residual)
+
 
 
 # paper

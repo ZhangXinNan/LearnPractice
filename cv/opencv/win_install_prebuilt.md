@@ -18,7 +18,7 @@
 setx -m OPENCV_DIR D:\OpenCV\3.4.3\opencv\build\x64\vc15
 ```
 
-vs与VC版本对应关系
+【补充】vs与VC版本对应关系
 ```
 Visual Studio 6 ： vc6 
 Visual Studio 2003 ： vc7 
@@ -31,6 +31,8 @@ Visual Studio 2015 ： vc14
 Visual Studio 2017 ： vc15
 ```
 
-2. 
+2. DLL
+（1）如果编译静态库，这样就完成了。
+（2）如果编译成动态库，需要将bin目录添加到系统路径里。因为你需要用OpenCV的动态链接库。在这里面存储了OpenCV包含的所有的算法和信息。操作系统在运行期间在需要时加载他们。然而操作系统需要知道他们在哪。系统PATH包含了一系列DLL的路径。
 
 
