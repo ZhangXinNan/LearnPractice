@@ -1,0 +1,6 @@
+LIBRARY_PATH和LD_LIBRARY_PATH环境变量的区别
+
+
+LIBRARY_PATH和LD_LIBRARY_PATH是Linux下的两个环境变量，二者的含义和作用分别如下：
+
+LIBRARY_PATH环境变量用于在程序编译期间查找动态链接库时指定查找共享库的路径
