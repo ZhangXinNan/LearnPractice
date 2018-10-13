@@ -66,3 +66,12 @@ $$
 
 
 当有大的运动时会失败。所以我们使用金字塔，大的运动也可以变成小运动。
+
+
+# Lucas-Kanade Optical Flow in OpenCV
+（1） cv2.goodFeaturesToTrack() 获取点
+（2） cv2.calcOpticalFlowPyrLK() 传递连续三帧。
+
+# Dense Optical Flow in OpenCV
+
+Lucas-Kanade 方法只计算一个稀疏的特征集（角点）。OpenCV 提供了另一种方法来发现稠密光流。它计算所有点的光流。
