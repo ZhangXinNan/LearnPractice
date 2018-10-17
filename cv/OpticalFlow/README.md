@@ -69,8 +69,9 @@ $$
 
 # Dense Optical Flow in OpenCV
 
-Lucas-Kanade 方法只计算一个稀疏的特征集（角点）。OpenCV 提供了另一种方法来发现稠密光流。它计算所有点的光流。
+Lucas-Kanade 方法只计算一个稀疏的特征集（角点）。OpenCV 提供了另一种方法来发现稠密光流。它计算所有点的光流。这种方法基于Gunner Farneback的算法。
 
+下边的例子展示了如何去发现稠密光流。我们获取2-channel数组，(u,v)。找到它们的大小和方向。
 
 
 
