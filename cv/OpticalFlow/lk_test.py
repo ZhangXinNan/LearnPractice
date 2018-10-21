@@ -12,21 +12,21 @@ Keys
 ----
 ESC - exit
 '''
- 
+
 import numpy as np
 import cv2
 #from common import anorm2, draw_str
 from time import clock
- 
+
 lk_params = dict( winSize  = (15, 15), 
                   maxLevel = 2, 
                   criteria = (cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 10, 0.03))    
- 
+
 feature_params = dict( maxCorners = 500, 
                        qualityLevel = 0.3,
                        minDistance = 7,
                        blockSize = 7 )
- 
+
 class App:
     def __init__(self, video_src):#构造方法，初始化一些参数和视频路径
         self.track_len = 10
@@ -34,6 +34,11 @@ class App:
         self.tracks = []
         self.cam = cv2.VideoCapture(video_src)
         self.frame_idx = 0
+        self.wname = 'lk_track'
+
+    
+    def __del__(self):
+        cv2.destroyWindow(self.wname)
  
     def run(self):#光流运行方法
         while True:
@@ -41,8 +46,8 @@ class App:
             if frame is None:
                 break
             h, w = frame.shape[:2]
-            frame = cv2.resize(frame, (w//2, h//2))
-            frame = np.rot90(frame)
+            # frame = cv2.resize(frame, (w//2, h//2))
+            # frame = np.rot90(frame)
             if not ret:
                 continue
             
@@ -81,12 +86,12 @@ class App:
 
             self.frame_idx += 1
             self.prev_gray = frame_gray
-            cv2.imshow('lk_track', vis)
+            cv2.imshow(self.wname, vis)
  
             ch = 0xFF & cv2.waitKey(30)
             if ch == 27:
                 break
- 
+
 def main():
     import sys
     try: video_src = sys.argv[1]
@@ -94,7 +99,7 @@ def main():
  
     print(__doc__)
     App(video_src).run()
-    cv2.destroyAllWindows()             
- 
+    cv2.destroyAllWindows()
+
 if __name__ == '__main__':
     main()

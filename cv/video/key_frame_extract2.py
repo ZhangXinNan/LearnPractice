@@ -1,7 +1,15 @@
+'''
+使用kmeans聚类
+'''
 import argparse
 import os
 import numpy as np
 import cv2
+from sklearn.cluster import KMeans
+from scipy.cluster.vq import whiten, kmeans, vq
+import sys
+sys.path.append('../../../PCV/')
+from PCV.tools import pca
 
 def resize_image_max_size(img, max_size=320):
     h, w = img.shape[:2]
@@ -17,76 +25,42 @@ def resize_image_max_size(img, max_size=320):
 
 def get_frames(video_file, frame_num=1800, frame_interval=3, max_size=320):
     cap = cv2.VideoCapture(video_file)
-    i = 0
     frames = []
-    while(1):
+    frame_ids = []
+    for i in range(frame_num):
         ret, frame = cap.read()
-        i += 1
-        if i > frame_num:
+        if frame is None:
+            print('frame is None', i)
             break
-        if frame_interval > 1 and i % frame_interval != 1:
+        if frame_interval > 1 and i % frame_interval != 0:
             continue
         frame = resize_image_max_size(frame, max_size)
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         frames.append(frame)
-    return frames
+        frame_ids.append(i)
+    return frames, frame_ids
 
 
 def get_variance(frames, indices):
-    means = [np.array(frames[i:j]).mean(axis=0) for (i,j) in indices]
+    '''
+    means   每一段视频的平均图像
+    vars    每一段的差值的绝对值的和
+    sum_var 总的差值
+    '''
+    h, w = frames[0].shape[:2]
+    means = []
     vars = []
     sum_var = 0.0
     for i, (s, t) in enumerate(indices):
+        means.append(np.array(frames[s:t]).mean(axis=0))
         vars.append(np.sum(np.absolute(frames[s:t] - means[i])))
         sum_var += vars[i]
-        vars[i] /= t - s
-    sum_var /= len(frames)
+        vars[i] /= (t - s) * w * h
+    n = len(frames)
+    # 除以帧数*宽*高
+    sum_var /= n * h * w
     return means, vars, sum_var
 
-def reduce_var(frames, indices, means):
-    for i, (s, t) in enumerate(indices[:-1]):
-        print(i, s, t)
-        d0 = np.sum(np.absolute(frames[t] - means[i]))
-        d1 = np.sum(np.absolute(frames[t] - means[i+1]))
-        d2 = np.sum(np.absolute(frames[t+1] - means[i]))
-        d3 = np.sum(np.absolute(frames[t+1] - means[i+1]))
-        print(s, t, indices[i+1])
-        if d0 > d1 and d2 > d3 and indices[i+1][1] - indices[i+1][0] > 10:
-            # 右移
-            indices[i][1] += 1
-            indices[i+1][0] += 1
-        elif d3 > d2 and d1 > d0 and t - s > 10:
-            # 左移
-            indices[i][1] -= 1
-            indices[i+1][0] -= 1
-    means = [np.array(frames[i:j]).mean(axis=0) for (i,j) in indices]
-    return indices, means
-
-
-def extract_key_frames(frames, key_frame_num=10, iteration=100):
-    num = len(frames)
-    assert num > key_frame_num
-    interval = num/key_frame_num
-    indices = [[int(x * interval), int((x+1) * interval)] for x in range(0, key_frame_num) ]
-
-    means, vars, sum_var = get_variance(frames, indices)
-    print(indices)
-    print(vars)
-    print(sum_var)
-    key_frames = []
-    for i in range(iteration):
-        indices, means = reduce_var(frames, indices, means)
-        means, vars, sum_var = get_variance(frames, indices)
-        print(i, '-----------------------')
-        print(indices)
-        print(vars)
-        print(sum_var)
-    print(indices)
-    for s, t in indices:
-        key_frames.append(frames[(s+t)//2])
-
-    return key_frames
-    # return means
 
 
 def get_args():
@@ -98,23 +72,64 @@ def get_args():
     parser.add_argument('--max_size', default=320, type=int)
     parser.add_argument('--out_dir', default='./keyframe')
     parser.add_argument('--iteration', default=10, type=int)
-    parser.add_argument('--delta_var', default=0.01)
+    # parser.add_argument('--delta_var', default=0.01)
+    # parser.add_argument('--time_slice', default=20, type=int)
     return parser.parse_args()
 
 
 def main(args):
     print(args)
-    frames = get_frames(args.input, args.frame_num, args.frame_interval, args.max_size)
-    key_frames = extract_key_frames(frames, args.key_frame_num, args.iteration)
+    # 根据指定总帧数和间隔抽取帧
+    frames, frame_ids = get_frames(args.input, args.frame_num, args.frame_interval, args.max_size)
+    print(len(frames), len(frame_ids), frames[0].shape)
 
+    immatrix = np.array([x.flatten() for x in frames]).astype(np.float32)
+    print(immatrix.shape)
+    # PCA降维
+    V, S, immean = pca.pca(immatrix)
+    print(V.shape, S.shape, immean.shape)
+
+    imnbr = len(frames)
+    projected = np.array([np.dot(V[:40],immatrix[i]-immean) for i in range(imnbr)])
+
+
+    # k-means
+    projected = whiten(projected)
+    centroids,distortion = kmeans(projected, args.key_frame_num)
+    code,distance = vq(projected,centroids)
+    print(code.shape)
+    print(distance.shape)
+    # 使用Kmeans进行聚类
+    # kmeans = KMeans(n_clusters=args.key_frame_num, random_state=0).fit(np.array(frames))
+
+    h, w = frames[0].shape[:2]
+    size = h * w
+    centers = []
+    clusters = [[] for i in range(args.key_frame_num)]
+    ids = [[] for i in range(args.key_frame_num)]
+    for i in range(len(frames)):
+        clusters[code[i]].append(frames[i])
+        ids[code[i]].append(i)
+    for i in range(args.key_frame_num):
+        print(i, len(clusters[i]))
+        d = np.sum(np.absolute(clusters[i] - np.mean(clusters[i], axis=0)), axis=(1,2))/size
+        print(d)
+        index = np.argsort(d)
+        j = index[0]
+        print(index)
+        index = ids[i][index[0]]
+        print(index)
+        centers.append((clusters[i][j], index))
+    
     if not os.path.isdir(args.out_dir):
         os.makedirs(args.out_dir)
     basename = os.path.basename(args.input)
-    for i, frame in enumerate(key_frames):
-        cv2.imwrite(os.path.join(args.out_dir, basename + '_%d.jpg' % i), frame)
+    for i, (frame, index) in enumerate(centers):
+        cv2.imwrite(os.path.join(args.out_dir, basename + '_%d_%d.jpg' % (index,i)), frame)
 
-        
+     
 
+    
 
 if __name__ == '__main__':
     main(get_args())
