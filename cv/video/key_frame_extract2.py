@@ -97,29 +97,27 @@ def main(args):
     projected = whiten(projected)
     centroids,distortion = kmeans(projected, args.key_frame_num)
     code,distance = vq(projected,centroids)
-    print(code.shape)
-    print(distance.shape)
+    print(code.shape, distance.shape)
+    print(code)
+    print(distance)
     # 使用Kmeans进行聚类
     # kmeans = KMeans(n_clusters=args.key_frame_num, random_state=0).fit(np.array(frames))
 
-    h, w = frames[0].shape[:2]
-    size = h * w
     centers = []
     clusters = [[] for i in range(args.key_frame_num)]
     ids = [[] for i in range(args.key_frame_num)]
     for i in range(len(frames)):
-        clusters[code[i]].append(frames[i])
+        clusters[code[i]].append(distance[i])
         ids[code[i]].append(i)
+    print(ids)
+    print(clusters)
     for i in range(args.key_frame_num):
-        print(i, len(clusters[i]))
-        d = np.sum(np.absolute(clusters[i] - np.mean(clusters[i], axis=0)), axis=(1,2))/size
-        print(d)
-        index = np.argsort(d)
+        index = np.argsort(clusters[i])
         j = index[0]
         print(index)
-        index = ids[i][index[0]]
+        index = ids[i][j]
         print(index)
-        centers.append((clusters[i][j], index))
+        centers.append((frames[index], index))
     
     if not os.path.isdir(args.out_dir):
         os.makedirs(args.out_dir)
