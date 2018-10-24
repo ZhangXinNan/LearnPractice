@@ -95,6 +95,7 @@ def main(args):
 
     # k-means
     projected = whiten(projected)
+    print(projected.shape, type(projected))
     centroids,distortion = kmeans(projected, args.key_frame_num)
     code,distance = vq(projected,centroids)
     print(code.shape, distance.shape)
