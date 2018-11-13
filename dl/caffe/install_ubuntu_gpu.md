@@ -71,3 +71,37 @@ PYTHON_INCLUDE := /usr/include/python2.7 \
                 /usr/local/lib/python2.7/dist-packages/numpy/core/include
 
 ```
+
+
+## nvcc fatal   : Unsupported gpu architecture 'compute_20'
+```
+nvcc fatal   : Unsupported gpu architecture 'compute_20'
+```
+解决方法：
+去掉这两行：
+```
+-gencode arch=compute_20,code=sm_20 \
+-gencode arch=compute_20,code=sm_21 \
+```
+
+
+##　错误４
+```
+/usr/bin/ld: cannot find -lhdf5_hl
+/usr/bin/ld: cannot find -lhdf5
+collect2: error: ld returned 1 exit status
+Makefile:582: recipe for target '.build_release/lib/libcaffe.so.1.0.0' failed
+make: *** [.build_release/lib/libcaffe.so.1.0.0] Error 1
+make: *** Waiting for unfinished jobs....
+```
+解决办法：
+添加lib路径
+```
+/usr/lib/x86_64-linux-gnu/hdf5/serial
+```
+
+
+
+参考资料：
+[Caffe - Ubuntu 安装及问题解决](https://blog.csdn.net/zziahgf/article/details/72900948)
+
