@@ -9,7 +9,6 @@ ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 
 ## 3.2 adding your ssh to the ssg-agent
 
-
 1. Start the ssh-agent in the background.
 ```
 eval "$(ssh-agent -s)"
@@ -36,6 +35,7 @@ clip < ~/.ssh/id_rsa.pub
 pbcopy < ~/.ssh/id_rsa.pub
 
 # linux
+sudo apt-get install xclip
 xclip -sel clip < ~/.ssh/id_rsa.pub
 ```
 
@@ -44,6 +44,7 @@ xclip -sel clip < ~/.ssh/id_rsa.pub
 git config --global user.name "your_name"
 git config --global user.email "your_email@example.com"
 git config --global core.editor vim
+git config --global color.ui auto
 # git status时中文文件夹或者文件名不正常显示时
 git config --global core.quotepath false
 ```

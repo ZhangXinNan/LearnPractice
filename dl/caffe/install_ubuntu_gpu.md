@@ -12,7 +12,7 @@ make: *** [.build_release/src/caffe/layers/hdf5_data_layer.o] Error 1
 在Makefile.config文件的第85行，添加/usr/include/hdf5/serial/ 到 INCLUDE_DIRS，也就是把下面第一行代码改为第二行代码。
 
 INCLUDE_DIRS := $(PYTHON_INCLUDE) /usr/local/include
-1
+-->>
 INCLUDE_DIRS := $(PYTHON_INCLUDE) /usr/local/include /usr/include/hdf5/serial/
 ```
 
