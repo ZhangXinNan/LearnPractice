@@ -39,4 +39,4 @@
 *.log
 
 .ipynb_checkpoints/
-
+.idea/
