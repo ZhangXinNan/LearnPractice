@@ -5,7 +5,8 @@ import torch.utils.data
 import torchvision
 import visdom
 import numpy as np
-import models.resnet10
+# import models.resnet10
+import resnet10
 from imagenet_data import ImageNetData
 
 
@@ -143,7 +144,7 @@ def test(epoch, model, dataloader, loss_F):
 
 
 if "__main__" == __name__:
-    resnet10_model = models.resnet10.resnet10()
+    resnet10_model = resnet10.resnet10()
     transforms = torchvision.transforms.Compose([
         torchvision.transforms.Resize(224),
         torchvision.transforms.CenterCrop((224, 224)),
@@ -152,9 +153,9 @@ if "__main__" == __name__:
     if torch.cuda.is_available():
         resnet10_model = resnet10_model.cuda()
     resnet10_model = torch.nn.DataParallel(resnet10_model)
-    train_set = ImageNetData('data/imagenet/train_zx.txt', transforms=transforms)
+    train_set = ImageNetData('../train_zx.txt', transforms=transforms)
     train_loader = torch.utils.data.DataLoader(train_set, batch_size=128, shuffle=True, num_workers=16, drop_last=True)
-    test_set = ImageNetData('data/imagenet/val_zx.txt', transforms=transforms)
+    test_set = ImageNetData('../val_zx.txt', transforms=transforms)
     test_loader = torch.utils.data.DataLoader(test_set, batch_size=128, shuffle=False, num_workers=16)
 
     criterion = torch.nn.CrossEntropyLoss()
