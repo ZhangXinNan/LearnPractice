@@ -2,7 +2,7 @@
 
 import keras
 # print(keras.__version__)
-
+# 加载LMDB数据集
 from keras.datasets import imdb
 
 # 保留数据中前10000个单词，低频单词被舍弃
@@ -11,7 +11,7 @@ from keras.datasets import imdb
 # 最大索引值 不超过10000
 print(max([max(sequence) for sequence in train_data]))
 
-
+# 解码为英文单词
 # word_index is a dictionary mapping words to an integer index
 word_index = imdb.get_word_index()
 # We reverse it, mapping integer indices to words
@@ -24,7 +24,7 @@ print(decoded_review)
 
 # preparing the data
 import numpy as np
-
+# one-hot编码
 def vectorize_sequences(sequences, dimension=10000):
     # Create an all-zero matrix of shape (len(sequences), dimension)
     results = np.zeros((len(sequences), dimension))
@@ -46,12 +46,14 @@ y_test = np.asarray(test_labels).astype('float32')
 
 from keras import models
 from keras import layers
+
 # 模型定义
 def create_model():
     model = models.Sequential()
     model.add(layers.Dense(16, activation='relu', input_shape=(10000,)))
     model.add(layers.Dense(16, activation='relu'))
     model.add(layers.Dense(1, activation='sigmoid'))
+    return model
 
 
 model = create_model()
@@ -65,7 +67,7 @@ partial_x_train = x_train[10000:]
 y_val = y_train[:10000]
 partial_y_train = y_train[10000:]
 
-
+# 训练模型
 history = model.fit(partial_x_train,
                     partial_y_train,
                     epochs=20,
@@ -83,7 +85,7 @@ loss = history.history['loss']
 val_loss = history.history['val_loss']
 
 epochs = range(1, len(acc) + 1)
-
+# 绘制训练损失和验证损失
 # "bo" is for "blue dot"
 plt.plot(epochs, loss, 'bo', label='Training loss')
 # b is for "solid blue line"
@@ -95,6 +97,7 @@ plt.legend()
 
 plt.show()
 
+# 绘制训练精度和验证精度
 plt.clf()   # clear figure
 acc_values = history_dict['acc']
 val_acc_values = history_dict['val_acc']
