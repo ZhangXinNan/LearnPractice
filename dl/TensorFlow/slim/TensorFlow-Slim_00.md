@@ -63,6 +63,24 @@ provider = slim.dataset_data_provider.DatasetDataProvider(dataset)
 ## 2.3 处理ImageNet数据的自动脚本
 训练一个ImageNet数据集的模型是共同的请求。为了解决处理ImageNet数据集的问题，我们提供了一个自动化的脚本来下载和处理ImageNet数据集，转成tfrecord格式。
 
+TFRecord包括一组文件，每个都 是序列化的tf.Example proto。每个tf.Example proto包含了ImageNet图片，包含label和bounding box信息。
+
+我们提供了一个脚本来下载和转换ImageNet数据。
+
+开始，我们要注册一个Imagenet的账户，来获取数据权限。
+有了用户名和密码后，你可以准备运行这个脚本。确定你的硬盘有500G空间。DATA_DIR=$HOME/imagenet-data作为 一个存储路径，可以修改它。
+
+运行下面的脚本，请输入USERNAME和PASSWORD。
+```
+# location of where to place the ImageNet data
+DATA_DIR=$HOME/imagenet-data
+
+# build the preprocessing script.
+bazel build slim/download_and_preprocess_imagenet
+
+# run it
+bazel-bin/slim/download_and_preprocess_imagenet "${DATA_DIR}"
+```
 
 
 # 3 使用预训练模型
@@ -71,6 +89,18 @@ provider = slim.dataset_data_provider.DatasetDataProvider(dataset)
 注意这些准确率是通过评价一个crop来计算的。一些学术论文记录了更高的准确率，通过多crop多尺度。
 
 # 4 从头训练
+使用tf-slim dataset从头训练一个新模型。
+```
+DATASET_DIR=/tmp/imagenet
+TRAIN_DIR=/tmp/train_logs
+python train_image_classifier.py \
+    --train_dir=${TRAIN_DIR} \
+    --dataset_name=imagenet \
+    --dataset_split_name=train \
+    --dataset_dir=${DATASET_DIR} \
+    --model_name=inception_v3
+```
+
 
 # 5 微调一个新任务
 Fine-tuning a model from an existing checkpoint
