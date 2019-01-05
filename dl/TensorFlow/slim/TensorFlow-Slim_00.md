@@ -119,6 +119,16 @@ Fine-tuning a model from an existing checkpoint
 ```
 
 # 6 评价性能
+CHECKPOINT_FILE = ${CHECKPOINT_DIR}/inception_v3.ckpt  # Example
+$ python eval_image_classifier.py \
+    --alsologtostderr \
+    --checkpoint_path=${CHECKPOINT_FILE} \
+    --dataset_dir=${DATASET_DIR} \
+    --dataset_name=imagenet \
+    --dataset_split_name=validation \
+    --model_name=inception_v3
+
+
 # 7 导出前向图
 
 ```
