@@ -40,3 +40,4 @@
 
 .ipynb_checkpoints/
 .idea/
+*.h5
