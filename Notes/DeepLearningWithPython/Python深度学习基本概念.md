@@ -4,9 +4,23 @@
 # 1 损失函数
 ## 1.1 binary_crossentropy 二元交叉熵损失
 二分类用。
+$$
+    loss = -\sum_{i=1}^n \hat y_i log y_i + (1- \hat y_i)log (1-\hat y_i)
+$$
+
+$$
+    \frac{\partial loss}{\partial y} = -\sum_{i=1}^n \frac{\hat y_i}{y_i} - \frac{1-\hat y_i}{1-y_i}
+$$
 
 ## 1.2 mean_squared_error 均方误差 MSE
 回归时用。
+$$ 
+    loss = \sum_{i=1}^n(y_i - \hat y_i)^2 
+$$
+
+$$
+    \frac{\partial loss}{\partial y} = 2\sum_{i=1}^n(y_i - \hat y_i)
+$$ 
 
 ## 1.3 mean absolute error 平均绝对误差 MAE
 

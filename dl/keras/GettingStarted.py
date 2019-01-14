@@ -1,16 +1,13 @@
 #coding=utf-8
-#【快速开始：30s上手Keras】
 
-# Keras的核心数据结构是“模型”，模型是一种组织网络层的方式。Keras中主要的模型是Sequential模型，Sequential是一系列网络层按顺序构成的栈。
-# 你也可以查看泛型模型来学习建立更复杂的模型
 
 # Sequential模型如下
 from keras.models import Sequential
 
 model = Sequential()
 
-#将一些网络层通过.add()堆叠起来，就构成了一个模型：
-from keras.layers.core import Dense, Activation
+#将一些网络层通过.add()堆叠起来
+from keras.layers import Dense, Activation
 
 model.add(Dense(output_dim=64, input_dim=100))
 model.add(Activation("relu"))
