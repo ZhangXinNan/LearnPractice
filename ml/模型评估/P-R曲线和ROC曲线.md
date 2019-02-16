@@ -36,7 +36,7 @@ $PPV=\frac{TP}{TP+FP}$
 $accuracy = \frac {TP+TN} {TP + FN + FP + TN}$
 
 ## 1.3 P-R曲线 (精度-召回曲线) (Precision-Recall curve)
-直观理解：召回率升高时，精度下降情况。
+直观理解：阈值降低，召回率升高时，精度下降情况。
 * 横坐标：召回 Recall
 * 纵坐标：精度 Precision
 
@@ -44,8 +44,11 @@ $accuracy = \frac {TP+TN} {TP + FN + FP + TN}$
 
 P-R曲线围起来的面积
 
+### mAP
+把每个类别的AP都单独拎出来，然后计算所有类别AP的平均值 。
+
 ## 1.5 受试者工作特征曲线 （Receiver Operating Curve）
-直观理解：
+直观理解：阈值降低，假阳升高时，真阳升高情况。
 
 * 横轴：假阳率 FPR    $FPR = \frac{FP} {FP + TN}$
 * 纵轴：真阳率 TPR    $TPR = \frac{TP} {TP + FN}$
@@ -66,3 +69,4 @@ $F1 = \frac{2*Precision*Recall} {Precision + Recall}$
 * 《深度学习与计算机视觉——算法原理、框架应用与代码实现》
 * 《百面机器学习》
 * [如何理解机器学习和统计中的AUC？](https://www.zhihu.com/question/39840928)
+* 《机器学习》周志华

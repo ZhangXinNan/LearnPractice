@@ -12,3 +12,5 @@
 
 # blog
 [CNN模型之SqueezeNet](https://cloud.tencent.com/developer/article/1052857)
+[CNN模型之SqueezeNet](https://zhuanlan.zhihu.com/p/31558773)
+
