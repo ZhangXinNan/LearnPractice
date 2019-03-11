@@ -1,6 +1,7 @@
-
+﻿
 
 # 2 使用git的三种境界之二——一个人到外地玩
+一个人到外地玩：需要网络连接，并且使用一个代码托管网站（github、gitlab），将自己本机的代码备份到托管网站上，换台电脑，只需要账号密码就可以在另一台电脑上下载代码、修改、上传。
 ## 2.1 git clone 
 ```
 git clone <repository> [<directory>]
@@ -49,10 +50,6 @@ git push [alias] [branch]
 ```
 git push origin --delete <branchName>
 git push origin --delete tag <tagName>
-```
-或者：
-```
-git push origin :dev
 ```
 
 ## 2.6 修改远程的URL
