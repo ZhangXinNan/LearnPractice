@@ -14,5 +14,7 @@ make: *** [python/caffe/_caffe.so] Error 1
 PYTHON_INCLUDE := /usr/include/python2.7 \
                 /usr/lib/python2.7/dist-packages/numpy/core/include \
                 /usr/local/lib/python2.7/dist-packages/numpy/core/include
+# 可能路径不与上一行一致，按找到合适的路径添加上。比如也可能是如下路径。
+# /home/zhangxin/.local/lib/python2.7/site-packages/numpy/core/include/
 
 ```

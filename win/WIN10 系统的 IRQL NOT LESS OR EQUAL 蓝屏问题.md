@@ -1,6 +1,7 @@
 ﻿# WIN10 系统的 IRQL NOT LESS OR EQUAL 蓝屏问题
 
 
+## 解决方法（一）
 请参考以下步骤 
 
 1.Win+r，输入：msconfig
@@ -10,3 +11,8 @@
 
 参考：
 [WIN10 系统的 IRQL NOT LESS OR EQUAL 蓝屏问题](https://answers.microsoft.com/zh-hans/windows/forum/all/win10-%E7%B3%BB%E7%BB%9F%E7%9A%84-irql-not-less-or/57514fcb-1570-407e-b1bd-1825c8643d4b)
+
+
+## 解决方法（二）
+到所购买电脑的官网去下载驱动或者管理工具，安装官网驱动或者优化工具。
+比如我的笔记本是外星人，在官网下载了SupportAssist工具，来解决此问题。
