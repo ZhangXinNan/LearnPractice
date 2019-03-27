@@ -18,3 +18,9 @@ PYTHON_INCLUDE := /usr/include/python2.7 \
 # /home/zhangxin/.local/lib/python2.7/site-packages/numpy/core/include/
 
 ```
+
+如果还没有安装pip和numpy ，则安装：
+```
+sudo apt install python-pip
+pip install numpy
+```

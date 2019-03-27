@@ -47,4 +47,20 @@ git config --global core.editor vim
 git config --global color.ui auto
 # git status时中文文件夹或者文件名不正常显示时
 git config --global core.quotepath false
+
+# Configure Git on Linux to properly handle line endings
+git config --global core.autocrlf input
 ```
+
+
+The git config core.autocrlf command is used to change how Git handles line endings. It takes a single argument.
+
+On Linux, you simply pass input to the configuration. For example:
+```
+$ git config --global core.autocrlf input
+# Configure Git on Linux to properly handle line endings
+```
+
+
+
+
