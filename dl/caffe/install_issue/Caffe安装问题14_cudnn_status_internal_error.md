@@ -27,3 +27,8 @@ Makefile:542: recipe for target 'runtest' failed
 make: *** [runtest] Aborted (core dumped)
 
 ```
+
+
+解决方法：
+```
+```
