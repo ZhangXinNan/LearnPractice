@@ -6,6 +6,9 @@
 # 1 安装OpenCV 3.3.1
 参考我的博客：
 [ubuntu安装opencv](https://blog.csdn.net/sdlypyzq/article/details/88852286)
+[error：cv_bridge---opencv和ros连接起来的桥](http://www.cnblogs.com/Jessica-jie/p/6959309.html)
+
+
 
 # 2 安装Eigen
 下载指定版本3.3.3，解压。无需安装。
@@ -43,4 +46,12 @@ git clone https://github.com/HKUST-Aerial-Robotics/VINS-Mono.git
 cd ../
 catkin_make
 source ~/catkin_ws/devel/setup.bash
+```
+
+
+# 7 Visual-Inertial Odometry and Pose Graph Reuse on Public datasets
+```
+roslaunch vins_estimator euroc.launch 
+roslaunch vins_estimator vins_rviz.launch
+rosbag play YOUR_PATH_TO_DATASET/MH_01_easy.bag 
 ```

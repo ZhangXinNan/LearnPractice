@@ -1,6 +1,6 @@
 
 
-问题：
+# 问题：
 早先安装了Anaconda3，后再安装出现问题：
 ```
 -- Using Python nosetests: /home/zhangxin/anaconda3/bin/nosetests
@@ -24,3 +24,10 @@ See also "/home/zhangxin/tools/catkin_ws/build/CMakeFiles/CMakeOutput.log".
 See also "/home/zhangxin/tools/catkin_ws/build/CMakeFiles/CMakeError.log".
 
 ```
+
+
+解决方法：
+```
+pip install catkin_pkg
+```
+
