@@ -4,53 +4,43 @@
 
 
 # 1 安装OpenCV 3.3.1
-[tutorial_linux_install](https://docs.opencv.org/3.3.1/d7/d9f/tutorial_linux_install.html)
+参考我的博客：
+[ubuntu安装opencv](https://blog.csdn.net/sdlypyzq/article/details/88852286)
 
-## 1.1 安装依赖包
+# 2 安装Eigen
+下载指定版本3.3.3，解压。无需安装。
+或者
 ```
-# [compiler] 
-sudo apt-get install build-essential
-
-# [required] 
-sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
-
-# [optional] 
-sudo apt-get install python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev
+sudo apt-get install libeigen3-dev
 ```
 
-
-## 1.2 编译
-
-
-### cmake 
-```
-cd ~/opencv
-mkdir build
-cd build
+# 3 ceres
+[installation of ceres](http://ceres-solver.org/installation.html)
 
 
-# configuring
-cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local ..
-
-
-# without cuda
-cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local -D WITH_CUDA=OFF ..
-
-# specify install directory
-cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/home/zhangxin/tools/opencv-3.3.1/release -D WITH_CUDA=OFF ..
+# 4 安装附加ROS包
+**要先安装ROS**
 
 ```
-很多时候我们用不多个不同版本的OpenCV，所以最好指定安装目录，与其他版本OpenCV避免混淆。
+sudo apt-get install ros-YOUR_DISTRO-cv-bridge ros-YOUR_DISTRO-tf ros-YOUR_DISTRO-message-filters ros-YOUR_DISTRO-image-transport
 
-### build 
+# kinetic
+sudo apt-get install ros-kinetic-cv-bridge ros-kinetic-tf ros-kinetic-message-filters ros-kinetic-image-transport
 ```
-make -j8
+
+# 5 安装catkin_make
+检查ROS，是否未安装好
+```
+echo "source /opt/ros/indigo/setup.bash" >> ~/.bashrc
+source ~/.bashrc
 ```
 
 
-### install 
+# 6 Build VINS-Mono on ROS
 ```
-make install
+cd ~/catkin_ws/src
+git clone https://github.com/HKUST-Aerial-Robotics/VINS-Mono.git
+cd ../
+catkin_make
+source ~/catkin_ws/devel/setup.bash
 ```
-
-
