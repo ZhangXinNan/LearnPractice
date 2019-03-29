@@ -34,7 +34,7 @@ sudo apt-get install ros-kinetic-cv-bridge ros-kinetic-tf ros-kinetic-message-fi
 # 5 安装catkin_make
 检查ROS，是否未安装好
 ```
-echo "source /opt/ros/indigo/setup.bash" >> ~/.bashrc
+echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 ```
 
