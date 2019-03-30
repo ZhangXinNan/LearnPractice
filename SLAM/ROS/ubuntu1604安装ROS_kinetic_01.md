@@ -8,24 +8,25 @@
 * [Ubuntu install of ROS Kinetic](http://wiki.ros.org/kinetic/Installation/Ubuntu)
 
 
-## 1.1 配置Ubuntu库
+## 1.1 配置Ubuntu软件库
 
 Configure your Ubuntu repositories to allow "restricted," "universe," and "multiverse." 
 
-## 1.2 设置sources.list
+## 1.2 添加软件库到sources.list文件中
 
 ```bash
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 ```
 
-## 1.3 设置keys
+## 1.3 设置密钥（keys）
 ```bash
 sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA11
 ```
 
 
-## 1.4 安装
+## 1.4 安装ROS
 
+升级软件
 ```bash
 sudo apt-get update
 ```
@@ -52,7 +53,7 @@ W: Duplicate sources.list entry http://mirrors.tuna.tsinghua.edu.cn/ubuntu xenia
 ```
 
 
-安装
+安装桌面完整版
 ```bash
 # Desktop-Full Install: (Recommended) 
 sudo apt-get install ros-kinetic-desktop-full
