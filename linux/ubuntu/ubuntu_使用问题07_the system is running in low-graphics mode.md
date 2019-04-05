@@ -28,3 +28,8 @@ sudo ./NVIDIA-Linux-x86_64-384.98.run --no-x-check
 然后重启。
 
 [Ubuntu16.04 报警"The system is running in low-graphics mode"](https://zhuanlan.zhihu.com/p/36087073)
+[解决Ubuntu16.04 开机显示The system is running in low-graphics mode](https://blog.csdn.net/qq_26348877/article/details/79256277)
+
+
+
+
