@@ -1,6 +1,6 @@
 # 1 Shell 变量
 定义变量时，变量名不加美元符号（$，PHP语言中变量需要），如：
-```
+```bash
 your_name="runoob.com"
 ```
 注意，变量名和等号之间不能有空格，这可能和你熟悉的所有编程语言都不一样。同时，变量名的命名须遵循如下规则：
@@ -11,7 +11,7 @@ your_name="runoob.com"
  - 不能使用bash里的关键字（可用help命令查看保留关键字）。
 
 除了显式地直接赋值，还可以用语句给变量赋值，如：
-```
+```bash
 for file in `ls /etc`
 ```
 以上语句将 /etc 下目录的文件名循环出来。
@@ -19,13 +19,13 @@ for file in `ls /etc`
 
 ## 1.1 使用变量
 使用一个定义过的变量，只要在变量名前面加美元符号即可，如：
-```
+```bash
 your_name="qinjx"
 echo $your_name
 echo ${your_name}
 ```
 变量名外面的花括号是可选的，加不加都行，**加花括号是为了帮助解释器识别变量的边界**，比如下面这种情况：
-```
+```bash
 for skill in Ada Coffe Action Java; do
     echo "I am good at ${skill}Script"
 done
@@ -33,7 +33,7 @@ done
 如果不给skill变量加花括号，写成```echo "I am good at $skillScript"```，解释器就会把```$skillScript```当成一个变量（其值为空），代码执行结果就不是我们期望的样子了。
 推荐给所有变量加上花括号，这是个好的编程习惯。
 已定义的变量，可以被重新定义，如：
-```
+```bash
 your_name="tom"
 echo $your_name
 your_name="alibaba"
