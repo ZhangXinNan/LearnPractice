@@ -1,0 +1,12 @@
+<resources>
+
+    <paths>
+        <external-path
+            name="files_root"
+            path="Android/data/com.example.choosepictest/"/>
+        <external-path
+            name="external_storage_root"
+            path="."/>
+    </paths>
+
+</resources>

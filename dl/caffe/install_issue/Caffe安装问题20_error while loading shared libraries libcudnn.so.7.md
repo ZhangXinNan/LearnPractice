@@ -1,5 +1,5 @@
 
-# 错误描述
+# 1 错误描述
 在执行
 ```bash
 make runtest -j8
@@ -31,7 +31,7 @@ root@test02_tianv_1:~/github/caffe# sudo ldconfig
 ```
 
 
-# 解决方法
+# 2 解决方法
 ```bash
 rm libcudnn.so
 rm libcudnn.so.7
@@ -40,7 +40,7 @@ sudo ln libcudnn.so.7 libcudnn.so
 sudo ldconfig
 ```
 
-参考：
+# 3 参考：
 * [Why do I get “/sbin/ldconfig.real: /usr/local/cuda/lib64/libcudnn.so.7 is not a symbolic link”?](https://askubuntu.com/questions/1025928/why-do-i-get-sbin-ldconfig-real-usr-local-cuda-lib64-libcudnn-so-7-is-not-a)
 
 

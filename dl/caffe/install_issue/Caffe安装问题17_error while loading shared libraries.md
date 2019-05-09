@@ -1,4 +1,6 @@
 
+# 1 问题
+
 
 编译都没有问题
 ```bash
@@ -15,6 +17,7 @@ Makefile:542: recipe for target 'runtest' failed
 make: *** [runtest] Error 127
 ```
 
+# 2 解决
 
 设置环境变量：
 ```bash
