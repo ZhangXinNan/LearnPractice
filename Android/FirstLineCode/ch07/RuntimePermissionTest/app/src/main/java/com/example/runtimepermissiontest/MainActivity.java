@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // 向用户申请授权
+    // 向用户申请授权， 授权的结果封装在grantResults中。
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
