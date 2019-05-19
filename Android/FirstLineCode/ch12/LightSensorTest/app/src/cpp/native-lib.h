@@ -1,0 +1,8 @@
+//
+// Created by zhangxin on 2019-05-17.
+//
+
+#ifndef LIGHTSENSORTEST_NATIVE_LIB_H
+#define LIGHTSENSORTEST_NATIVE_LIB_H
+
+#endif //LIGHTSENSORTEST_NATIVE_LIB_H
