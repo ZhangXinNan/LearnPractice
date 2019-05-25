@@ -28,18 +28,21 @@ public class MyService extends Service {
         return mBinder;
     }
 
+    // 服务创建的时候调用
     @Override
     public void onCreate() {
         super.onCreate();
         Log.d("MyService", "onCreate executed");
     }
 
+    // 服务启动的时候调用
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d("MyService", "onStartCommand executed");
         return super.onStartCommand(intent, flags, startId);
     }
 
+    // 服务销毁的时候调用
     @Override
     public void onDestroy() {
         super.onDestroy();
