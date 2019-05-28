@@ -15,14 +15,45 @@
 TextureView的使用非常简单，你唯一要做的就是获取用于渲染内容的SurfaceTexture。具体做法是先创建TextureView对象，然后实现SurfaceTextureListener接口，代码如下：
 
 ```java
-private TextureView myTexture;
-public class MainActivity extends Activity implements SurfaceTextureListener{
-protected void onCreate(Bundle savedInstanceState) {
-   myTexture = new TextureView(this);
-   myTexture.setSurfaceTextureListener(this);
-   setContentView(myTexture);
-   }
-}
+public class LiveCameraActivity extends Activity implements TextureView.SurfaceTextureListener {
+      private Camera mCamera;
+      private TextureView mTextureView;
+
+      protected void onCreate(Bundle savedInstanceState) {
+          super.onCreate(savedInstanceState);
+
+          mTextureView = new TextureView(this);
+          mTextureView.setSurfaceTextureListener(this);
+
+          setContentView(mTextureView);
+      }
+
+      public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
+          mCamera = Camera.open();
+
+          try {
+              mCamera.setPreviewTexture(surface);
+              mCamera.startPreview();
+          } catch (IOException ioe) {
+              // Something bad happened
+          }
+      }
+
+      public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
+          // Ignored, Camera does all the work for us
+      }
+
+      public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
+          mCamera.stopPreview();
+          mCamera.release();
+          return true;
+      }
+
+      public void onSurfaceTextureUpdated(SurfaceTexture surface) {
+          // Invoked every time there's a new Camera preview frame
+      }
+  }
+ 
 ```
 
 
@@ -81,6 +112,7 @@ TextureView看似更像一个通用的View，可以应用动画、变换和缩�
 
 
 # 参考
+* [TextureView](https://developer.android.com/reference/android/view/TextureView)
 * [Android TextureView简易教程](http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2014/1213/2153.html)
 * [Android控件--TextureView](https://blog.csdn.net/HardWorkingAnt/article/details/72784044)
 * [Android-TextureView的原理分析及使用](https://blog.csdn.net/u013068887/article/details/79326893)
