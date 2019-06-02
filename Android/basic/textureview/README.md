@@ -1,7 +1,7 @@
 
 如果你想显示一段在线视频或者任意的数据流比如视频或者OpenGL 场景，你可以用android中的TextureView做到。
 
-# 1 TextureView的兄弟SurfaceView
+# 1 SurfaceView ——————（TextureView的兄弟）
 应用程序的视频或者opengl内容往往是显示在一个特别的UI控件中：SurfaceView。SurfaceView的工作方式是**创建一个置于应用窗口之后的新窗口**。这种方式的效率非常高，因为**SurfaceView窗口刷新的时候不需要重绘应用程序的窗口**（android普通窗口的视图绘制机制是一层一层的，任何一个子元素或者是局部的刷新都会导致整个视图结构全部重绘一次，因此效率非常低下，不过满足普通应用界面的需求还是绰绰有余），但是SurfaceView也有一些非常不便的限制。
 
 因为SurfaceView的内容不在应用窗口上，所以不能使用变换（平移、缩放、旋转等）。也难以放在ListView或者ScrollView中，不能使用UI控件的一些特性比如View.setAlpha()。
@@ -10,7 +10,7 @@
 
 # 2 TextureView
 
-与SurfaceView相比，**TextureView并没有创建一个单独的Surface用来绘制**，这使得它可以像一般的View一样执行一些变换操作，设置透明度等。另外，Textureview必须在硬件加速开启的窗口中。
+与SurfaceView相比，**TextureView并没有创建一个单独的Surface用来绘制**，这使得它可以像一般的View一样执行一些变换操作，设置透明度等。另外，**Textureview必须在硬件加速开启的窗口中**。
 
 TextureView的使用非常简单，你唯一要做的就是获取用于渲染内容的SurfaceTexture。具体做法是先创建TextureView对象，然后实现SurfaceTextureListener接口，代码如下：
 
@@ -57,7 +57,7 @@ public class LiveCameraActivity extends Activity implements TextureView.SurfaceT
 ```
 
 
-Activity implements了SurfaceTextureListener接口因此activity中需要重写如下方法：
+Activity implements SurfaceTextureListener接口因此activity中需要重写如下方法：
 ```java
 @Override
 public void onSurfaceTextureAvailable(SurfaceTexture arg0, int arg1, int arg2) {
@@ -110,11 +110,21 @@ TextureView看似更像一个通用的View，可以应用动画、变换和缩�
 
 所以在使用的时候要斟酌两者的不同。
 
+# 4 TextureView的相关类SurfaceTexture
+* Surface就是SurfaceView中使用的Surface，就是内存中的一段绘图缓冲区。 
+* SurfaceTexture是什么呢，官方文档给出的解释是这样的：
+SurfaceTexture用来捕获视频流中的图像帧的，视频流可以是相机预览或者视频解码数据。SurfaceTexture可以作为android.hardware.camera2, MediaCodec, MediaPlayer, 和 Allocation这些类的目标视频数据输出对象。可以调用updateTexImage()方法从视频流数据中更新当前帧，这就使得视频流中的某些帧可以跳过。
+TextureView可以通过getSurfaceTexture()方法来获取TextureView相应的SurfaceTexture。但是最好的方式还是使用TextureView.SurfaceTextureListener监听器来对SurfaceTexture的创建销和毁进行监听，因为getSurfaceTexture可能获取的是空对象。
+
+
+
 
 # 参考
 * [TextureView](https://developer.android.com/reference/android/view/TextureView)
 * [Android TextureView简易教程](http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2014/1213/2153.html)
 * [Android控件--TextureView](https://blog.csdn.net/HardWorkingAnt/article/details/72784044)
 * [Android-TextureView的原理分析及使用](https://blog.csdn.net/u013068887/article/details/79326893)
+* [TextureView、SurfaceTexture、Surface](https://blog.csdn.net/Holmofy/article/details/66583879)
+
 
 
