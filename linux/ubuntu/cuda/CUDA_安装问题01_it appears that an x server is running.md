@@ -40,7 +40,9 @@ The distribution-provided pre-install script failed! Are you sure want to contin
 WRANING: Unable to find a suitable destination to install 32-bit
 ```
 
-
+```bash
+ERROR: The Nouveau kernal driver is currently in use by your system. This driver is incompatible with NVIDIA driver, and must be disabled before proceeding. Plesase consult the NVIDIA driver README and your linux distribution's documentation for details on how to correctly disable the Nouveau kernel driver.
+```
 
 # 参考
 [How to install NVIDIA.run?](https://askubuntu.com/questions/149206/how-to-install-nvidia-run)
