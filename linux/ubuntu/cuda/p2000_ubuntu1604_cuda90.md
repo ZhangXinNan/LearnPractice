@@ -82,8 +82,18 @@ And there is nothing output. If you output something, you need to check the step
 sudo sh NVIDIA-Linux-x86_64-378.13.run　--no-x-check
 # 报错
 Error: An error occurred while performing the step : "building kernel modules". See /var/log/nvidia-installer.log for details.
+
+
+
+ERROR: The nvidia kernel module was not created.
+
+
+ERROR: Installation has failed. Please see the file '/var/log/nvidia-installer.log' for details. You may find suggestions on fixing installation problems in the README available on the Linux driver download page at www.nvidia.com.
 ```
 
 
 
+
+# 参考
+[最全面解析 Ubuntu 16.04 安装nvidia驱动 以及各种错误](https://blog.csdn.net/u014561933/article/details/79958017#11ppa%E6%BA%90%E5%AE%89%E8%A3%85)
 
