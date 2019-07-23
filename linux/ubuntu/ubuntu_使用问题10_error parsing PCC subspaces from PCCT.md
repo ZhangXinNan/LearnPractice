@@ -1,4 +1,4 @@
-
+# dell_precision_7920_install_ubuntu1604_
 
 开机时按功能键：
 F12 one time menu
