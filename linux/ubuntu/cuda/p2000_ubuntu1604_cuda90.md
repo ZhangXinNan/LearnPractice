@@ -12,6 +12,12 @@
 # 查看硬盘
 sudo fdisk -l
 
+# 格式化硬盘
+sudo mkfs -t ext4 /dev/sdb
+
+# 同步 home 目录所有文件，删除之前的 home 目录下的所有文件
+sudo rsync -avx /home/ /mnt/tmp
+
 # 查看分区的uuid
 sudo blkid
 
