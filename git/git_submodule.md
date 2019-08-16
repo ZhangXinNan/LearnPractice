@@ -25,4 +25,14 @@ git submodule update
 
 
 
+# 问题：
+```bash
+
+zhangxin@zhangxin-ThinkPad-L480:/media/zhangxin/Data/github/slambook2$ git submodule init
+error: chmod on /media/zhangxin/Data/github/slambook2/.git/config.lock failed: Operation not permitted
+Failed to register url for submodule path '3rdparty/DBoW3'
+```
+
+解决方法：
+挂载磁盘权限问题
 
