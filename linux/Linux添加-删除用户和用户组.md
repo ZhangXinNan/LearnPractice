@@ -1,9 +1,11 @@
 # Linux添加/删除用户和用户组
 本文总结了Linux添加或者删除用户和用户组时常用的一些命令和参数。
 1、建用户：
-```
+```bash
 adduser phpq                             //新建phpq用户
 passwd phpq                               //给phpq用户设置密码
+# 为用户添加sudo权限
+sudo usermod -a -G sudo phpq
 ```
 2、建工作组
 ```
