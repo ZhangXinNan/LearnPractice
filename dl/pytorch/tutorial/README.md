@@ -5,6 +5,13 @@ _______
 
 # 1 Getting Started
 ## 1.1 Deep Learning with PyTorch: A 60 Minutes Blitz
+### 1.1.1 What is PyTorch
+### 1.1.2 Autograd: Automatic Differentiation
+### 1.1.3 Neural Networks
+### 1.1.4 Traing a Classifier
+### 1.1.5 Optional : Data Parallelism
+
+
 ## 1.2 Writing Custom Datasets, DataLoaders and Transforms
 ## 1.3 Visualizing Models, Data and Traing with TensorBoard
 
