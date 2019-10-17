@@ -9,6 +9,8 @@ _______
 ### 1.1.2 Autograd: Automatic Differentiation
 ### 1.1.3 Neural Networks
 ### 1.1.4 Traing a Classifier
+cifar10 数据存放在D:\data_public\cifar10
+
 ### 1.1.5 Optional : Data Parallelism
 
 
