@@ -10,12 +10,12 @@ _______
 ### 1.1.3 Neural Networks
 ### 1.1.4 Traing a Classifier
 cifar10 数据存放在D:\data_public\cifar10
-
 ### 1.1.5 Optional : Data Parallelism
 
 
 ## 1.2 Writing Custom Datasets, DataLoaders and Transforms
 ## 1.3 Visualizing Models, Data and Traing with TensorBoard
+## 1.4 SAVING AND LOADING MODELS
 
 # 2 Image
 ## 2.1 torchVision Object Detection Finetuning Tutorial
