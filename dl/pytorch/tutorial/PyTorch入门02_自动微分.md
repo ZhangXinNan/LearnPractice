@@ -22,9 +22,12 @@ y = x.sum()
 ```
 
 # 2 新版本中的Tensor
-* 使用 .requires_grad 追踪操作。
-* 使用 .backward 来自动计算梯度。
+* 使用 .requires_grad 追踪操作。梯度记录在.grad里。
+* 完成计算后，使用 .backward 来自动计算梯度。
+* .detach() 
 * torch.no_grad() 阻止追踪历史。
+* .grad_fn 关联一个 Function 
+
 ```python
 import torch
 x = torch.ones(2, 2, requires_grad=True)
