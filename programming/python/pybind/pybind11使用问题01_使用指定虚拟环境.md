@@ -205,3 +205,5 @@ pybind11_add_module(example example.cpp)
 
 
 
+# 4 参考
+* [I have 2 versions of python installed, but cmake is using older version. How do I force cmake to use the newer version?](https://stackoverflow.com/questions/15291500/i-have-2-versions-of-python-installed-but-cmake-is-using-older-version-how-do)
