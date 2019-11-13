@@ -135,4 +135,30 @@ fatal error: too many errors emitted, stopping now [-ferror-limit=]
 make: *** [.build_release/src/caffe/data_transformer.o] Error 1
 ```
 
+# 2 解决方法
+可以看到这个文件是编译caffe时候生成的，并且它所要求的protobuf版本是2.6.0或2.6.1，高于或低于都会出现error
+
+此时需要查看系统的protobuf的版本是多少：
+
+命令行输入 protoc --version
+
+显示：libprotoc 3.5.0
+
+确实因为某次升级将protobuf的版本升级到了3.5.0，所以产生了上述error。
+
+解决方案：
+
+在caffe目录下重新编译：
+
+make clean
+
+make all -j4
+
+然后如果需要将caffe相关的内容安装到系统目录则：
+
+sudo make install
+
+此时再次编译原来的工程，error消失，编译通过。
+
+
 
