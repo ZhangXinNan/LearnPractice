@@ -1,0 +1,66 @@
+
+
+
+# 1 开源代码 
+## 1.1 tensorflow
+1. [huoyijie/AdvancedEAST](https://github.com/huoyijie/AdvancedEAST)  预测准确率比east更高。
+```bash
+python 3.6.3+
+tensorflow-gpu 1.5.0+(or tensorflow 1.5.0+)
+keras 2.1.4+
+numpy 1.14.1+
+tqdm 4.19.7+
+```
+2. [argman/EAST](https://github.com/argman/EAST)
+```bash
+tensorflow > 1.0
+Shapely==1.5.13
+Flask==0.10.1
+matplotlib==1.5.1
+scipy==0.19.0
+plumbum==1.6.2
+numpy==1.12.1
+ipython==6.1.0
+Pillow==4.2.1
+```
+
+## 1.2 pytorch
+* [songdejia/EAST](https://github.com/songdejia/EAST)  pytorch version > 0.4.0
+```bash
+Only RBOX part is implemented.
+没放出训练好的模型。
+```
+
+* [SakuraRiven/EAST](https://github.com/SakuraRiven/EAST)
+```bash
+Only RBOX part is implemented。
+参考了[songdejia/EAST](https://github.com/songdejia/EAST) 
+没放出训练好的模型。
+```
+
+依赖软件版本
+```bash
+Anaconda3
+Python 3.7.1
+PyTorch 1.0.1
+Shapely 1.6.4
+opencv-python 4.0.0.21
+lanms 1.0.2
+```
+
+## 1.3 keras
+* [kurapan/EAST](https://github.com/kurapan/EAST) 
+```
+Shapely==1.5.13
+Flask==0.10.1
+matplotlib==1.5.1
+scipy==0.19.0
+plumbum==1.6.2
+numpy==1.12.1
+ipython==6.1.0
+Pillow==4.2.1
+```
+
+# 2 博客介绍
+1. [文本检测之EAST](https://zhuanlan.zhihu.com/p/37504120)
+
