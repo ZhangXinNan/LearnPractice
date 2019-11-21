@@ -25,17 +25,18 @@ Pillow==4.2.1
 ```
 
 ## 1.2 pytorch
-* [songdejia/EAST](https://github.com/songdejia/EAST)  pytorch version > 0.4.0
+1. [songdejia/EAST](https://github.com/songdejia/EAST)  pytorch version > 0.4.0
 ```bash
 Only RBOX part is implemented.
 没放出训练好的模型。
+Any version of pytorch version > 0.4.0 should be ok.
 ```
 
-* [SakuraRiven/EAST](https://github.com/SakuraRiven/EAST)
+2. [SakuraRiven/EAST](https://github.com/SakuraRiven/EAST)
 ```bash
 Only RBOX part is implemented。
 参考了[songdejia/EAST](https://github.com/songdejia/EAST) 
-没放出训练好的模型。
+？？？？没放出训练好的模型。
 ```
 
 依赖软件版本
@@ -47,6 +48,15 @@ Shapely 1.6.4
 opencv-python 4.0.0.21
 lanms 1.0.2
 ```
+
+3. [www516717402/EAST](https://github.com/www516717402/EAST) forked from SakuraRiven/EAST
+没看出来与SakuraRiven/EAST有什么区别。
+
+
+3. [Kathrine94/EAST](https://github.com/Kathrine94/EAST)
+
+
+
 
 ## 1.3 keras
 * [kurapan/EAST](https://github.com/kurapan/EAST) 
