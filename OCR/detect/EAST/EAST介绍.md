@@ -60,6 +60,7 @@ lanms 1.0.2
 
 ## 1.3 keras
 * [kurapan/EAST](https://github.com/kurapan/EAST) 
+  Only RBOX geometry is implemented
 ```
 Shapely==1.5.13
 Flask==0.10.1
