@@ -23,6 +23,9 @@ numpy==1.12.1
 ipython==6.1.0
 Pillow==4.2.1
 ```
+2.1 [zyh8306/EAST](https://github.com/zyh8306/EAST)
+[EAST理解及实现](http://www.piginzoo.com/machine-learning/2019/08/28/east)
+
 
 ## 1.2 pytorch
 1. [songdejia/EAST](https://github.com/songdejia/EAST)  pytorch version > 0.4.0
@@ -36,7 +39,13 @@ Any version of pytorch version > 0.4.0 should be ok.
 ```bash
 Only RBOX part is implemented。
 参考了[songdejia/EAST](https://github.com/songdejia/EAST) 
-？？？？没放出训练好的模型。
+
+Download pre-trained VGG16 from PyTorch: VGG16 and our trained EAST model: EAST. Make a new folder pths and put the download pths into pths
+```bash
+mkdir pths
+mv east_vgg16.pth vgg16_bn-6c64b313.pth pths/
+```
+
 ```
 
 依赖软件版本
