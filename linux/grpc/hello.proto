@@ -1,0 +1,14 @@
+syntax = "proto3"; //指定语法为 protobuf3 语法，如果不写这句的话默认语法为 protobuf2
+package hello; //指定包名，这句在本次演示中只对 go 生效，python 的 protobuf 解释器会忽略它
+
+service Greeter { // 定义grpc 远程调用的方法
+    rpc SayHello (HelloRequest) returns (HelloReply) {} // 接受 HelloRequest 返回 HelloReply，SayHello 需要自己在服务端实现
+}
+
+message HelloRequest { //定义一个消息类型
+    string name = 1; //定义 name 字段为 string 类型 tag 为 1
+}
+
+message HelloReply {
+    string message = 1;
+}

@@ -42,3 +42,7 @@
 .idea/
 *.h5
 runs/
+
+
+__pycache__/
+
