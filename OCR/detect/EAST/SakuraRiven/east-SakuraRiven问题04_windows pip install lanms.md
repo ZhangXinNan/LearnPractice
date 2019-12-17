@@ -26,6 +26,16 @@ ERROR: Command errored out with exit status 1: python setup.py egg_info Check th
 ```
 
 
+```bash
+(py37_pytorch101) ➜  EAST-SakuraRiven git:(zxdev) ✗ python detect_zx.py 
+find: -xtype: unknown primary or operator
+make: `adaptor.so' is up to date.
+pytorch version : 1.0.1.post2
+[1]    8238 segmentation fault  python detect_zx.py
+```
+注释掉lanms部分，则能运行并出结果 。
+
+
 # 2 解决
 ## 2.1 升级pip setuptools，没有解决
 ```bash
@@ -34,4 +44,4 @@ pip install --upgrade setuptools
 ```
 
 
-## 2.2 
+## 2.2 参考pybind11的方法，添加segup.py进行编译
