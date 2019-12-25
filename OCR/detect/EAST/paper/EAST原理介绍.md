@@ -4,6 +4,7 @@
 1. [文本检测之EAST](https://zhuanlan.zhihu.com/p/37504120)
 2. [EAST结构分析+pytorch源码实现](https://www.cnblogs.com/wjy-lulu/p/11370520.html)
 3. [文本检测算法三：EAST and AdvancedEAST](https://blog.csdn.net/sxlsxl119/article/details/97275789)
+4. [EAST理解及实现](http://www.piginzoo.com/machine-learning/2019/08/28/east)
 
 
 # 3 原理
