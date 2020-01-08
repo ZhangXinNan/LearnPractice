@@ -26,5 +26,26 @@ error: command 'gcc' failed with exit status 1
 
 # 2 解决方法
 
+增加setup.py
+```python
+from setuptools import setup
+from setuptools import Extension
+
+example_module = Extension(name='adaptor',  # 模块名称
+                           sources=['adaptor.cpp', 'include/clipper/clipper.cpp'],    # 源码
+                           # include_dirs=[r'include',     # 依赖的第三方库的头文件
+                           #               r'D:\pybind11-master\include']
+                           include_dirs=[r'include']
+                           )
+
+setup(ext_modules=[example_module])
+```
+
+
+注释掉```lanms/__init__.py```中此两行
+```python
+# if subprocess.call(['make', '-C', BASE_DIR]) != 0:  # return value
+#     raise RuntimeError('Cannot compile lanms: {}'.format(BASE_DIR))
+```
 
 
