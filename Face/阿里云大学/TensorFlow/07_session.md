@@ -1,0 +1,87 @@
+
+## 2.3 会话
+### 开启方式
+Session 是一个TensorFlow operation 的类，有两种开启方式 ：
+- `tf.Session`
+- `tf.InteractiveSession`
+  
+1. tensorflow 使用tf.Session类来表示客户端程序与C++之间的连接。
+2. tf.Session 对象使用分布式TensorFlow运行时提供对本地计算机中的设备和远程设备的访问权限。
+
+session 拥有**资源**，例如tf.Variable, tf.QueueBase和tf.ReaderBas。
+当这些资源不再使用时，**释放**这些资源很重要。调用`tf.Session.close`。
+
+```python
+import tensorflow as tf
+a = tf.constant(10)
+b = tf.constant(20)
+c = tf.add(a, b)
+
+print(a, b, c)
+# 第一种
+sess = tf.Session()
+c_value = sess.run(c)
+print("c_value : ", c_value)
+sess.close()
+
+print(a, b, c)
+# 第二种
+with tf.Session() as sess:
+    c_value2 = sess.run(c)
+    print("c_value2 : ", c_value2)
+```
+
+输出：
+```bash
+Tensor("Const:0", shape=(), dtype=int32) Tensor("Const_1:0", shape=(), dtype=int32) Tensor("Add:0", shape=(), dtype=int32)
+c_value :  30
+Tensor("Const:0", shape=(), dtype=int32) Tensor("Const_1:0", shape=(), dtype=int32) Tensor("Add:0", shape=(), dtype=int32)
+c_value2 :  30
+```
+
+
+### session的初始对象参数
+1. target   默认留空，session将仅用本地计算机中的设备。可以指定`grpc://`，指定TF服务器的地址，可以使用其他设备。
+2. graph    绑定的图。默认为默认图。
+3. config   指定一个tf.ConfigProto 以便控制会话的行为。
+```python
+with tf.Session(config=tf.ConfigProto(allow_soft_placement=True, log_device_placement=True)) as sess:
+    c_value3 = sess.run(c)
+    print("c_value3 : ", c_value2)
+```
+输出：
+```bash
+Device mapping: no known devices.
+Add: (Add): /job:localhost/replica:0/task:0/device:CPU:0
+Const: (Const): /job:localhost/replica:0/task:0/device:CPU:0
+Const_1: (Const): /job:localhost/replica:0/task:0/device:CPU:0
+c_value3 :  30
+```
+
+### run(fetches, feed_dict=None, options=None, run_metadata=None)
+1. fetches      单一的operation，或者**列表**、**元组**
+2. feed_dict    参数允许调用者覆盖图中张量的值，运行时赋值。
+                - 与`tf.placeholder` 搭配使用，则会检查值的形状是否与占位符兼容。
+
+
+
+### feed 操作
+`placeholder` 提供占位符，run时候通过feed_dict指定参数。
+
+```python
+import tensorflow as tf
+
+a = tf.placeholder(tf.float32)
+b = tf.placeholder(tf.float32)
+c = tf.add(a, b)
+
+with tf.Session() as sess:
+    print('占位符的结果：', sess.run(c, feed_dict={a: 3, b:4}))
+```
+
+运行时常报的错误：
+1. RuntimeError
+2. TypeError
+3. ValueError
+
+
