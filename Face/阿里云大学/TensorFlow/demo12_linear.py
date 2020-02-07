@@ -1,5 +1,9 @@
-
+import os
 import tensorflow as tf
+
+is_train = False
+checkpoint_path = './tmp/model/checkpoint'
+ckpt_path = './tmp/model/my_linear.ckpt'
 
 # (1) 准备数据
 with tf.variable_scope("prepare_data"):
@@ -27,6 +31,9 @@ tf.summary.histogram("bias", b)
 # 3 合并变量
 merged = tf.summary.merge_all()
 
+# 创建实例化saver
+saver = tf.train.Saver()
+
 # 显示初始化变量
 init = tf.global_variables_initializer()
 
@@ -41,14 +48,21 @@ with tf.Session() as sess:
     print("\t", w, w.eval())
     print("\t", b, b.eval())
 
-    # 开始训练
-    for i in range(1000):
-        sess.run(optimizer)
-        summary = sess.run(merged)
-        file_writer.add_summary(summary, i)
-        if i % 100 == 0:
-            # print(i, sess.run(error))
-            print(i, error.eval())
+    if is_train:
+        # 开始训练
+        for i in range(1000):
+            sess.run(optimizer)
+            summary = sess.run(merged)
+            file_writer.add_summary(summary, i)
+            if i % 100 == 0:
+                # print(i, sess.run(error))
+                print(i, error.eval())
+                saver.save(sess, ckpt_path)
+    else:
+        if os.path.exists(checkpoint_path):
+            saver.restore(sess, ckpt_path)
+        else:
+            print(checkpoint_path, ' not exists')
 
     print('before training: w, b')
     print("\t", w, w.eval())
