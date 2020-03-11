@@ -7,6 +7,8 @@ On Linux, you simply pass input to the configuration. For example:
 ```
 $ git config --global core.autocrlf input
 # Configure Git on Linux to properly handle line endings
+
+git config --global core.autocrlf true
 ```
 
 
