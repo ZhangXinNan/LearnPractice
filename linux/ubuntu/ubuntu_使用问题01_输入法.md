@@ -1,4 +1,6 @@
 
+在Ubuntu中安装并使用输入法
+_____________________________
 
 ```sh
 sudo apt-get install ibus-table-wubi ibus-pinyin
