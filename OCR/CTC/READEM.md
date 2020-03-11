@@ -3,7 +3,7 @@
 [语音识别中的CTC算法的基本原理解释](https://blog.csdn.net/luodongri/article/details/80100297)
 [Sequence Modeling With CTC](https://distill.pub/2017/ctc/)
 [基于CTC的语音识别基础与实现](https://zhuanlan.zhihu.com/p/33464788)
-
+[CTC算法详解](https://www.jianshu.com/p/0cca89f64987)
 
 代码：
 [senlinuc/caffe_ocr](https://github.com/senlinuc/caffe_ocr)
@@ -36,3 +36,10 @@ z=(z1,z2,z3,...,z_u)，表示该训练语音对应的音素信息。
 特征x经过DNN特征提取后，再经过一个softmax层，得到音素的后验概率y。y_k^t表示在t时刻，发音为音素k的概率。
 
 
+blank 并不一定是空格，也可能 是被 网络抑制的信号。
+
+valid Alignments 
+invalid Alignments
+
+所有 有效的alignments加起来的概率。
+CTC假设每个时刻不相关。
