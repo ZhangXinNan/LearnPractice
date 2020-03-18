@@ -14,7 +14,6 @@ blog: [PSENet(Shape Robust Text Detection with Progressive Scale Expansion Netwo
 [whai362/PSENet](https://github.com/whai362/PSENet) *799*
 
 
-
 # 3. keras
 [https://github.com/xiaomaxiao/PSENET](https://github.com/xiaomaxiao/PSENET)
 

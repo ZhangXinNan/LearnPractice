@@ -90,3 +90,7 @@ $$ F = C(P2, P3, P4, P5) = P2 || UP(2) * P3 || UP(4) * P4 || UP(8) * P5 $$
 
 
 
+# 参考文章
+- [whai362/PSENet](https://github.com/whai362/PSENet)
+- [文本检测--PSENet-1s](https://zhuanlan.zhihu.com/p/63074253)
+- [PSENet(Shape Robust Text Detection with Progressive Scale Expansion Network)论文详解](https://blog.csdn.net/liuxiaoheng1992/article/details/87646951)
