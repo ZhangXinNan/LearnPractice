@@ -21,6 +21,8 @@
 * [da03/Attention-OCR](https://github.com/da03/Attention-OCR) 
 * [pannous/tensorflow-ocr](https://github.com/pannous/tensorflow-ocr)
 * [carpedm20/lstm-char-cnn-tensorflow](https://github.com/carpedm20/lstm-char-cnn-tensorflow)
+* [AimeeKing/crnn-tensorflow](https://github.com/AimeeKing/crnn-tensorflow)
+* [weinman/cnn_lstm_ctc_ocr](https://github.com/weinman/cnn_lstm_ctc_ocr)
 
 ## torch 
 * [baidu-research/warp-ctc](https://github.com/baidu-research/warp-ctc/tree/master/torch_binding)
