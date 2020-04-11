@@ -16,3 +16,6 @@
 ## 解决方法（二）
 到所购买电脑的官网去下载驱动或者管理工具，安装官网驱动或者优化工具。
 比如我的笔记本是外星人，在官网下载了SupportAssist工具，来解决此问题。
+
+## 解决方法（三）
+打开Killer control Center，Advanced Stream Detect 选择关闭。
