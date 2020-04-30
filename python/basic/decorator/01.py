@@ -5,7 +5,7 @@ import logging
 def use_logging(func):
     
     def wrapper():
-        logging.warn("%s is running" % func.__name__)
+        logging.warning("%s is running" % func.__name__)
         return func()   # 把 foo 当做参数传递进来时，执行func()就相当于执行foo()
     return wrapper
 
