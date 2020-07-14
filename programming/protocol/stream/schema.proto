@@ -1,0 +1,17 @@
+
+
+syntax = "proto3";
+
+package schema;
+
+service Gateway {
+    rpc Call(stream Request) returns (stream Response){}
+}
+
+message Request {
+    int64 num = 1;
+}
+
+message Response {
+    int64 num = 1;
+}
