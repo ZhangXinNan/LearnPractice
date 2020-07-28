@@ -23,6 +23,10 @@
 * [carpedm20/lstm-char-cnn-tensorflow](https://github.com/carpedm20/lstm-char-cnn-tensorflow)
 * [AimeeKing/crnn-tensorflow](https://github.com/AimeeKing/crnn-tensorflow)
 * [weinman/cnn_lstm_ctc_ocr](https://github.com/weinman/cnn_lstm_ctc_ocr)
+* [https://github.com/YCG09/chinese_ocr](https://github.com/YCG09/chinese_ocr)
+    - 基于Tensorflow和Keras实现端到端的不定长中文字符检测和识别
+        - 文本检测：CTPN
+        - 文本识别：DenseNet + CTC
 
 ## torch 
 * [baidu-research/warp-ctc](https://github.com/baidu-research/warp-ctc/tree/master/torch_binding)
