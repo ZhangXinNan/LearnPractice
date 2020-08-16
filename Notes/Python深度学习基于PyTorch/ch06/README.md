@@ -1,0 +1,63 @@
+
+
+## 1 使用net.py
+```bash
+Accuracy of the network on the 10000 test images : 59 %
+[10,  2000] loss: 0.801
+Accuracy of the network on the 10000 test images : 61 %
+[10,  4000] loss: 0.845
+Accuracy of the network on the 10000 test images : 62 %
+[10,  6000] loss: 0.859
+Accuracy of the network on the 10000 test images : 60 %
+[10,  8000] loss: 0.876
+Accuracy of the network on the 10000 test images : 61 %
+[10, 10000] loss: 0.885
+Accuracy of the network on the 10000 test images : 61 %
+[10, 12000] loss: 0.881
+Accuracy of the network on the 10000 test images : 62 %
+Finished Training
+GroundTruth:    cat  ship  ship plane
+Accuracy of plane : 73 %
+Accuracy of   car : 78 %
+Accuracy of  bird : 47 %
+Accuracy of   cat : 47 %
+Accuracy of  deer : 55 %
+Accuracy of   dog : 52 %
+Accuracy of  frog : 74 %
+Accuracy of horse : 67 %
+Accuracy of  ship : 66 %
+Accuracy of truck : 61 %
+```
+
+
+
+## 2 使用cnn_net.py
+```bash
+[10,  2000] loss: 0.291
+Accuracy of the network on the 10000 test images : 68 %
+[10,  4000] loss: 0.321
+Accuracy of the network on the 10000 test images : 69 %
+[10,  6000] loss: 0.353
+Accuracy of the network on the 10000 test images : 68 %
+[10,  8000] loss: 0.398
+Accuracy of the network on the 10000 test images : 67 %
+[10, 10000] loss: 0.445
+Accuracy of the network on the 10000 test images : 67 %
+[10, 12000] loss: 0.438
+Accuracy of the network on the 10000 test images : 68 %
+Finished Training
+GroundTruth:    cat  ship  ship plane
+Accuracy of plane : 62 %
+Accuracy of   car : 77 %
+Accuracy of  bird : 58 %
+Accuracy of   cat : 51 %
+Accuracy of  deer : 65 %
+Accuracy of   dog : 61 %
+Accuracy of  frog : 80 %
+Accuracy of horse : 70 %
+Accuracy of  ship : 80 %
+Accuracy of truck : 80 %
+```
+
+
+## 3 
