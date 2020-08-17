@@ -60,4 +60,31 @@ Accuracy of truck : 80 %
 ```
 
 
-## 3 
+## 3 vgg.py
+```bash
+Accuracy of the network on the 10000 test images : 82 %
+[10,  2000] loss: 0.190
+Accuracy of the network on the 10000 test images : 81 %
+[10,  4000] loss: 0.201
+Accuracy of the network on the 10000 test images : 82 %
+[10,  6000] loss: 0.214
+Accuracy of the network on the 10000 test images : 82 %
+[10,  8000] loss: 0.210
+Accuracy of the network on the 10000 test images : 82 %
+[10, 10000] loss: 0.215
+Accuracy of the network on the 10000 test images : 81 %
+[10, 12000] loss: 0.229
+Accuracy of the network on the 10000 test images : 81 %
+Finished Training
+Accuracy of plane : 77 %
+Accuracy of   car : 94 %
+Accuracy of  bird : 74 %
+Accuracy of   cat : 58 %
+Accuracy of  deer : 86 %
+Accuracy of   dog : 78 %
+Accuracy of  frog : 89 %
+Accuracy of horse : 87 %
+Accuracy of  ship : 90 %
+Accuracy of truck : 87 %
+```
+
