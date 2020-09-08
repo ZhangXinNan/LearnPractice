@@ -51,3 +51,10 @@ __pycache__/
 *.tar.gz
 cifar-10-batches-py/
 *.pth
+
+# java
+*.class
+
+
+
+
