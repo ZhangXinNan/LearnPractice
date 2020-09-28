@@ -97,3 +97,8 @@ W0813 13:36:34.732719 22292 device_context.cc:245] device: 0, cuDNN Version: 7.6
 2020-08-13 13:39:17,838-INFO: eval batch id: 8, acc: 0.6551724137931034
 2020-08-13 13:39:17,839-INFO: Eval result: {'avg_acc': 0.6913818006740491, 'total_acc_num': 1436, 'total_sample_num': 2077}
 ```
+
+```
+# win10
+pip install shapely
+```
