@@ -10,6 +10,7 @@ python3 tools/infer/calibrate_image2.py \
 python3 tools/infer/calibrate_image2.py \
     --image_dir="/Users/zhangxin/data_md/zhangxin/20200525idcard-2" \
     --det_model_dir="./inference/ch_ppocr_mobile_v1.1_det_infer/" \
+    --use_gpu False \
     --use_space_char=True
 
 
