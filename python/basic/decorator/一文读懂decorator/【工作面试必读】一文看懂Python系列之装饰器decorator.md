@@ -292,14 +292,16 @@ class Hint(object):
 
 
 
+# 作者
 大江狗
 
 2018.11.29
 
 
 
-参考资料
 
+# 参考资料
+原链接：[一文看懂Python系列之装饰器(decorator)(工作面试必读)](https://mp.weixin.qq.com/s?__biz=MjM5OTMyODA4Nw==&mid=2247484195&idx=1&sn=0f92015bf28c53ad4ae48a5cc1d9e0da&chksm=a73c631b904bea0d17e994b76ddbb78b18a3bdada1162dfdec4f023efe3bd8bca4dfda13018f&scene=21#wechat_redirect)
 https://www.cnblogs.com/Lin-Yi/p/7305364.html
 
 http://python.jobbole.com/81683/
