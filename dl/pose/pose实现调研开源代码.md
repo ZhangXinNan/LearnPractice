@@ -16,6 +16,11 @@
     - star : 324
     - fork : 93
 
+3. [https://github.com/ZheC/Realtime_Multi-Person_Pose_Estimation](https://github.com/ZheC/Realtime_Multi-Person_Pose_Estimation)
+    - desc : Code repo for realtime multi-person pose estimation in CVPR'17 (Oral)
+    - star : 4.5k
+    - fork : 1.3k
+
 # pytorch
 1. [Hzzone/pytorch-openpose](https://github.com/Hzzone/pytorch-openpose)
     - desc : pytorch implementation of openpose including Hand and Body Pose Estimation.
@@ -39,6 +44,10 @@
     - star : 2k
     - fork : 443
 
+5. [https://github.com/TreB1eN/Pytorch0.4.1_Openpose](https://github.com/TreB1eN/Pytorch0.4.1_Openpose)
+   - desc : Pytorch implementation of Openpose in Realtime Multi-Person 2D Pose Estimation using Part Affinity Fields
+   - star : 79
+   - fork : 15
 
 
 
