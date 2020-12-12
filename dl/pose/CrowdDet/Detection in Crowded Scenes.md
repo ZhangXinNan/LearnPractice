@@ -4,11 +4,19 @@ _________
 
 # 0 Abstract 摘要
 
-We propose a simple yet effective proposal-based object detector, aiming at detecting highly-overlapped instances in crowded scenes. The key of our approach is to let each proposal predict a set of correlated instances rather than a single one in previous proposal-based frameworks. Equipped with new techniques such as EMD Loss and Set NMS, our detector can effectively handle the difficulty of detecting highly overlapped objects. On a FPN-Res50 baseline, our detector can obtain 4.9% AP gains on challenging CrowdHuman dataset and 1.0% MR 2 improvements on CityPersons dataset, without bells and whistles. Moreover, on less crowed datasets like COCO, our approach can still achieve moderate improvement, suggesting the proposed method is robust to crowdedness.    
+We propose a simple yet effective **proposal-based** object detector, aiming at detecting **highly-overlapped** instances in crowded scenes. The key of our approach is to let each proposal **predict a set of correlated instances** rather than a single one in previous proposal-based frameworks. Equipped with new techniques such as **EMD Loss** and **Set NMS**, our detector can effectively handle the difficulty of detecting highly overlapped objects. On a FPN-Res50 baseline, our detector can obtain 4.9% AP gains on challenging CrowdHuman dataset and 1.0% $MR^{-2}$ improvements on CityPersons dataset, without bells and whistles. Moreover, on less crowed datasets like COCO, our approach can still achieve moderate improvement, suggesting the proposed method is robust to crowdedness.    
 
-我们提出了一个简单但有效的基于提议的对象检测器，旨在检测拥挤场景中高度重叠的实例。 我们方法的关键是让每个提案预测一组相关实例，而不是以前的基于提案的框架中的单个实例。 配备了EMD损失和Set NMS等新技术，我们的探测器可以有效地处理探测高度重叠物体的困难。 在FPN-Res50基准上，我们的检测器可以在具有挑战性的“人群人类”数据集上获得4.9％的AP增益，在CityPer sons数据集上获得1.0％的$MR^{-2}$改善，而无需费吹灰心。 而且，在像COCO这样的不那么拥挤的数据集上，我们的方法仍然可以实现适度的改进，这表明所提出的方法对拥挤性具有鲁棒性。
+我们提出了一个简单但有效的基于提议的对象检测器，旨在检测拥挤场景中高度重叠的实例。 我们方法的关键是让每个提案预测一组相关实例，而不是以前的基于提案的框架中的单个实例。 配备了EMD损失和Set NMS等新技术，我们的探测器可以有效地处理探测高度重叠物体的困难。 在FPN-Res50基准上，我们的检测器可以在具有挑战性的“CrowdHumman”数据集上获得4.9％的AP增益，在CityPersons数据集上获得1.0％的$MR^{-2}$改善，而无需费吹灰心。 而且，在像COCO这样的不那么拥挤的数据集上，我们的方法仍然可以实现适度的改进，这表明所提出的方法对拥挤性具有鲁棒性。
+
+
+在CrowdHuman数据集上，AP提升4.9%;
+在CityPersons数据集上，平均漏检率提高1.0%。
 
 # 1. Introduction
+```
+paradigm        范例
+refine          精炼，提纯；改善；使…文雅
+```
 
 Proposal-based framework has been widely used in modern object detection systems [29, 11, 12, 20, 21, 24, 14, 4, 5, 2, 13, 28, 34, 33], both for one-stage [24, 28, 21, 10] and two/multi-stage [29, 20, 4, 5, 13, 2] methods. The paradigm in general has a two-step pipeline: first, generating overcomplete object proposals in handcraft (e.g. predefined anchors [28, 24, 21]) or learnable (e.g. RPNs [29, 20, 13]) manner; then, predicting a single instance corresponding to each proposal box with a confidence score and a refined location. To remove duplicate predictions, methods such as Non-maximum Suppression (NMS) are usually required for post-processing. 
 
