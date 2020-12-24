@@ -26,7 +26,7 @@ nohup python train.py \
        --do_eval \
        --use_vdl \
        --save_interval 100 \
-       --save_dir output > nohup_psenet_voc.out &
+       --save_dir output_psenet_voc > nohup_psenet_voc.out &
 ```
 
 
