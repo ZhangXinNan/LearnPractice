@@ -25,6 +25,8 @@ Table Detection using Deep Learnin
 
 代码不全，没有run.py文件 
 
+4. [https://github.com/chineseocr/table-ocr](https://github.com/chineseocr/table-ocr)   tensorflow2.0版本训练
+5. [https://github.com/tommyMessi/tableImageParser_tx](https://github.com/tommyMessi/tableImageParser_tx) 
 
 
 
