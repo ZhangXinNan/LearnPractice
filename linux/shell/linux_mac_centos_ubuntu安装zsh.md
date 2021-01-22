@@ -3,7 +3,8 @@
 ```bash
 # 查看当前shell
 echo $SHELL
-
+# 查看可用的shell
+cat /etc/shells
 
 # 安装zsh
 ## centos
