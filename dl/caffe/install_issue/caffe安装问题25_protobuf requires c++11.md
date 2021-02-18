@@ -38,11 +38,21 @@ In file included from /usr/local/include/google/protobuf/io/coded_stream.h:141:
 
 # 解决办法
 
-
+## cmake
 在Makefile或者CMakeLists.txt中增加 -std=c++11
+```bash
+cmake -DCMAKE_CXX_FLAGS='-std=c++11' ..
+```
+
 ```bash
 # CMakeLists.txt
 if(UNIX OR APPLE)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -Wall -std=c++11")
 endif()
+```
+
+## make
+```bash
+# 在Makefile.config中添加
+CXXFLAGS += -std=c++11
 ```
