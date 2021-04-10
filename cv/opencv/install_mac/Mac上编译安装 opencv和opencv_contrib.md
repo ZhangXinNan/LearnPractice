@@ -11,7 +11,7 @@ github源代码地址：
 ```
 # 编译
 先进入到opencv目录下，依次执行以下操作
-```
+```bash
 mkdir release
 cd release
 cmake -D CMAKE_BUILD_TYPE=RELEASE \
@@ -22,6 +22,16 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE \
       -D BUILD_EXAMPLES=ON \
       -D BUILD_opencv_legacy=OFF \
       ..
+# 
+cmake -D CMAKE_BUILD_TYPE=RELEASE \
+      -D CMAKE_INSTALL_PREFIX=/usr/local \
+      -D INSTALL_PYTHON_EXAMPLES=ON \
+      -D INSTALL_C_EXAMPLES=OFF \
+      -D OPENCV_EXTRA_MODULES_PATH=../opencv_contrib/modules \
+      -D BUILD_EXAMPLES=ON \
+      -D BUILD_opencv_legacy=OFF \
+      ../opencv
+# 
 
 make
 sudo make install

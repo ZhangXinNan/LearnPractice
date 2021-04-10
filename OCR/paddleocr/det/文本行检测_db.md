@@ -3,7 +3,7 @@
 
 
 
-
+# 1.1
 
 ```bash
 python3 tools/infer/predict_det.py \
@@ -15,11 +15,18 @@ python3 tools/infer/predict_det.py \
 
 ./inference/ch_ppocr_server_v1.1_det_infer
 
-
+# 2.0
 ```bash
 python3 tools/infer/predict_det.py \
     --image_dir="/Users/zhangxin/data_md/idcard1" \
     --det_model_dir="./inference/ch_ppocr_mobile_v2.0_det_infer/" \
     --use_space_char=True
 ```
+
+python3 tools/infer/predict_det.py \
+    --image_dir="./doc/imgs/00018069.jpg" \
+    --det_model_dir="inference/ch_ppocr_mobile_v2.0_det_infer"
+
+
+
 
