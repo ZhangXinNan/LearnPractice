@@ -46,11 +46,13 @@ username ALL=(ALL) ALL
 保存退出，username用户就拥有了root权限。
 
 3.切换用户 
-切换用户的命令 
-su username 
-从普通用户切换到root用户，还可以使用命令 
-sudo su
 
+```bash
+# 切换用户的命令
+su username 
+# 从普通用户切换到root用户，还可以使用命令 
+sudo su
+```
 在终端输入exit或logout或使用快捷方式ctrl+d，可以退回到原来用户 
 在切换用户时，如果想在切换用户之后使用新用户的工作环境，可以在su和username之间加-，例如 
 su - root 
