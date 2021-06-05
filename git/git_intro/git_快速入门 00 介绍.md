@@ -29,9 +29,14 @@ Linus花了两周时间自己用C写了一个分布式版本控制系统，这�
 
 ![](work_index_ver.jpg)
 
+## 原理
+Git 利用底层数据结构，通过指向索引对象的可变指针，保存文件快照。Git 是对象数据库，把Git仓库里面被跟踪的文件（源码，图片，声音等文件）转化成一个对象数据，并用 SHA-1 哈希值计算引用显示文件，当提交更新的时候，就会生成当前所有文件的快照与增删改操作记录，保存到Git仓库里面.git目录中。
+
+
 
 # 参考资料
 * [git - 简明指南](http://www.runoob.com/manual/git-guide/)
 * [Git 教程](http://www.runoob.com/git/git-tutorial.html)
 * [寥雪峰的git教程](https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/)
 * [git版本控制管理](https://www.amazon.cn/%E5%9B%BE%E4%B9%A6/dp/B00U42VM7Y/ref=sr_1_1?ie=UTF8&qid=1501466981&sr=8-1&keywords=git)
+* [Git工具水很深，你根本把握不住（一）](https://zhuanlan.zhihu.com/p/376488061)
