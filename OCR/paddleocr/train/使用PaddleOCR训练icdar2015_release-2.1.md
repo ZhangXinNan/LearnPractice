@@ -55,20 +55,17 @@ wget -P ./pretrain_models/ https://paddle-imagenet-models-name.bj.bcebos.com/dyg
 python3 tools/train.py -c configs/det/det_mv3_db.yml
 
 nohup python3 tools/train.py -c configs/det/det_mv3_east.yml -o Global.use_visualdl=True >nohup.det_mv3_east.out &
+nohup python3 tools/train.py -c configs/det/det_r50_vd_east.yml -o Global.use_visualdl=True >nohup.det_r50_vd_east.out &
+nohup python3 tools/train.py -c configs/det/det_r50_vd_ssld_east.yml -o Global.use_visualdl=True >nohup.det_r50_vd_ssld_east.out &
 ```
 分析：这里粗略看一下，训练集上准确率(acc)在94%左右，已经不再上升；loss在81左右，还在缓慢下降。
 
-best metric
-```bash
-[2021/06/05 14:16:45] root INFO: best metric, hmean: 0.282619563406099, precision: 0.2161060142711519, recall: 0.40828117477130477, fps: 6.6875446649047605, best_epoch: 143
-[2021/06/05 14:34:49] root INFO: best metric, hmean: 0.4573147799924784, precision: 0.3751928417155199, recall: 0.5854597977852672, fps: 6.176883277531874, best_epoch: 223
-[2021/06/05 14:52:43] root INFO: best metric, hmean: 0.5267311106727165, precision: 0.4461898395721925, recall: 0.6427539720751083, fps: 7.394433564997744, best_epoch: 302
 
-```
 
 观察训练时loss变化
 ```bash
 visualdl --logdir output/east_mv3/vdl --host 10.168.11.9 --port 8040
+visualdl --logdir output/east_r50_vd_ssld/vdl --host 10.168.11.9 --port 8040
 ```
 
 
@@ -77,6 +74,8 @@ visualdl --logdir output/east_mv3/vdl --host 10.168.11.9 --port 8040
 export CUDA_VISIBLE_DEVICES=0
 # GPU evaluation, Global.checkpoints is the weight to be tested
 python3 tools/eval.py -c configs/rec/rec_icdar15_train.yml -o Global.checkpoints=output/rec_CRNN/best_accuracy
+
+python3 tools/eval.py -c configs/det/det_mv3_db.yml  -o Global.checkpoints="{path/to/weights}/best_accuracy" PostProcess.box_thresh=0.6 PostProcess.unclip_ratio=1.5
 ```
 
 打印日志
