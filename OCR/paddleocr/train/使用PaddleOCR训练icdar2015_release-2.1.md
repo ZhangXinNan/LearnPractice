@@ -53,10 +53,22 @@ wget -P ./pretrain_models/ https://paddle-imagenet-models-name.bj.bcebos.com/dyg
 *If CPU version installed, please set the parameter `use_gpu` to `false` in the configuration.*
 # shell
 python3 tools/train.py -c configs/det/det_mv3_db.yml
+python3 tools/train.py -c configs/det/det_mv3_db_zx.yml -o Global.use_visualdl=True
+python3 tools/train.py -c configs/det/det_mv3_db_zx.yml -o Global.use_visualdl=True Global.checkpoints=output/db_mv3_0/best_accuracy
 
-nohup python3 tools/train.py -c configs/det/det_mv3_east.yml -o Global.use_visualdl=True >nohup.det_mv3_east.out &
-nohup python3 tools/train.py -c configs/det/det_r50_vd_east.yml -o Global.use_visualdl=True >nohup.det_r50_vd_east.out &
-nohup python3 tools/train.py -c configs/det/det_r50_vd_ssld_east.yml -o Global.use_visualdl=True >nohup.det_r50_vd_ssld_east.out &
+
+python3 tools/train.py -c configs/det/det_mv3_east.yml -o Global.use_visualdl=True
+python3 tools/train.py -c configs/det/det_mv3_east_zx.yml -o Global.use_visualdl=True
+python3 tools/train.py -c configs/det/det_mv3_east_zx.yml -o Global.use_visualdl=True Global.checkpoints=output/east_mv3_0/best_accuracy  Optimizer.lr.learning_rate=0.0001
+
+
+python3 tools/train.py -c configs/det/det_r50_vd_db.yml -o Global.use_visualdl=True >nohup.det_r50_db.out &
+
+
+
+
+python3 tools/train.py -c configs/det/det_r50_vd_east.yml -o Global.use_visualdl=True >nohup.det_r50_vd_east.out &
+python3 tools/train.py -c configs/det/det_r50_vd_ssld_east.yml -o Global.use_visualdl=True >nohup.det_r50_vd_ssld_east.out &
 ```
 分析：这里粗略看一下，训练集上准确率(acc)在94%左右，已经不再上升；loss在81左右，还在缓慢下降。
 
@@ -64,6 +76,8 @@ nohup python3 tools/train.py -c configs/det/det_r50_vd_ssld_east.yml -o Global.u
 
 观察训练时loss变化
 ```bash
+visualdl --logdir output/east_mv3/vdl
+visualdl --logdir output/db_mv3/vdl --host 10.168.12.1 --port 8040
 visualdl --logdir output/east_mv3/vdl --host 10.168.11.9 --port 8040
 visualdl --logdir output/east_r50_vd_ssld/vdl --host 10.168.11.9 --port 8040
 ```
