@@ -50,8 +50,11 @@ make
 # 安装cudnn
 ```
 sudo cp -P cuda/include/cudnn.h /usr/local/cuda-9.0/include
+sudo cp -P cuda/include/cudnn.h /usr/local/cuda-10.2/include
 sudo cp -P cuda/lib64/libcudnn* /usr/local/cuda-9.0/lib64/
+sudo cp -P cuda/lib64/libcudnn* /usr/local/cuda-10.2/lib64/
 sudo chmod a+r /usr/local/cuda-9.0/lib64/libcudnn*
+sudo chmod a+r /usr/local/cuda-10.2/lib64/libcudnn*
 ```
 
 
