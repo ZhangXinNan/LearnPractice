@@ -4,6 +4,8 @@ _____________________________
 
 ```sh
 sudo apt-get install ibus-table-wubi ibus-pinyin
+# ubuntu20.04
+sudo apt install fcitx-table-wubi
 ```
 
 然后重启。
