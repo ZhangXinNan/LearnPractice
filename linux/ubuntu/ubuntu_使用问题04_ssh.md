@@ -8,6 +8,7 @@ sudo apt-get install openssh-server
 dpkg -l | grep ssh
 
 # 确认ssh-server是否启动
+# 如果看到sshd那说明ssh-server已经启动了。
 ps -e | grep ssh
 
 # 然后重启SSH服务： 

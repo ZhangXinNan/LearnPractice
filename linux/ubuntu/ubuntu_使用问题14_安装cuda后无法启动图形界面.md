@@ -5,7 +5,29 @@
 
 
 # 2 解决办法
+如果你没有瞎卸载很多东西的话，先在字符界面输入你的用户名和密码， 先尝试这个命令：
+```bash
+sudo systemctl isolate graphical.target
+```
+不行的话，我的解决办法：安装图形化界面ubuntu-desktop 或者unity
+```bash
+sudo apt-get install ubuntu-desktop
+sudo apt-get install unity
+```
+然后再用命令行命令进入图形化界面
 
+```bash
+sudo service gdm3 start
+```
+没有1111号这个插件的话，可以下载安装，命令如下：
+
+```
+sudo apt-get install lightdm
+```
+输入上述命令后，会让你选gdm3或者lightdm。建议选择gdm3，因为我ubuntu18.04开始选的是lightdm，结果3天没进去图形化界面，眼睛都哭瞎了。
+然后再输入如下命令：
+
+sudo service gdm3 start
 
 
 # 3 参考资料
