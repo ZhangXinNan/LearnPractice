@@ -50,6 +50,8 @@ git config --global core.quotepath false
 
 # Configure Git on Linux to properly handle line endings
 git config --global core.autocrlf input
+# 记住密码
+git config --global credential.helper store
 ```
 
 
