@@ -1,18 +1,18 @@
-1.添加用户
+1. 添加用户
 (username代表是你要添加sudo权限的用户名)
 ```bash
-新建username用户
+# 新建username用户
 sudo adduser username
 # 给username设置密码
 passwd username
 ```
 
-2.添加sudo权限
+2. 添加sudo权限
 ```bash
 sudo usermod -G sudo username 
 ```
 
-3.添加root权限
+3. 添加root权限
 
 如果需要让此用户有root权限，执行命令：
 ```bash
@@ -37,7 +37,7 @@ chmod u-w /etc/sudoers
 
 
 
-3.切换用户 
+5. 切换用户 
 
 ```bash
 # 切换用户的命令
