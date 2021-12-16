@@ -5,17 +5,41 @@
 [tutorial_linux_install](https://docs.opencv.org/3.3.1/d7/d9f/tutorial_linux_install.html)
 
 ## 1.1 安装依赖包
+We need CMake to configure the installation, GCC for compilation, Python-devel and Numpy for building Python bindings etc.
+```bash
+sudo apt-get install cmake
+sudo apt-get install gcc g++
 ```
-# [compiler] 
-sudo apt-get install build-essential
-
-# [required] 
-sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
-
-# [optional] 
-sudo apt-get install python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev
+to support python2:
+```bash
+sudo apt-get install python-dev python-numpy
+```
+to support python3:
+```bash
+sudo apt-get install python3-dev python3-numpy
+```
+Next we need GTK support for GUI features, Camera support (v4l), Media Support (ffmpeg, gstreamer) etc.
+```bash
+sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev
+sudo apt-get install libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev
+```
+to support gtk2:
+```bash
+sudo apt-get install libgtk2.0-dev
+```
+to support gtk3:
+```bash
+sudo apt-get install libgtk-3-dev
 ```
 
+
+Optional Dependencies
+Above dependencies are sufficient to install OpenCV in your Ubuntu machine. But depending upon your requirements, you may need some extra dependencies. A list of such optional dependencies are given below. You can either leave it or install it, your call :)
+
+OpenCV comes with supporting files for image formats like PNG, JPEG, JPEG2000, TIFF, WebP etc. But it may be a little old. If you want to get latest libraries, you can install development files for system libraries of these formats.
+```bash
+sudo apt-get install libpng-dev libjpeg-dev libopenexr-dev libtiff-dev libwebp-dev
+```
 
 ## 1.2 编译
 
