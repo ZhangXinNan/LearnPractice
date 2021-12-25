@@ -3,6 +3,11 @@
 import paddle
 from paddle.vision.transforms import Normalize
 from mlp import MultilayerPerceptron
+from lenet import LeNet
+
+
+print(paddle.__version__)
+print(paddle.utils.run_check())
 
 
 transform = Normalize(mean=[127.5],
@@ -15,7 +20,8 @@ test_dataset = paddle.vision.datasets.MNIST(mode='test', transform=transform)
 print('load finished')
 
 # 使用 paddle.Model 封装 MultilayerPerceptron
-model = paddle.Model(MultilayerPerceptron(in_features=784))
+# model = paddle.Model(MultilayerPerceptron(in_features=784))
+model = paddle.Model(LeNet())
 # 使用 summary 打印模型结构
 model.summary((-1, 1, 28, 28))
 
@@ -31,8 +37,8 @@ model.fit(train_dataset, # 设置训练数据集
           batch_size=64, # 设置 batch_size
           verbose=1)     # 设置日志打印格式
 
-model.evaluate(test_dataset, verbose=1)
-
+val_result = model.evaluate(test_dataset, verbose=1)
+print(val_result)
 
 
 
