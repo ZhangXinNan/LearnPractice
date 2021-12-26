@@ -25,9 +25,10 @@ model = paddle.Model(LeNet())
 # 使用 summary 打印模型结构
 model.summary((-1, 1, 28, 28))
 
-
+# 使用Adam算法进行优化
+optim = paddle.optimizer.Adam(learning_rate=0.001, parameters=model.parameters())
 # 配置模型
-model.prepare(paddle.optimizer.Adam(parameters=model.parameters()),  # 使用Adam算法进行优化
+model.prepare(optim,
               paddle.nn.CrossEntropyLoss(), # 使用CrossEntropyLoss 计算损失
               paddle.metric.Accuracy()) # 使用Accuracy 计算精度
 
@@ -36,6 +37,7 @@ model.fit(train_dataset, # 设置训练数据集
           epochs=5,      # 设置训练轮数
           batch_size=64, # 设置 batch_size
           verbose=1)     # 设置日志打印格式
+model.save('lenet_mnist')
 
 val_result = model.evaluate(test_dataset, verbose=1)
 print(val_result)

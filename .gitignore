@@ -52,6 +52,7 @@ __pycache__/
 cifar-10-batches-py/
 *.pth
 *.pdparams
+*.pdopt
 
 # java
 *.class
