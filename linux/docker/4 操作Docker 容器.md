@@ -3,10 +3,22 @@
 
 ## 4.1 创建容器
 ### 4.1.1 新建容器
-```
+```bash
 docker create -it ubuntu:latest 
 ```
 docker create 命令创建的容器处于集上状态，可以使用docker start 命令来启动它。
+
+
+
+docker build
+Build an image from a Dockerfile
+```bash
+docker build [OPTIONS] PATH | URL | -
+```
+参数：
+* -f            指定dockerfile
+* -t    --tag   指定镜像的名字和标签
+
 
 ### 4.1.2 启动容器
 ```
@@ -31,6 +43,7 @@ docker run -it ubuntu:14.04 /bin/bash
 ```
 * -t 让Docker分配一个伪终端并绑定到容器的标准输入上。
 * -i 让容器的标准输入保持的模型。
+* -v    --volumes   Bind mount a volume
 
 ### 4.1.4 守护态运行
 添加*-d* 参数 ，让Docker容器在后台以守护态形式运行。
