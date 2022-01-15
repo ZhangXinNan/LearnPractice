@@ -41,6 +41,8 @@ def load_data():
 def main():
     # 获取数据
     training_data, test_data = load_data()
+    print(training_data.shape)
+    print(test_data.shape)
     x = training_data[:, :-1]
     y = training_data[:, -1:]
     # 查看数据
