@@ -1,10 +1,29 @@
 
 
-# 1 问题
-安装完 ubuntu 20.04LTS 和 cuda 后无法启动图形界面。
+# 1 问题1：安装完 ubuntu 18.04LTS，无法启动图形界面。
+```bash
+# 删除配置文件
+sudo rm /etc/X11/xorg.conf
+# 重启
+sudo reboot
+```
+
+重启后能看见登录界面，输入密码后还是不能进入桌面，又回到登录界面
+
+1.在登录界面按下ctrl+alt+F1进入命令行模式
+
+2.查看home目录下的 .Xauthority文件的属性
+
+3.ower和group是否是你的用户名。否则修改后重启 
+```bash
+sudo chown yourusername:yourusername .Xauthority.
+```
+2022年1月25日用此方法解决。
 
 
-# 2 解决办法
+# 2 问题2：安装完 ubuntu 20.04LTS 和 cuda 后无法启动图形界面。
+
+
 如果你没有瞎卸载很多东西的话，先在字符界面输入你的用户名和密码， 先尝试这个命令：
 ```bash
 sudo systemctl isolate graphical.target
