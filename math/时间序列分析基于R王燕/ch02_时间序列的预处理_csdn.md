@@ -1,9 +1,8 @@
-
+﻿
 第二章 时间序列的预处理
 _____
 
-[toc]
-
+@[toc]
 ## 2.1 平稳性检测
 ### 2.1.1 特征统计量
 #### 2.1.1.1 概率分布
@@ -154,15 +153,18 @@ $$
 
 2. 自相关图检测
    平稳序列通常具有短期相关性。该性质用自相关系数来描述就是随着延迟期数的增加，平稳序列的自相关系数会很快地衰减向零。
-   ![](2.1.png)
+   ![在这里插入图片描述](https://img-blog.csdnimg.cn/668cbc57b40746ddb4332994f64441b0.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byg5qyjLeeUtw==,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center)
+
    - lag            延迟阶数
    - Covariance     自协方差
    - Correlation    自相关系数
 星号（*）部分落在点（.）之外，则认为具有相关性，
    自相关图上显示出明显的三角对称性，这是单调趋势的非平稳序列的一种典型的自相关图的形式。
-![](2.2.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/e24ac28a0dfb45818e699f4425a3c577.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byg5qyjLeeUtw==,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center)
 
-![](2.3.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/9ae6cb5680b447af832ace2154c8422c.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byg5qyjLeeUtw==,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center)
+
 
 
 
@@ -261,7 +263,8 @@ Q统计量（$Q_{BP}统计量$）：
 
 LB统计量（$Q_{LB}$统计量，常用）：
 
-![](2.2.3.3.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/669b1ae712fc47fbb9d786048edacb6f.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byg5qyjLeeUtw==,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center)
+
 
 #### 2.2.3.4 判别原则
 
@@ -272,19 +275,22 @@ LB统计量（$Q_{LB}$统计量，常用）：
 
 
 只要有一个P值小于$\alpha$时，就可拒绝原假设。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/b96a7ae249c94f78a2eb05123dba267f.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byg5qyjLeeUtw==,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center)
 
-![](2.4.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/f7264c99d1fe4793981bc650715e58b1.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byg5qyjLeeUtw==,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center)
 
-![](2.4_result.png)
 
 例2.5 时序图
-![](2.5.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/7d55eaa14cc745bba9bb74106b75fff5.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byg5qyjLeeUtw==,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center)
+
 
 例2.5 自相关图
-![](2.5_ac.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/9231e32162974cbc815c129403356ec7.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byg5qyjLeeUtw==,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center)
+
 
 $\rho_1,\rho_2,\rho_3$落在两倍标准差之外，显著不等于0。从第4期开始，迅速的落在两倍标准差范围以内。也就是说从第4期开始，所有的$\rho_k$就没有显著性区别了。所以这个序列向着零值靠拢的速度是非常快的。它满足平稳序列的短期自相关性。
 
 例2.5 白噪声检验结果
-![](2.5_result.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/05ddf413fe2f4361bf6174b3dd990e6d.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byg5qyjLeeUtw==,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center)
+
 
