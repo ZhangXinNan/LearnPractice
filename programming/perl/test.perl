@@ -1,5 +1,6 @@
 use warnings;
 use diagnostics;
+use strict;
 
 
 my $str = "12abc";
