@@ -31,12 +31,13 @@ SLCT 有几个缺点，在最近的一些工作中已经指出。 首先，它�
 2. 建立日志簇；
 3. 生成日志模板。
 
-## 2.2
+## 2.2 SLCT的修改版本
 Reidemeister, Jiang, Munawar and Ward [6, 7, 8] developed a methodology that addresses some of the above shortcomings. The methodology uses event log mining techniques for diagnosing recurrent faults in software systems. First, a modified version of SLCT is used for mining line patterns from labeled event logs. In order to handle clustering errors caused by shifts in word positions and delimiter noise, line patterns from SLCT are clustered with a single-linkage clustering algorithm which employs a variant of the Levenshtein distance function. After that, a common line pattern description is established for each cluster of line patterns. According to [8], single-linkage clustering and post-processing its results add minimal runtime overhead to the clustering by SLCT. The final results are converted into bit vectors and used for building decision-tree classifiers, in order to identify recurrent faults in future event logs.
 
 
 Reidemeister、Jiang、Munawar 和 Ward [6, 7, 8] 开发了一种方法来解决上述一些缺点。 该方法使用事件日志挖掘技术来诊断软件系统中的经常性故障。 首先，SLCT 的修改版本用于从标记的事件日志中挖掘行模式。 为了处理由单词位置偏移和分隔符噪声引起的聚类错误，来自 SLCT 的线条模式使用单链接聚类算法进行聚类，该算法采用 Levenshtein 距离函数的变体。 之后，为每个线型集群建立一个共同的线型描述。 根据[8]，单链接聚类和后处理其结果为 SLCT 的聚类增加了最小的运行时开销。 最终结果被转换为位向量并用于构建决策树分类器，以识别未来事件日志中的重复故障。
 
+## 2.3 IPLoM
 Another clustering algorithm that mines line patterns from event logs is IPLoM by Makanju, Zincir-Heywood and Milios [10, 11]. Unlike SLCT, IPLoM is a hierarchical clustering algorithm which starts with the entire event log as a single partition, and splits partitions iteratively during three steps. Like SLCT, IPLoM considers words with their positions in event log lines, and is therefore sensitive to shifts in word positions. During the first step, the initial partition is split by assigning lines with the same number of words to the same partition. During the second step, each partition is divided further by identifying the word position with the least number of unique words, and splitting the partition by assigning lines with the same word to the same partition. During the third step, partitions are split based on associations between word pairs. At the final stage of the algorithm, a line pattern is derived for each partition. Due to its hierarchical nature, IPLoM does not need the support threshold, but takes several other parameters (such as partition support threshold and cluster goodness threshold) which impose fine-grained control over splitting of partitions [11]. As argued in [11], one advantage of IPLoM over SLCT is its ability to detect line patterns with wildcard tails (e.g., Interface * *), and the author has reported higher precision and recall for IPLoM.
 
 另一种从事件日志中挖掘线型的聚类算法是 Makanju、Zincir-Heywood 和 Milios [10, 11] 的 IPLoM。与 SLCT 不同，IPLoM 是一种层次聚类算法，它从整个事件日志作为单个分区开始，并在三个步骤中迭代地拆分分区。与 SLCT 一样，IPLoM 考虑单词及其在事件日志行中的位置，因此对单词位置的变化很敏感。在第一步中，通过将具有相同字数的行分配给同一分区来拆分初始分区。在第二步中，通过识别具有最少唯一词数的词位置来进一步划分每个分区，并通过将具有相同单词的行分配给同一分区来划分分区。在第三步中，根据词对之间的关​​联划分分区。在算法的最后阶段，为每个分区导出一个线型。由于其分层性质，IPLoM 不需要支持阈值，而是采用其他几个参数（例如分区支持阈值和集群良好度阈值），这些参数对分区的拆分进行了细粒度控制 [11]。正如 [11] 中所述，IPLoM 优于 SLCT 的一个优势是它能够检测带有通配符尾部的线条模式（例如，接口 * *），并且作者报告了 IPLoM 的更高精度和召回率。
@@ -55,7 +56,7 @@ LogCluster 将日志聚类问题视作模式挖掘问题，每簇 $C_j$ 通过�
 例如：通配符$*\{1, 3\}$ 表示匹配1到3个单词。
 
 
-## 构建频繁词
+## 3.1 构建频繁词
 为找到达到支持阈值的模式，每种模式的所有词至少要发生在 s 条事件日志中。
 
 LogCluster 考虑日志中的每个词但是**不包括位置信息**。$I_w$ 是包含单词 w 的行标识的集合。如果 $I_w$ 大于等于阈值 s ，则 w 是频繁词，所有频繁词的集合使用 F 表示。
@@ -64,7 +65,7 @@ LogCluster 使用一个 h 大小的框架计数器。在预先处理事件日志
 
 设想的实现方式：每行日志分词后，词汇去重，统计所有词汇的词频，超过阈值 s 的为频繁词
 
-## 生成候选簇
+## 3.2 生成候选簇
 频繁词集合构建后，LogCluster 产生簇的候选。
 对事件日志中的每行，LogCluster 从日志提取所有频繁词，将词处理为元组，保留原始行中原始位置，元组会作为候选簇的标识，所在行会被归为对应的候选。
 
@@ -147,15 +148,17 @@ for (id = 1; id <= n; ++id) do
 ```
 
 
-## 优化方法
+## 3.3 优化方法
 
 通过所有数据完成簇候选构建后，LogCluster 将所有支持计数小于支持阈值 s 的候选排除，保留剩余的。
 当模式挖掘使用较小的支持阈值执行时，LogCluster 与 SLCT 相似，倾向于过拟合，即较大的簇可能会被划分为较小的簇，有过于详细的行模式。
 
+### 3.3.1 Aggregate_support
 第一种减少过拟合的启发式策略叫 Aggregate_Support ，在候选簇生成后，簇选择前使用。这种启发涉及发现对每种候选有更详细行模式的候选，增加在给定候选中的支持。此种模式可以重叠。
 
 例如，三个候选簇“User bob login from 10.1.1.1”, “User *{1,1} login from 10.1.1.1”, and“User *{1,1} login from *{1,1}”，支持度分别为 5，10，100，候选簇 “User *{1,1} login from *{1,1}”的支持度可合并为 115；Aggregate_Support 允许簇重合。
 
+### 3.3.2 Join_Cluster
 第二种启发称为 Join_Cluster，在簇已经从候选中选择后使用。$C_w$ 包含所有高频词共现的词汇。
 $$
 dep(w, w') = \frac {|I_w \cap I_{w'}|} {|I_w|}
@@ -186,7 +189,132 @@ Join_Clusters 启发式将用户提供的词权阈值 t 作为其输入参数 (0
 
 如果一个词时非频繁的，但其所属词类时频繁的，在挖掘过程中词类替代词，并视之为频繁词
 
+```
+Procedure: Join_Clusters
+Input: set of clusters C = {C1,…,Cp}
+    word weight threshold t
+    word weight function W()
+Output: set of clusters C’ = {C’1,…,C’m}, m ≤ p
+C’ := 
+for (j = 1; j <= p; ++j) do
+    tuple := Cj.tuple
+    k := # of elements in tuple
+    for (i := 0; i < k; ++i) do
+        if (W(tuple, i) < t) then
+            tuple[i] := TOKEN
+        fi
+    done
+    if (\exists Y \in C’, Y.tuple == tuple) then
+        # 处理后如果有相同的pattern，则进行合并
+        Y.support := Y.support + Cj.support
+        for (i := 0; i < k+1; ++i) do
+            if (Y.varmin[i] > Cj.varmin[i]) then
+                Y.varmin[i] := Cj.varmin[i]
+            fi
+            if (Y.varmax[i] < Cj.varmax[i]) then
+                Y.varmax[i] := Cj.varmax[i]
+            fi
+        done
+    else
+        initialize new cluster Y
+        Y.tuple := tuple
+        Y.support := Cj.support
+        for (i := 0; i < k+1; ++i) do
+            Y.varmin[i] := Cj.varmin[i]
+            Y.varmax[i] := Cj.varmax[i]
+            if (i < k AND Y.tuple[i] == TOKEN) then
+                Y.wordlist[i] := \varnothing
+            fi
+        done
+        C’ := C’ \cup { Y }
+    fi
+    Y.pattern := ()
+    j: = 0
+    for (i := 0; i < k; ++i) do
+        if (Y.varmax[i] > 0) then
+            min := Y.varmin[i]
+            max := Y.varmax[i]
+            Y.pattern[j] := “*{min,max}”
+            ++j
+        fi
+        if (Y.tuple[i] == TOKEN) then
+            if (Cj.tuple[i]  Y.wordlist[i]) then
+                Y.wordlist[i] := Y.wordlist[i]  { Cj.tuple[i] }
+            fi
+            Y.pattern[j] := “( elements of Y.wordlist[i] separated by | )”
+        else
+            Y.pattern[j] := Y.tuple[i]
+        fi
+        ++j
+    done
+    if (Y.varmax[k] > 0) then
+        min := Y.varmin[k]
+        max := Y.varmax[k]
+        Y.pattern[j] := “*{min,max}”
+    fi
+    done
+    return C’
+```
 
+## 3.4 LogCluster整个流程
+```
+Procedure: LogCluster
+Input:
+    event log L = {l1,…,ln}
+    support threshold s
+    word sketch size h (optional)
+    word weight threshold t (optional)
+    word weight function W() (optional)
+    boolean for invoking Aggregate_Supports
+    procedure A (optional)
+    file of outliers ofile (optional)
+Output:
+    set of clusters C = {C1,…,Cm} the cluster of outliers O (optional)
+
+1. if (defined(h)) then 
+    make a pass over L and build the word sketch
+    of size h for filtering out infrequent words
+    at step 2
+2. make a pass over L and find the set of
+    frequent words: F := {w | |Iw| ≥ s}
+3. if (defined(t)) then
+    make a pass over L and find dependencies for
+    frequent words: {dep(w, w’) | w \in F, w’ \in Cw}
+4. make a pass over L and find the set of cluster
+    candidates X: X := Generate_Candidates(L, F)
+5. if (defined(A) AND A == TRUE) then 
+    invoke Aggregate_Supports() procedure
+6. find the set of clusters C
+    C := {Y \in X | supp(Y) ≥ s}
+7. if (defined(t)) then
+    join clusters: C := Join_Clusters(C, t, W)
+8. report line patterns and their supports
+    for clusters from set C
+9. if (defined(ofile)) then
+    make a pass over L and write outliers to ofile
+```
+
+1. 如果定义了h，创建一个词表，过滤非频繁词。
+2. 找到大于s的频繁词集合：$F = \{w | |I_w| >= s\}$
+3. 如果定义了t，找到频繁词之间的相关关系。${dep(w, w’) | w \in F, w’ \in Cw}$
+4. 生成候选类簇。$X := Generate_Candidates(L, F)$
+5. 如果A == TRUE，调用 Aggregate_Supports()
+6. 生成类族C，类簇支持度大于s。 $C := {Y \in X | supp(Y) ≥ s}$
+7. 如果定义了t，$C := Join_Clusters(C, t, W)$
+8. 汇总行pattern和它们的支持度。
+9. 如果定义了ofile，则输出到文件。
+
+
+# LogCluster 实现和性能
+```bash
+--lfiters       过滤特定行
+--template      
+--separator     正则表达式，匹配上的话作为单词的定界符
+--wfilter
+--wsearch
+
+
+```
 
 
 # 参考资料
