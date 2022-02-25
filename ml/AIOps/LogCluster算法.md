@@ -3,7 +3,7 @@
 
 
 # 2 相关工作
-### SLCT
+## 2.1 SLCT
 
 One of the earliest event log clustering algorithms is SLCT that is designed for mining line patterns and outlier events from textual event logs [2]. During the clustering process, SLCT assigns event log lines that fit the same pattern (e.g., Interface * down) to the same cluster, and all detected clusters are reported to the user as line patterns. For finding clusters in log data, the user has to supply the support threshold value s to SLCT which defines the minimum number of lines in each cluster. SLCT begins the clustering with a pass over the input data set, in order to identify frequent words which occur at least in s lines (word delimiter is customizable and defaults to whitespace). Also, each word is considered with its position in the line. For example, if s=2 and the data set contains the lines
 
@@ -31,6 +31,7 @@ SLCT 有几个缺点，在最近的一些工作中已经指出。 首先，它�
 2. 建立日志簇；
 3. 生成日志模板。
 
+## 2.2
 Reidemeister, Jiang, Munawar and Ward [6, 7, 8] developed a methodology that addresses some of the above shortcomings. The methodology uses event log mining techniques for diagnosing recurrent faults in software systems. First, a modified version of SLCT is used for mining line patterns from labeled event logs. In order to handle clustering errors caused by shifts in word positions and delimiter noise, line patterns from SLCT are clustered with a single-linkage clustering algorithm which employs a variant of the Levenshtein distance function. After that, a common line pattern description is established for each cluster of line patterns. According to [8], single-linkage clustering and post-processing its results add minimal runtime overhead to the clustering by SLCT. The final results are converted into bit vectors and used for building decision-tree classifiers, in order to identify recurrent faults in future event logs.
 
 
@@ -48,15 +49,18 @@ $L = [l_1, l_2, ..., l_n]$是文本事件日志，由 n 行组成，每行 $l_i 
 
 LogCluster 使用支持阈值 $s(1<=s<=n)$ 作为输入参数，将日志划分到 $C_1, C_2, ..., C_m$ 簇中，每簇至少 s 条日志，O是离群簇。
 
-Log Cluster 将日志聚类问题视作模式挖掘问题，每簇 $C_j$ 通过模式 $p_j$ 标识为唯一的，类簇内所有行与之匹配。为检测簇，Log Cluster 从日志中挖掘模式 $p_j$。模式 $p_j$ 和簇 $C_j$ 的支持值定义为 $C_j$ 中日志的数量，每种模式由词（wrods）和通配符（wildcards）组成。例如：通配符$*\{1, 3\}$ 表示匹配1到3个单词。
+LogCluster 将日志聚类问题视作模式挖掘问题，每簇 $C_j$ 通过模式 $p_j$ 标识为唯一的，类簇内所有行与之匹配。
+为检测簇，LogCluster 从日志中挖掘模式 $p_j$。
+模式 $p_j$ 和簇 $C_j$ 的支持值定义为 $C_j$ 中日志的数量，每种模式由词（wrods）和通配符（wildcards）组成。
+例如：通配符$*\{1, 3\}$ 表示匹配1到3个单词。
 
 
 ## 构建频繁词
 为找到达到支持阈值的模式，每种模式的所有词至少要发生在 s 条事件日志中。
 
-Log Cluster 考虑日志中的每个词但是**不包括位置信息**。$I_w$ 是包含单词 w 的行标识的集合。如果 $I_w$ 大于等于阈值 s ，则 w 是频繁词，所有频繁词的集合使用 F 表示。
+LogCluster 考虑日志中的每个词但是**不包括位置信息**。$I_w$ 是包含单词 w 的行标识的集合。如果 $I_w$ 大于等于阈值 s ，则 w 是频繁词，所有频繁词的集合使用 F 表示。
 
-Log Cluster 使用一个 h 大小的框架计数器。在预先处理事件日志时，每条事件日志行的去重词散列到 0 到 h-1的整数，增加对应的计数数量。(构建词表，统计词频)。
+LogCluster 使用一个 h 大小的框架计数器。在预先处理事件日志时，每条事件日志行的去重词散列到 0 到 h-1 的整数，增加对应的计数数量。(构建词表，统计词频)。
 
 设想的实现方式：每行日志分词后，词汇去重，统计所有词汇的词频，超过阈值 s 的为频繁词
 
@@ -71,6 +75,117 @@ Log Cluster不记录分配给候选簇的日志。
 举例：事件日志“Interface DMZ-link down at node router2”，频繁词是“Interface, down, at, node”，该行被分配给识别的候选元组(Interface, down, at, node)。如果候选不存在，则设置行模式初始化为“Interface *{1,1} down at node *{1,1}”，计数设为 1，通配符 *{1，1}可匹配任何单一词汇。如果下一行产生同样的候选标识“Interface HQ link down at node router2”，候选支持计数增加到 2。行模式设置为“Interface *{1,2} down at node *{1,1}”，为使模式匹配，至少一个但不超过2个在 interface和down之间。
 
 设想的实现方式：根据每条日志中的频繁词(保持其原有词序)，将有相同频繁词的日志归并，并提取对应的模式，提取后模式数量小于 s 的模式删除，之后即可获得模式提取结果。
+
+```c
+Procedure : Generate_Candidates
+Input   : event log L = {l1, l2, l3, ..., ln}     事件日志
+        set of frequent words F                 频繁词
+Output  : set of cluster candidates X
+
+
+X := Null
+for (id = 1; id <= n; ++id) do
+    tuple := ()
+    vars := ()
+    i := 0; v := 0
+    for each w in (w_{id,1},…,w_{id,kid}) do
+        if (w \in F) then
+            tuple[i] := w           # 第i个频繁词
+            vars[i] := v            # 第i个频繁词前有几个非频繁词
+            ++i; v := 0
+        else
+            ++v
+        fi
+    done
+
+    vars[i] := v
+    k := # of elements in tuple
+    if (k > 0) then
+        if (\exists Y \in X, Y.tuple == tuple) then
+            # 此行的频繁词列表已经存在候选簇中，则支持度加一
+            ++Y.support
+            for (i := 0; i < k+1; ++i) do
+                if (Y.varmin[i] > vars[i]) then
+                    Y.varmin[i] := vars[i]
+                fi
+                if (Y.varmax[i] < vars[i]) then
+                    Y.varmax[i] := vars[i]
+                fi
+            done
+        else
+            # 初始化候选簇
+            initialize new candidate Y
+            Y.tuple := tuple
+            Y.support := 1
+            for (i := 0; i < k+1; ++i) do
+                Y.varmin[i] := vars[i]
+                Y.varmax[i] := vars[i]
+            done
+            X := X $\cup$ { Y }
+        fi
+        Y.pattern = ()
+        j: = 0
+        for (i := 0; i < k; ++i) do
+            if (Y.varmax[i] > 0) then
+                min := Y.varmin[i]
+                max := Y.varmax[i]
+                Y.pattern[j] := “*{min,max}”
+                ++j
+            fi
+            Y.pattern[j] := tuple[i]
+            ++j
+        done
+
+        if (Y.varmax[k] > 0) then
+            min := Y.varmin[k]
+            max := Y.varmax[k]
+            Y.pattern[j] := "*{min,max}"
+        fi
+    fi
+    done
+    return X
+```
+
+
+## 优化方法
+
+通过所有数据完成簇候选构建后，LogCluster 将所有支持计数小于支持阈值 s 的候选排除，保留剩余的。
+当模式挖掘使用较小的支持阈值执行时，LogCluster 与 SLCT 相似，倾向于过拟合，即较大的簇可能会被划分为较小的簇，有过于详细的行模式。
+
+第一种减少过拟合的启发式策略叫 Aggregate_Support ，在候选簇生成后，簇选择前使用。这种启发涉及发现对每种候选有更详细行模式的候选，增加在给定候选中的支持。此种模式可以重叠。
+
+例如，三个候选簇“User bob login from 10.1.1.1”, “User *{1,1} login from 10.1.1.1”, and“User *{1,1} login from *{1,1}”，支持度分别为 5，10，100，候选簇 “User *{1,1} login from *{1,1}”的支持度可合并为 115；Aggregate_Support 允许簇重合。
+
+第二种启发称为 Join_Cluster，在簇已经从候选中选择后使用。$C_w$ 包含所有高频词共现的词汇。
+$$
+dep(w, w') = \frac {|I_w \cap I_{w'}|} {|I_w|}
+$$
+代表 w' 在含有 w 的日志行中发生的频繁度。换言之，$dep(w,w')$ 代表出现 $w$ 的日志里出现 $w'$ 的频率。
+
+词 w' 在该模式中的权重计算公式：
+$$
+weights(w_i) = \frac {\Sigma_{j=1}^k dep(w_j, w_i)}  k
+$$
+直觉上说，在这个pattern中，这个词与其他词的相关性有多强。词的权重代表了词与模式中其他词之间关联的强度。
+
+The Join_Clusters heuristic takes the user supplied word weight threshold t as its input parameter (0 < t ≤ 1). For each cluster, a secondary identifier is created and initialized to the cluster’s regular identifier tuple. Also, words with weights smaller than t are identified in the cluster’s line pattern, and each such word is replaced with a special token in the secondary identifier. Finally, clusters with identical secondary identifiers are joined. When two or more clusters are joined, the support of the joint cluster is set to the sum of supports of original clusters, and the line pattern of the joint cluster is adjusted to represent the lines in all original clusters.
+
+Join_Clusters 启发式将用户提供的词权阈值 t 作为其输入参数 (0 < t ≤ 1)。 对于每个类簇，都会创建一个辅助标识符并将其初始化为集群的常规标识符元组。 此外，权重小于 t 的单词在集群的线条模式中被识别，并且每个这样的单词在辅助标识符中被替换为一个特殊的标记。 最后，加入具有相同辅助标识符的集群。 当两个或多个簇连接时，将联合簇的支持度设置为原始簇的支持度之和，调整联合簇的线型以表示所有原始簇中的线。
+
+
+例如，假设模式是 “Daemon testd killed”，Daemon 和 killed 总是同时出现，testd从未和 Daemon和killed一起出现，Daemon和killed的权重是 1，如果只有 2.5%的日志同时含有 Daemon和killed及testd，testd 的权重为 (1 + 0.025 + 0.025) / 3 = 0.35
+
+流程图：
+![](flow.png)
+
+可使用规则表达式过滤日志，移除过滤的内容。
+
+在挖掘过程中，现有的挖掘模式将词作为原子处理，不尝试发现词内部的潜在结构。
+
+为解决上述问题，Log Cluster 遮盖特定词，创建词类。
+
+如果一个词时非频繁的，但其所属词类时频繁的，在挖掘过程中词类替代词，并视之为频繁词
+
 
 
 
