@@ -1,5 +1,37 @@
+LogCluster - A Data Clustering and Pattern Mining Algorithm for Event Logs
+
+LogCluster - 事件日志的数据聚类和模式挖掘算法
+
+Risto Vaarandi and Mauno Pihelgas
+
+TUT 数字取证和网络安全中心
+塔林科技大学
+爱沙尼亚塔林
+______
+
+# 0 概要
+Abstract—Modern IT systems often produce large volumes of event logs, and event pattern discovery is an important log management task. For this purpose, data mining methods have been suggested in many previous works. In this paper, we present the LogCluster algorithm which implements data clustering and line pattern mining for textual event logs. The paper also describes an open source implementation of LogCluster.
+
+Keywords—event log analysis; mining patterns from event logs; event log clustering; data clustering; data mining
+
+摘要——现代 IT 系统通常会产生大量的事件日志，而事件模式发现是一项重要的日志管理任务。 为此，在许多以前的工作中已经提出了数据挖掘方法。 在本文中，我们提出了 LogCluster 算法，该算法实现了文本事件日志的数据聚类和线型挖掘。 该论文还描述了 LogCluster 的开源实现。
+
+关键词——事件日志分析； 从事件日志中挖掘模式； 事件日志集群； 数据聚类； 数据挖掘
 
 # 1 介绍
+
+During the last decade, data centers and computer networks have grown significantly in processing power, size, and complexity. As a result, organizations commonly have to handle many gigabytes of log data on a daily basis. For example, in our recent paper we have described a security log management system which receives nearly 100 million events each day [1]. In order to ease the management of log data, many research papers have suggested the use of data mining methods for discovering event patterns from event logs [2–20]. This knowledge can be employed for many different purposes like the development of event correlation rules [12–16], detection of system faults and network anomalies [6–9, 19], visualization of relevant event patterns [17, 18], identification and reporting of network traffic patterns [4, 20], and automated building of IDS alarm classifiers [5].
+
+在过去十年中，数据中心和计算机网络在处理能力、规模和复杂性方面都显着增长。 因此，组织通常必须每天处理数 GB 的日志数据。 例如，在我们最近的论文中，我们描述了一个安全日志管理系统，它每天接收近 1 亿个事件 [1]。 为了简化日志数据的管理，许多研究论文建议使用数据挖掘方法从事件日志中发现事件模式[2-20]。 这些知识可以用于许多不同的目的，例如开发事件关联规则 [12-16]、检测系统故障和网络异常 [6-9、19]、可视化相关事件模式 [17、18]、识别和 报告网络流量模式 [4, 20]，以及自动构建 IDS 警报分类器 [5]。
+
+In order to analyze large amounts of textual log data without well-defined structure, several data mining methods have been proposed in the past which focus on the detection of line patterns from textual event logs. Suggested algorithms have been mostly based on data clustering approaches [2, 6, 7, 8, 10, 11]. The algorithms assume that each event is described by a single line in the event log, and each line pattern represents a group of similar events. 
+
+为了分析大量没有明确结构的文本日志数据，过去已经提出了几种数据挖掘方法，这些方法侧重于从文本事件日志中检测线条模式。 建议的算法主要基于数据聚类方法 [2, 6, 7, 8, 10, 11]。 算法假设每个事件在事件日志中由一行描述，每个行模式代表一组相似的事件。
+
+
+In this paper, we propose a novel data clustering algorithm called LogCluster which discovers both frequently occurring line patterns and outlier events from textual event logs. The remainder of this paper is organized as follows – section II provides an overview of related work, section III presents the LogCluster algorithm, section IV describes the LogCluster prototype implementation and experiments for evaluating its performance, and section V concludes the paper.
+
+在本文中，我们提出了一种新的数据聚类算法，称为 LogCluster，它可以从文本事件日志中发现频繁出现的线条模式和异常事件。 本文的其余部分组织如下——第二部分概述了相关工作，第三部分介绍了 LogCluster 算法，第四部分描述了 LogCluster 原型实现和评估其性能的实验，第五部分总结了本文。
 
 
 # 2 相关工作
