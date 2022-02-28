@@ -337,7 +337,7 @@ Output:
 9. 如果定义了ofile，则输出到文件。
 
 
-# LogCluster 实现和性能
+# 4 LogCluster 实现和性能
 ```bash
 --lfiters       过滤特定行
 --template      
@@ -349,9 +349,30 @@ Output:
 ```
 
 
+# 5 结论
+
+
+# 6 开源实现
+## 6.1 logparser
+python部分代码流程：
+1. 生成调用perl的命令行，包括参数，并且指定perl的临时输入输出文件路径。
+2. 生成日志格式的正则表达式。
+```python
+headers, regex = self.generate_logformat_regex(self.log_format)
+```
+3. 处理后的日志放入临时输入文件中。
+4. 调用 perl 程序，输出文件中为生成的行模板。
+```bash
+perl ../logparser/LogCluster/logcluster.pl --input LogCluster_result.log_10000.-0.1-/logcluster_input.log -rsupport 0.1 -aggrsup > LogCluster_result.log_10000.-0.1-/logcluster_output.txt
+```
+5. 根据临时输出文件，得到事件模板、日志情况聚类等。
+
+
+
 # 参考资料
 
-[Log Cluster：日志数据聚类和模式挖掘算法](https://blog.csdn.net/MarkAustralia/article/details/122242966)
-
-
+1. [Log Cluster：日志数据聚类和模式挖掘算法](https://blog.csdn.net/MarkAustralia/article/details/122242966)
+2. [https://github.com/ristov/logcluster](https://github.com/ristov/logcluster)
+3. [https://github.com/logpai/logparser](https://github.com/logpai/logparser.git)
+4. [https://github.com/zhugegy/LogClusterC](https://github.com/zhugegy/LogClusterC)
 
