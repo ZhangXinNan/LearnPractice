@@ -186,9 +186,18 @@ for (id = 1; id <= n; ++id) do
 当模式挖掘使用较小的支持阈值执行时，LogCluster 与 SLCT 相似，倾向于过拟合，即较大的簇可能会被划分为较小的簇，有过于详细的行模式。
 
 ### 3.3.1 Aggregate_support
+When pattern mining is conducted with lower support threshold values, LogCluster is (similarly to SLCT) prone to overfitting – larger clusters might be split into smaller clusters with too specific line patterns. For example, the cluster with a pattern Interface *{1,1} down could be split into clusters with patterns Interface *{1,1} down, Interface eth1 down, and Interface eth2 down. Furthermore, meaningful generic patterns (e.g., Interface *{1,1} down) might disappear during cluster splitting. In order to address the overfitting problem, LogCluster employs two optional heuristics for increasing the support of more generic cluster candidates and for joining clusters. The first heuristic is called Aggregate_Supports and is applied after the candidate generation procedure has been completed, immediately before clusters are selected. The heuristic involves finding candidates with more specific line patterns for each candidate, and adding supports of such candidates to the support of the given candidate. For instance, if candidates User bob login from 10.1.1.1, User *{1,1} login from 10.1.1.1, and User *{1,1} login from *{1,1} have supports 5, 10, and 100, respectively, the support of the candidate User *{1,1} login from *{1,1} will be increased to 115. In other words, this heuristic allows clusters to overlap.
+
+当以较低的支持阈值进行模式挖掘时，LogCluster（类似于 SLCT）容易过度拟合——较大的集群可能会被分割成具有过于具体的线条模式的较小集群。例如，模式 Interface *{1,1} down 的集群可以拆分为模式 Interface *{1,1} down、Interface eth1 down 和 Interface eth2 down 的集群。此外，有意义的通用模式（例如，Interface *{1,1} down）可能会在集群分裂期间消失。为了解决过拟合问题，LogCluster 采用了两种可选的启发式方法来增加对更通用集群候选者的支持和加入集群。第一个启发式称为 Aggregate_Supports 并在候选生成过程完成后立即在选择集群之前应用。启发式方法涉及为每个候选者找到具有更具体线型的候选者，并将这些候选者的支持添加到给定候选者的支持中。例如，如果候选人用户 bob 从 10.1.1.1 登录，用户 *{1,1} 从 10.1.1.1 登录，用户 *{1,1} 从 *{1,1} 登录，则支持 5、10 和 100 ，分别从*{1,1}登录候选用户*{1,1}的支持将增加到115。换句话说，这种启发式允许集群重叠。
+
 第一种减少过拟合的启发式策略叫 Aggregate_Support ，在候选簇生成后，簇选择前使用。这种启发涉及发现对每种候选有更详细行模式的候选，增加在给定候选中的支持。此种模式可以重叠。
 
-例如，三个候选簇“User bob login from 10.1.1.1”, “User *{1,1} login from 10.1.1.1”, and“User *{1,1} login from *{1,1}”，支持度分别为 5，10，100，候选簇 “User *{1,1} login from *{1,1}”的支持度可合并为 115；Aggregate_Support 允许簇重合。
+例如，三个候选簇
+“User bob login from 10.1.1.1”,
+“User *{1,1} login from 10.1.1.1”, and
+“User *{1,1} login from *{1,1}”，
+支持度分别为 5，10，100，候选簇 “User *{1,1} login from *{1,1}”的支持度可合并为 115；Aggregate_Support 允许簇重合。
+
 
 ### 3.3.2 Join_Cluster
 第二种启发称为 Join_Cluster，在簇已经从候选中选择后使用。$C_w$ 包含所有高频词共现的词汇。
