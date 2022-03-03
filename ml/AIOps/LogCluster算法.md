@@ -200,24 +200,48 @@ When pattern mining is conducted with lower support threshold values, LogCluster
 
 
 ### 3.3.2 Join_Cluster
-第二种启发称为 Join_Cluster，在簇已经从候选中选择后使用。$C_w$ 包含所有高频词共现的词汇。
+
+The second heuristic is called Join_Clusters and is applied after clusters have been selected from candidates. For each frequent word $w \in F$, we define the set $C_w$ as follows: $\$C_w = {f | f \in F, I_w \cap I_f \neq \phi}\}$ (i.e., $C_w$ contains all frequent words that co-occur with w in event log lines). If $w’ \in C_w$ (i.e., w’ co-occurs with w), we define dependency from w to w’ as $dep(w, w’) = \frac {|I_w \cap I_{w’}|} {|Iw|}$. In other words, dep(w, w’) reflects how frequently w’ occurs in lines which contain w. Also, note that $0 < dep(w, w’) ≤ 1$. If $w_1,…,w_k$ are frequent words of a line pattern (i.e., the corresponding cluster is identified by the tuple ($w_1,…,w_k$)), the weight of the word wi in this pattern is calculated as follows: $weight(w_i) = \Sigma_{j=1}^k dep(w_j, w_i) / k$. Note that since dep(wi, wi) = 1, then 1/k ≤ weight(wi) ≤ 1. Intuitively, the weight of the word indicates how strongly correlated the word is with other words in the pattern. For example, suppose the line pattern is Daemon testd killed, and words Daemon and killed always appear together, while the word testd never occurs without Daemon and killed. Thus, weight(Daemon) and weight(killed) are both 1. Also, if only 2.5% of lines that contain both Daemon and killed also contain testd, then $weight(testd) = (1 + 0.025 + 0.025) / 3 = 0.35$. (We plan to implement more weight functions in the future versions of the LogCluster prototype.)
+
+第二个启发式称为 Join_Clusters，在从候选中选择集群后应用。对于每个频繁词$w \in F$，我们定义集合$C_w$如下： 
+$\{C_w = {f | f \in F, I_w \cap I_f \neq \phi}\}$
+（即，$C_w$ 包含在事件日志行中与 w 共同出现的所有频繁词）。如果 $w' \in C_w$ （即 w' 与 w 共现），我们定义从 w 到 w' 的依赖关系为 
+$dep(w, w') = \frac {|I_w \cap I_{w'} |} {|Iw|}$
+。换句话说，dep(w, w') 反映了 w' 在包含 w 的行中出现的频率。另外，请注意 $0 < dep(w, w') ≤ 1$。如果$w_1,...,w_k$是一个行模式的频繁词（即对应的簇由元组($w_1,...,w_k$)标识），那么这个模式中词$w_i$的权重计算如下: 
+$weight(w_i) = \Sigma_{j=1}^k dep(w_j, w_i) / k$
+。请注意，由于 $dep(wi, wi) = 1$，因此 $1/k ≤ weight(wi) ≤ 1$。直观地说，单词的权重表示该单词与模式中其他单词的相关性有多强。例如，假设行模式是 `Daemon testd killed`，单词 Daemon 和 kill 总是一起出现，而单词 testd 永远不会在没有 Daemon 和 Killed 的情况下出现。因此，weight(Daemon) 和 weight(killed) 都是 1。此外，如果只有 2.5% 的行同时包含 Daemon 和 killed 也包含 testd，那么 
+$weight(testd) = (1 + 0.025 + 0.025) / 3 = 0.35$
+。（我们计划在 LogCluster 原型的未来版本中实现更多的权重函数。）
+
+
+
+总结：第二种启发称为 Join_Cluster，在簇已经从候选中选择后使用。$C_w$ 包含所有高频词共现的词汇。
 $$
 dep(w, w') = \frac {|I_w \cap I_{w'}|} {|I_w|}
 $$
 代表 w' 在含有 w 的日志行中发生的频繁度。换言之，$dep(w,w')$ 代表出现 $w$ 的日志里出现 $w'$ 的频率。
 
-词 w' 在该模式中的权重计算公式：
+词 $w_i$ 在该模式中的权重计算公式：
 $$
 weights(w_i) = \frac {\Sigma_{j=1}^k dep(w_j, w_i)}  k
 $$
 直觉上说，在这个pattern中，这个词与其他词的相关性有多强。词的权重代表了词与模式中其他词之间关联的强度。
+
+例如，假设模式是 “Daemon testd killed”，Daemon 和 killed 总是同时出现，testd从未和 Daemon和killed一起出现，Daemon和killed的权重是 1，如果只有 2.5%的日志同时含有 Daemon和killed及testd，testd 的权重为 (1 + 0.025 + 0.025) / 3 = 0.35
 
 The Join_Clusters heuristic takes the user supplied word weight threshold t as its input parameter (0 < t ≤ 1). For each cluster, a secondary identifier is created and initialized to the cluster’s regular identifier tuple. Also, words with weights smaller than t are identified in the cluster’s line pattern, and each such word is replaced with a special token in the secondary identifier. Finally, clusters with identical secondary identifiers are joined. When two or more clusters are joined, the support of the joint cluster is set to the sum of supports of original clusters, and the line pattern of the joint cluster is adjusted to represent the lines in all original clusters.
 
 Join_Clusters 启发式将用户提供的词权阈值 t 作为其输入参数 (0 < t ≤ 1)。 对于每个类簇，都会创建一个辅助标识符并将其初始化为集群的常规标识符元组。 此外，权重小于 t 的单词在集群的线条模式中被识别，并且每个这样的单词在辅助标识符中被替换为一个特殊的标记。 最后，加入具有相同辅助标识符的集群。 当两个或多个簇连接时，将联合簇的支持度设置为原始簇的支持度之和，调整联合簇的线型以表示所有原始簇中的线。
 
 
-例如，假设模式是 “Daemon testd killed”，Daemon 和 killed 总是同时出现，testd从未和 Daemon和killed一起出现，Daemon和killed的权重是 1，如果只有 2.5%的日志同时含有 Daemon和killed及testd，testd 的权重为 (1 + 0.025 + 0.025) / 3 = 0.35
+
+For example, if two clusters have patterns Interface *{1,1} down at node router1 and Interface *{2,3} down at node router2, and words router and router2 have insufficient weights, the clusters are joined into a new cluster with the line pattern Interface *{1,3} down at node (router1|router2). Fig. 2 describes the details of the Join_Clusters heuristic. Since the line pattern of a joint cluster consists of strongly correlated words, it is less likely to suffer from overfitting. Also, words with insufficient weights are incorporated into the line pattern as lists of alternatives, representing the knowledge from original patterns in a compact way without data loss. Finally, joining clusters will reduce their number and will thus make cluster reviewing easier for the human expert.
+
+例如，如果两个集群在节点 router1 具有模式 
+`Interface *{1,1} down at node router1`和 
+`Interface *{2,3} down at node router2`，并且单词 router 和 router2 的权重不足，则将集群加入一个新集群 节点 (router1|router2) 的线型接口 *{1,3} 向下。 图 2 描述了 Join_Clusters 启发式的细节。 由于联合簇的线条模式由高度相关的单词组成，因此不太可能遭受过拟合。 此外，将权重不足的单词作为替代列表合并到线条模式中，以紧凑的方式表示来自原始模式的知识，而不会丢失数据。 最后，加入集群将减少它们的数量，从而使人类专家更容易进行集群审查。
+
+
 
 流程图：
 ![](flow.png)
