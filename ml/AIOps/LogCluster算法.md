@@ -207,9 +207,9 @@ The second heuristic is called Join_Clusters and is applied after clusters have 
 $\{C_w = {f | f \in F, I_w \cap I_f \neq \phi}\}$
 （即，$C_w$ 包含在事件日志行中与 w 共同出现的所有频繁词）。如果 $w' \in C_w$ （即 w' 与 w 共现），我们定义从 w 到 w' 的依赖关系为 
 $dep(w, w') = \frac {|I_w \cap I_{w'} |} {|Iw|}$
-。换句话说，dep(w, w') 反映了 w' 在包含 w 的行中出现的频率。另外，请注意 $0 < dep(w, w') ≤ 1$。如果$w_1,...,w_k$是一个行模式的频繁词（即对应的簇由元组($w_1,...,w_k$)标识），那么这个模式中词$w_i$的权重计算如下: 
+。换句话说，dep(w, w') 反映了 w' 在包含 w 的行中出现的频率。另外，请注意 $0 < dep(w, w') ≤ 1$（不共现的不在考虑范围内）。如果$w_1,...,w_k$是一个行模式的频繁词（即对应的簇由元组($w_1,...,w_k$)标识），那么这个模式中词$w_i$的权重计算如下:
 $weight(w_i) = \Sigma_{j=1}^k dep(w_j, w_i) / k$
-。请注意，由于 $dep(wi, wi) = 1$，因此 $1/k ≤ weight(wi) ≤ 1$。直观地说，单词的权重表示该单词与模式中其他单词的相关性有多强。例如，假设行模式是 `Daemon testd killed`，单词 Daemon 和 kill 总是一起出现，而单词 testd 永远不会在没有 Daemon 和 Killed 的情况下出现。因此，weight(Daemon) 和 weight(killed) 都是 1。此外，如果只有 2.5% 的行同时包含 Daemon 和 killed 也包含 testd，那么 
+。请注意，由于 $dep(w_i, w_i) = 1$，因此 $\frac 1 k ≤ weight(w_i) ≤ 1$。直观地说，单词的权重表示该单词与模式中其他单词的相关性有多强。例如，假设行模式是 `Daemon testd killed`，单词 Daemon 和 kill 总是一起出现，而单词 testd 永远不会在没有 Daemon 和 Killed 的情况下出现。因此，weight(Daemon) 和 weight(killed) 都是 1。此外，如果只有 2.5% 的行同时包含 Daemon 和 killed 也包含 testd，那么
 $weight(testd) = (1 + 0.025 + 0.025) / 3 = 0.35$
 。（我们计划在 LogCluster 原型的未来版本中实现更多的权重函数。）
 
@@ -260,7 +260,7 @@ Input: set of clusters C = {C1,…,Cp}
     word weight threshold t
     word weight function W()
 Output: set of clusters C’ = {C’1,…,C’m}, m ≤ p
-C’ := 
+C’ := {}
 for (j = 1; j <= p; ++j) do
     tuple := Cj.tuple
     k := # of elements in tuple
@@ -400,6 +400,12 @@ perl ../logparser/LogCluster/logcluster.pl --input LogCluster_result.log_10000.-
 ```
 5. 根据临时输出文件，得到事件模板、日志情况聚类等。
 
+# 7 个人理解
+1. 什么样的模板是好的？模板由频繁词+通配符构成，频繁词尽量多，通配符（匹配字符内容）尽量少，但是匹配的日志尽量多。
+2. 频繁词能全找出来吗？假如匹配日志大于s行的才认为是一个类，则构成这个模板的频繁词数量必然也都大于s。如果一个类有某个关键词w，另一个类也有w，则w出现次数大于2s。
+3. 簇能全找出来吗？找出来的模板不一定形成簇，但是能形成簇的模板能全部找出来。全部日志不区位置查找频繁词，由频繁词构成模板，虽然模板可能不是能匹配S行以上的簇（例如频繁词出现s次，但是在多个模板中出现），但是只要是能构成簇的模板也会全部找出来。
+4. aggregrate_support ？用在生成候选簇之后、簇被选定前。如果一个模板A能匹配另一个模板B，即B有A的全部频繁词，A有更多通配符，则A合并B，这样有更多未形成簇的候选可以符合大于s的条件，也就会增多簇。
+5. join_cluster ? 如2中所说，由频繁词构成的模板匹配日志未必大于s，由于 某个频繁词总量大于s，但是分散于多个模板中，而模板匹配日志数量却未必大于s。因此，需要计算一个模板内频繁词在所有日志的共现频率，然后再计算频繁词在模板中权重。
 
 
 # 参考资料
