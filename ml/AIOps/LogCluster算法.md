@@ -381,8 +381,60 @@ Output:
 
 ```
 
+For assessing the performance of the LogCluster algorithm, we have created its publicly available GNU GPLv2 licensed prototype implementation in Perl. The implementation is a UNIX command line tool that can be downloaded from http://ristov.github.io/logcluster. Apart from its clustering capabilities, the LogCluster tool supports a number of data preprocessing options which are summarized below. In order to focus on specific lines during pattern mining, a regular expression filter can be defined with the --lfilter command line option. For instance, with --lfilter=’sshd\[\d+\]:’ patterns are detected for sshd syslog messages (e.g., May 10 11:07:12 myhost sshd[4711]: Connection from 10.1.1.1 port 5662).
+
+为了评估 LogCluster 算法的性能，我们在 Perl 中创建了其公开可用的 GNU GPLv2 许可原型实现。 该实现是一个 UNIX 命令行工具，可以从 http://ristov.github.io/logcluster 下载。 除了集群功能外，LogCluster 工具还支持许多数据预处理选项，总结如下。 为了在模式挖掘期间关注特定行，可以使用 --lfilter 命令行选项定义正则表达式过滤器。 例如，使用 --lfilter='sshd\[\d+\]:' 模式检测 sshd 系统日志消息（例如，5 月 10 日 11:07:12 myhost sshd[4711]: Connection from 10.1.1.1 port 5662）。
+
+If a template string is given with the --template option, match variables set by the regular expression of the --lfilter option are substituted in the template string, and the resulting string replaces the original event log line during the mining. For example, with the use of --lfilter=’(sshd\[\d+\]: .+)’ and --template=’$1’ options, timestamps and hostnames are removed from sshd syslog messages before any other processing. If a regular expression is given with the --separator option, any sequence of characters that matches this expression is treated as a word delimiter (word delimiter defaults to whitespace).
+
+如果使用--template 选项给出模板字符串，则--lfilter 选项的正则表达式设置的匹配变量将替换在模板字符串中，并且生成的字符串替换挖掘期间的原始事件日志行。 例如，使用 --lfilter='(sshd\[\d+\]: .+)' 和 --template='$1' 选项，时间戳和主机名会在任何其他处理之前从 sshd syslog 消息中删除。 如果使用 --separator 选项给出正则表达式，则与该表达式匹配的任何字符序列都将被视为单词分隔符（单词分隔符默认为空格）。
+
+
+Existing line pattern mining tools treat words as atoms during the mining process, and make no attempt to discover potential structure inside words (the only exception is SLCT which includes a simple post-processing option for detecting constant heads and tails for wildcards). In order to address this shortcoming, LogCluster implements several options for masking specific word parts and creating word classes. If a word matches the regular expression given with the --wfilter option, a word class is created for the word by searching it for substrings that match another regular expression provided with the --wsearch option. All matching substrings are then replaced with the string specified with the --wreplace option. For example, with the use of --wfilter=’=’, --wsearch=’=.+’, and --wreplace=’=VALUE’ options, word classes are created for words which contain the equal sign (=) by replacing the characters after the equal sign with the string VALUE. Thus, for words pid=12763 and user=bob, classes pid=VALUE and user=VALUE are created. If a word is infrequent but its word class is frequent, the word class replaces the word during the mining process and will be treated like a frequent word. Since classes can represent many infrequent words, their presence in line patterns provides valuable information about regularities in word structure that would not be detected otherwise.
+
+现有的线型挖掘工具在挖掘过程中将单词视为原子，并且不会尝试发现单词内部的潜在结构（唯一的例外是 SLCT，它包括一个简单的后处理选项，用于检测通配符的恒定头部和尾部）。为了解决这个缺点，LogCluster 实现了几个用于屏蔽特定单词部分和创建单词类的选项。如果一个词与 --wfilter 选项提供的正则表达式匹配，则通过搜索与 --wsearch 选项提供的另一个正则表达式匹配的子字符串来为该词创建一个词类。然后将所有匹配的子字符串替换为 --wreplace 选项指定的字符串。例如，通过使用 --wfilter='='、--wsearch='=.+' 和 --wreplace='=VALUE' 选项，将为包含等号 (=) 的单词创建单词类通过将等号后面的字符替换为字符串 VALUE。因此，对于单词 pid=12763 和 user=bob，创建了类 pid=VALUE 和 user=VALUE。如果一个词不频繁但它的词类是频繁的，则词类在挖掘过程中替换了这个词，将被视为一个频繁词。由于类可以表示许多不常见的单词，它们在线条模式中的存在提供了关于单词结构规律性的有价值的信息，否则这些信息不会被检测到。
+
+For evaluating the performance of LogCluster and comparing it with other algorithms, we conducted a number of experiments with larger event logs. For the sake of fair comparison, we re-implemented the public C-based version of SLCT in Perl. Since the implementations of IPLoM and the algorithm by Reidemeister et al. are not publicly available, we were unable to study their source code for creating their exact prototypes. However, because the algorithm by Reidemeister et al. uses SLCT and has a similar time complexity (see section II), its runtimes are closely approximated by results for SLCT. During our experiments, we used 6 logs from a large institution of a national critical information infrastructure of an EU state. The logs cover 24 hour timespan (May 8, 2015), and originate from a wide range of sources, including database systems, web proxies, mail servers, firewalls, and network devices. We also used an availability monitoring system event log from the NATO CCD COE Locked Shields 2015 cyber defense exercise which covers the entire two-day exercise and contains Nagios events. During the experiments, we clustered each log file three times with support thresholds set to 1%, 0.5% and 0.1% of lines in the log. We also used the word sketch of 100,000 counters (parameter h in Fig. 3) for both LogCluster and SLCT, and did not employ Aggregate_Supports and Join_Clusters heuristics. Therefore, both LogCluster and SLCT were configured to make three passes over the data set, in order to build the word sketch during the first pass, detect frequent words during the second pass, and generate cluster candidates during the third pass. All experiments were conducted on a Linux virtual server with Intel Xeon E5-2680 CPU and 64GB of memory, and Table I outlines the results. Since LogCluster and SLCT implementations are both single-threaded and their CPU utilization was 100% according to Linux time utility during all 21 experiments, each runtime in Table I closely matches the consumed CPU time.
+
+为了评估 LogCluster 的性能并将其与其他算法进行比较，我们使用更大的事件日志进行了许多实验。为了公平比较，我们在 Perl 中重新实现了基于 C 的公共版本的 SLCT。由于 IPLoM 和 Reidemeister 等人的算法的实现不公开，我们无法研究他们的源代码来创建他们的确切原型。然而，因为 Reidemeister 等人的算法使用 SLCT 并具有相似的时间复杂度（参见第二部分），其运行时间与 SLCT 的结果非常接近。在我们的实验中，我们使用了来自欧盟国家的国家关键信息基础设施的大型机构的 6 条日志。日志涵盖 24 小时时间跨度（2015 年 5 月 8 日），来源广泛，包括数据库系统、Web 代理、邮件服务器、防火墙和网络设备。我们还使用了来自 NATO CCD COE Locked Shields 2015 网络防御演习的可用性监控系统事件日志，该日志涵盖了整个为期两天的演习并包含 Nagios 事件。在实验期间，我们将每个日志文件聚类 3 次，支持阈值设置为日志中行的 1%、0.5% 和 0.1%。我们还为 LogCluster 和 SLCT 使用了 100,000 个计数器的单词草图（图 3 中的参数 h），并且没有使用 Aggregate_Supports 和 Join_Clusters 启发式。因此，LogCluster 和 SLCT 都被配置为对数据集进行三遍，以便在第一遍中构建单词草图，在第二遍中检测常用词，并在第三遍中生成候选聚类。所有实验均在配备 Intel Xeon E5-2680 CPU 和 64GB 内存的 Linux 虚拟服务器上进行，表 I 概述了结果。由于 LogCluster 和 SLCT 实现都是单线程的，并且在所有 21 个实验中，根据 Linux 时间实用程序，它们的 CPU 利用率都是 100%，因此表 I 中的每个运行时都与消耗的 CPU 时间非常匹配。
+
+TABLE I. PERFORMANCE OF LOGCLUSTER AND SLCT
+![](table1.png)
+
+```
+May 8 *{1,1} myserver dhcpd: DHCPREQUEST for *{1,2} from *{1,2} via *{1,4}
+
+May 8 *{3,3} Note: no *{1,3} sensors
+
+May 8 *{3,3} RT_IPSEC: %USER-3-RT_IPSEC_REPLAY: Replay packet detected on IPSec tunnel on *{1,1} with tunnel ID *{1,1} From *{1,1} to *{1,1} ESP, SPI *{1,1} SEQ *{1,1}
+
+May 8 *{1,1} myserver httpd: client *{1,1} request GET *{1,1} HTTP/1.1 referer *{1,1} User-agent Mozilla/5.0 *{3,4} rv:37.0) Gecko/20100101 
+Firefox/37.0 *{0,1}
+
+May 8 *{1,1} myserver httpd: client *{1,1} request GET *{1,1} HTTP/1.1 referer *{1,1} User-agent Mozilla/5.0 (Windows NT *{1,3} AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36
+```
+Fig. 4. Sample clusters detected by LogCluster (for the reasons of privacy, sensitive data have been obfuscated).
+
+As results indicate, SLCT was 1.28–1.62 times faster than LogCluster. This is due to the simpler candidate generation procedure of SLCT – when processing individual event log lines, SLCT does not have to check the line patterns of candidates and adjust them if needed. However, both algorithms require considerable amount of time for clustering very large log files. For example, for processing the largest event log of 16.3GB (rows 13-15 in Table I), SLCT needed about 1.5 hours, while for LogCluster the runtime exceeded 2 hours. In contrast, the C-based version of SLCT accomplishes the same three tasks in 18-19 minutes. Therefore, we expect a C implementation of LogCluster to be significantly faster.
+
+结果表明，SLCT 比 LogCluster 快 1.28-1.62 倍。 这是由于 SLCT 的候选生成过程更简单——在处理单个事件日志行时，SLCT 不必检查候选的行模式并在需要时对其进行调整。 但是，这两种算法都需要大量时间来聚类非常大的日志文件。 例如，为了处理 16.3GB 的最大事件日志（表 I 中的第 13-15 行），SLCT 需要大约 1.5 小时，而对于 LogCluster，运行时间超过 2 小时。 相比之下，基于 C 的 SLCT 版本在 18-19 分钟内完成了相同的三项任务。 因此，我们预计 LogCluster 的 C 实现会明显更快。
+
+According to Table I, LogCluster finds less clusters than SLCT during all experiments (some clusters are depicted in Fig. 4). The reviewing of detected clusters revealed that unlike SLCT, LogCluster was able to discover a single cluster for lines where frequent words were separated with a variable number of infrequent words. For example, the first cluster in Fig. 4 properly captures all DHCP request events. In contrast, SLCT discovered two clusters `May 8 * myserver dhcpd: DHCPREQUEST for * from * * via` and `May 8 * myserver dhcpd: DHCPREQUEST for * * from * * via` which still do not cover all possible event formats. Also, the last two clusters in Fig. 4 represent all HTTP requests originating from the latest stable versions of Firefox browser on all OS platforms and Chrome browser on all Windows platforms, respectively (all OS platform strings are matched by `*{3,4}` for Firefox, while `Windows NT *{1,3}` matches all Windows platform strings for Chrome). Like in the previous case, SLCT was unable to discover equivalent two clusters that would concisely capture HTTP request events for these two browser types.
+
+根据表 I，LogCluster 在所有实验中发现的集群少于 SLCT（一些集群如图 4 所示）。对检测到的集群的审查表明，与 SLCT 不同，LogCluster 能够发现单个集群，其中频繁词与可变数量的不常用词分开。例如，图 4 中的第一个集群正确地捕获了所有 DHCP 请求事件。相比之下，SLCT 在 `May 8 * myserver dhcpd: DHCPREQUEST for * from * * via`    和 
+`May 8 * myserver dhcpd: DHCPREQUEST for * * from * * via`
+中发现了两个集群，它们仍然没有涵盖所有可能的事件格式。此外，图 4 中的最后两个集群分别代表来自所有 OS 平台上最新稳定版本的 Firefox 浏览器和所有 Windows 平台上 Chrome 浏览器的所有 HTTP 请求（所有 OS 平台字符串由 `*{3,4}` 匹配对于 Firefox，而 `Windows NT *{1,3}` 匹配 Chrome 的所有 Windows 平台字符串）。与前面的案例一样，SLCT 无法发现等效的两个集群，它们可以简明地捕获这两种浏览器类型的 HTTP 请求事件。
+
+When evaluating the Join_Clusters heuristic, we found that word weight thresholds (parameter t in Fig. 3) between 0.5 and 0.8 produced the best joint clusters. Fig. 5 displays three sample joint clusters which were detected from the mail server and Nagios logs (rows 16-21 in Table I). Fig. 5 also illustrates data preprocessing capabilities of the LogCluster tool. For the mail server log, a word class is created for each word which contains punctuation marks, so that all sequences of non-punctuation characters which are not followed by the equal sign (=) or opening square bracket ([) are replaced with a single X character. For the Nagios log, word classes are employed for masking blue team numbers in host names, and also, trailing timestamps are removed from each event log line with --lfilter and --template options. The first two clusters in Fig. 5 are both created by joining three clusters, while the last cluster is the union of twelve clusters which represent Nagios SSH service check events for 192 servers.
+
+在评估 Join_Clusters 启发式时，我们发现在 0.5 和 0.8 之间的词权阈值（图 3 中的参数 t）产生了最好的联合集群。图 5 显示了从邮件服务器和 Nagios 日志中检测到的三个示例联合集群（表 I 中的第 16-21 行）。图 5 还说明了 LogCluster 工具的数据预处理能力。对于邮件服务器日志，为每个包含标点符号的单词创建一个单词类，以便将所有后跟等号 (=) 或左方括号 ([) 的非标点字符序列替换为单个 X 字符。对于 Nagios 日志，使用单词类来屏蔽主机名中的蓝队编号，并且使用 --lfilter 和 --template 选项从每个事件日志行中删除尾随时间戳。图 5 中的前两个集群都是通过加入三个集群创建的，而最后一个集群是十二个集群的联合，代表 192 个服务器的 Nagios SSH 服务检查事件。
+
 
 # 5 结论
+
+In this paper, we have described the LogCluster algorithm for mining patterns from event logs. For future work, we plan to explore hierarchical event log clustering techniques. We also plan to implement the LogCluster algorithm in C, and use LogCluster for automated building of user behavior profiles.
+
+在本文中，我们描述了从事件日志中挖掘模式的 LogCluster 算法。 对于未来的工作，我们计划探索分层事件日志聚类技术。 我们还计划在 C 中实现 LogCluster 算法，并使用 LogCluster 自动构建用户行为档案。
 
 
 # 6 开源实现
