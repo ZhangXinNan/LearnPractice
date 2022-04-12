@@ -168,9 +168,19 @@ $$
 d = \frac {k \phi(n) + 1} {e} = \frac {5 * 352 + 1} 3
 $$
 
+要加密的字符是'a'，'a'的ascii编码是97，
+$$
+97^3 \mod 391 = 79
+$$
+79就是加密后的密文。
+
+$$
+79^587 \mod 391 = 97
+$$
+
 # 参考资料
 * [RSA加密算法](https://zh.wikipedia.org/wiki/RSA%E5%8A%A0%E5%AF%86%E6%BC%94%E7%AE%97%E6%B3%95)
 * [数学不好也能听懂的算法 - RSA加密和解密原理和过程](https://www.bilibili.com/video/BV1XP4y1A7Ui?spm_id_from=333.337.search-card.all.click)
-
+* [探秘公钥加密算法 RSA](https://www.bilibili.com/video/BV14y4y1272w?spm_id_from=333.337.search-card.all.click)
 
 
