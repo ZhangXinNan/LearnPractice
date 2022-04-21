@@ -34,7 +34,7 @@ cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 ```
 2. 配置
-在~/.zshrc的plugins中加入zsh-syntax-highlighting。
+在~/.zshrc的plugins中加入 zsh-syntax-highlighting 。
 多个用空格格开。
 
 # 2 自动补全插件
@@ -43,7 +43,7 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 git clone git://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 ```
 2. 配置
-在~/.zshrc的plugins中加入zsh-autosuggestions
+在~/.zshrc的plugins中加入 zsh-autosuggestions
 
 
 
