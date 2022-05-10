@@ -12,5 +12,8 @@ ImportError: libGL.so.1: cannot open shared object file: No such file or directo
 
 # 2 解决
 ```bash
+# centos
 yum install mesa-libGL.x86_64
+# ubuntu
+apt-get install ffmpeg libsm6 libxext6 -y
 ```
