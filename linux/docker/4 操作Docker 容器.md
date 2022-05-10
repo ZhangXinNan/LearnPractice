@@ -44,6 +44,7 @@ docker run -it ubuntu:14.04 /bin/bash
 * -t 让Docker分配一个伪终端并绑定到容器的标准输入上。
 * -i 让容器的标准输入保持的模型。
 * -v    --volumes   Bind mount a volume
+* -d 后台运行容器，并返回容器ID；
 
 ### 4.1.4 守护态运行
 添加*-d* 参数 ，让Docker容器在后台以守护态形式运行。
