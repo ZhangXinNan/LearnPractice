@@ -4,8 +4,7 @@ import torchvision.transforms as transforms
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
-from torch.autograd import Variable
-
+torch.cuda.set_device(0)
 
 classes = ('plane', 'car', 'bird', 'cat',
            'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
@@ -39,12 +38,12 @@ def load_data():
     trainset = torchvision.datasets.CIFAR10(root='./data', train=True,
                                             download=True, transform=transform)
     trainloader = torch.utils.data.DataLoader(trainset, batch_size=4,
-                                              shuffle=True, num_workers=2)
+                                              shuffle=True, num_workers=0)
 
     testset = torchvision.datasets.CIFAR10(root='./data', train=False,
                                            download=True, transform=transform)
     testloader = torch.utils.data.DataLoader(testset, batch_size=4,
-                                             shuffle=False, num_workers=2)
+                                             shuffle=False, num_workers=0)
     return trainloader, testloader
 
 
@@ -75,15 +74,15 @@ def train(net, trainloader, testloader, device):
         for i, data in enumerate(trainloader, 0):
             # get the inputs
             inputs, labels = data
-            inputs = inputs.cuda()
-            labels = labels.cuda()
-
+            inputs = inputs.to(device)
+            labels = labels.to(device)
+            # print(i, inputs.size(), labels)
             # zero the parameter gradients
             optimizer.zero_grad()
 
             # forward + backward + optimize
-            outputs = net(Variable(inputs))
-            loss = criterion(outputs, Variable(labels))
+            outputs = net(inputs)
+            loss = criterion(outputs, labels)
             loss.backward()
             optimizer.step()
 
@@ -119,13 +118,16 @@ def test_classes(net, testloader, device):
 
 
 def main():
+    global device
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     print(device)
-    net = Net().cuda()
+    net = Net()
+    net.to(device)
     trainloader, testloader = load_data()
     train(net, trainloader, testloader, device)
     test_classes(net, testloader, device)
 
 
 if __name__ == '__main__':
+    device = torch.device('cpu')
     main()
