@@ -62,7 +62,7 @@ t0 = time.time()
 # 逆时针转了90度
 img_90_np = ndimage.rotate(img, 90, cval=255)
 print("[ 90] \t", time.time() - t0)
-cv2.imwrite("img_90_np.jpg", img_90_np)
+cv2.imwrite("img_90_np_anticlockwise.jpg", img_90_np)
 
 
 
