@@ -99,6 +99,9 @@ blk_4003 PacketResponder * for block * terminating
 blk_3587 Received block * of size * from *
 ```
 
+![](fig1.png)
+
+
 # 3 方法
 
 In this section, we briefly introduce Drain, a fixed **d**epth t**r**ee b**a**sed onl**i**ne log parsi**n**g method. When a new raw log message arrives, Drain will preprocess it by simple regular expressions based on domain knowledge. Then we search a log group (i.e., leaf node of the tree) by following the specially-designed rules encoded in the internal nodes of the tree. If a suitable log group is found, the log message will be matched with the log event stored in that log group. Otherwise, a new log group will be created based on the log message. In the following, we first introduce the structure of the fixed depth tree (i.e., parse tree). Then we explain how Drain parses raw log messages by searching the nodes of the parse tree.
@@ -112,7 +115,7 @@ In this section, we briefly introduce Drain, a fixed **d**epth t**r**ee b**a**se
 
 When a raw log message arrives, an online log parser needs to search the most suitable log group for it, or create a new log group. In this process, a simple solution is to compare the raw log message with log event stored in each log group one by one. However, this solution is very slow because the number of log groups increases rapidly in parsing. To accelerate this process, we design a parse tree with fixed depth to guide the log group search, which effectively bounds the number of log groups that a raw log message needs to compare with.
 
-当原始日志消息到达时，在线日志解析器需要为其搜索最合适的日志组，或者创建一个新的日志组。 在这个过程中，一个简单的解决方案是将原始日志消息与存储在每个日志组中的日志事件一一进行比较。 但是，这种解决方案非常慢，因为日志组的数量在解析中迅速增加。 为了加速这个过程，我们设计了一个固定深度的解析树来指导日志组搜索，它有效地限制了原始日志消息需要比较的日志组的数量。
+当原始日志消息到达时，在线日志解析器需要为其搜索最合适的日志组，或者创建一个新的日志组。 在这个过程中，一个简单的解决方案是将原始日志消息与存储在每个日志组中的日志事件一一进行比较。 但是，这种解决方案非常慢，因为日志组的数量在解析中迅速增加。 为了加速这个过程，我们设计了一个**固定深度的解析树**来指导日志组搜索，它有效地限制了原始日志消息需要比较的日志组的数量。
 
 ![](fig2.png)
 
@@ -121,9 +124,10 @@ The parse tree is illustrated in Figure 2. The root node is in the top layer of 
 解析树如图 2 所示。根节点位于解析树的顶层；底层包含叶节点；树中的其他节点是内部节点。
 **根节点和内部节点编码专门设计的规则来指导搜索过程。它们不包含任何日志组。**
 解析树中的每条路径都以一个叶子节点结束，该叶子节点存储了一个日志组列表，为了简单起见，我们在这里只绘制一个叶子节点。
-每个日志组有两部分：日志事件和日志 ID。
-日志事件是最能描述该组中的日志消息的模板，它由日志消息的常量部分组成。 
-Log IDs 记录了该组中日志消息的 ID。
+每个日志组有两部分：**日志事件**和**日志 ID**。
+* 日志事件是最能描述该组中的日志消息的模板，它由日志消息的常量部分组成。 
+* Log IDs 记录了该组中日志消息的 ID。
+
 解析树的一种特殊设计是所有叶节点的深度相同，并由预定义的参数深度（depth）固定。
 比如图2中叶子节点的深度固定为3，这个参数限制了搜索过程中节点Drain访问的次数，大大提高了它的效率。
 此外，为了避免树分支爆炸，我们使用了一个参数 maxChild，它限制了节点的最大子节点数。
@@ -160,7 +164,7 @@ Drain 从带有预处理日志消息的解析树的根节点开始。
 日志消息长度是指日志消息中的令牌数。 
 在此步骤中，Drain 根据预处理后的日志消息的日志消息长度选择到第 1 层节点的路径。 
 例如，对于日志消息“Receive from node 4”，Drain 遍历到图 2 中的内部节点“Length: 4”。
-这是基于具有相同日志事件的日志消息可能具有相同的日志消息长度的假设。
+【假设】这是基于具有相同日志事件的日志消息可能具有相同的日志消息长度的假设。
 尽管具有相同日志事件的日志消息可能具有不同的日志消息长度，但可以通过简单的后处理来处理。
 此外，我们在第 IV-B 节中的实验证明了即使没有后处理，Drain 在解析精度方面的优势。
 
@@ -169,8 +173,8 @@ Drain 从带有预处理日志消息的解析树的根节点开始。
 In this step, Drain traverses from a 1-st layer node, which is searched in step 2, to a leaf node. This step is based on the assumption that tokens in the beginning positions of a log message are more likely to be constants. Specifically, Drain selects the next internal node by the tokens in the beginning positions of the log message. For example, for log message “Receive from node 4”, Drain traverses from 1-st layer node “Length: 4” to 2-nd layer node “Receive” because the token in the first position of the log message is “Receive”. Then Drain will traverse to the leaf node linked with internal node “Receive”, and go to step 4.
 
 在此步骤中，Drain 从步骤 2 中搜索到的第 1 层节点遍历到叶节点。
-此步骤基于日志消息开始位置中的标记更可能是常量的假设。
-具体来说，Drain 通过日志消息开始位置的标记来选择下一个内部节点。
+【假设】此步骤基于日志消息开始位置中的标记更可能是常量的假设。
+具体来说，**Drain 通过日志消息开始位置的标记来选择下一个内部节点**。
 例如，对于日志消息“Receive from node 4”，Drain 从第一层节点“Length: 4”遍历到第二层节点“Receive”，因为日志消息的第一个位置的令牌是“Receive”。
 然后 Drain 会遍历到与内部节点“Receive”链接的叶子节点，然后进行第 4 步。
 
