@@ -1,6 +1,6 @@
 [python之lambda、filter、map、reduce的用法说明](https://www.cnblogs.com/yufeihlf/p/6179982.html)
 
-```
+```python
 #coding=utf-8
 '''
 Created on 2016-12-14

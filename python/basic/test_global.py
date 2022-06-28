@@ -6,9 +6,9 @@ def AddMoney():
   global Money
   Money += 1
 
-print Money
+print(Money)
 AddMoney()
-print Money
+print(Money)
 
 
 '''
