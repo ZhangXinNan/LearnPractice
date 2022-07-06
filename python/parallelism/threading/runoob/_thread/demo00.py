@@ -17,6 +17,8 @@ try:
    _thread.start_new_thread( print_time, ("Thread-2", 4, ) )
 except:
    print ("Error: 无法启动线程")
-
+'''
 while 1:
    pass
+'''
+

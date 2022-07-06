@@ -4,16 +4,16 @@ import time
 
 def worker():
     '''thread Worker function'''
-    print threading.currentThread().getName(), 'Starting'
+    print(threading.currentThread().getName(), 'Starting')
     time.sleep(2)
-    print threading.currentThread().getName(), 'End'
+    print(threading.currentThread().getName(), 'End')
     return
 
 def my_service():
     '''thread Worker function'''
-    print threading.currentThread().getName(), 'Starting'
+    print(threading.currentThread().getName(), 'Starting')
     time.sleep(3)
-    print threading.currentThread().getName(), 'End'
+    print(threading.currentThread().getName(), 'End')
     return
 
 

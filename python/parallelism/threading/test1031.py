@@ -3,7 +3,7 @@ import threading
 
 def worker(num, results, i):
     '''thread Worker function'''
-    print 'Worker: %s' % num
+    print('Worker: %s' % num)
     results[i] = num * 10
 
 threads = []
@@ -13,4 +13,4 @@ for i in range(5):
     threads.append(t)
     t.start()
 
-print results
+print(results)
