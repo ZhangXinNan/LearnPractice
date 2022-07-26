@@ -3,7 +3,7 @@ import time
 import numpy as np
 import cv2
 
-img = cv2.imread('232.jpg')
+img = cv2.imread('233.jpeg')
 print("image.shape :", img.shape)
 img_n1 = cv2.flip(img, -1)      # 上下、左右都镜像
 img_0 = cv2.flip(img, 0)        # 上下镜像
@@ -79,4 +79,19 @@ opencv-------rotate------
 [270] 	 0.027275800704956055
 scipy----------rotate with-----------
 [ 90] 	 4.976858139038086
+'''
+
+# 233.jpeg
+'''
+image.shape : (762, 1080, 3)
+opencv------flip+transpose
+[ 90] 	 0.003057241439819336
+[180] 	 0.00039505958557128906
+[270] 	 0.0032770633697509766
+opencv-------rotate------
+[ 90] 	 0.0013730525970458984
+[180] 	 0.0015690326690673828
+[270] 	 0.002223968505859375
+scipy----------rotate with-----------
+[ 90] 	 0.4202611446380615
 '''
