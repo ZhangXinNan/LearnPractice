@@ -104,6 +104,24 @@ BERTBASE was chosen to have the same model size as OpenAI GPT for comparison pur
 
 BERTBASE 被选为具有与 OpenAI GPT 相同的模型大小以进行比较。 然而，至关重要的是，BERT Transformer 使用双向自我注意，而 GPT Transformer 使用受限自我注意，其中每个标记只能关注其左侧的上下文。
 
+Input/Output Representations 
+
+To make BERT handle a variety of down-stream tasks, our input representation is able to unambiguously represent both a single sentence and a pair of sentences (e.g., \<Question, Answer\>) in one token sequence. Throughout this work, a “sentence” can be an arbitrary span of contiguous text, rather than an actual linguistic sentence. A “sequence” refers to the input token sequence to BERT, which may be a single sentence or two sentences packed together.
+
+为了使 BERT 处理各种下游任务，我们的输入表示能够在一个标记序列中明确表示单个句子和一对句子（例如，Question、Answer）。 在整个工作中，“句子”可以是连续文本的任意跨度，而不是实际的语言句子。 一个“序列”是指输入到 BERT 的标记序列，它可能是一个句子，也可能是两个打包在一起的句子。
+
+We use **WordPiece** embeddings with a 30,000 token vocabulary. The first token of every sequence is always a special classification token ([CLS]). The final hidden state corresponding to this token is used as the aggregate sequence representation for classification tasks. Sentence pairs are packed together into a single sequence. We differentiate the sentences in two ways. First, we separate them with a special token ([SEP]). Second, we add a learned embedding to every token indicating whether it belongs to sentence `A` or sentence `B`. As shown in Figure 1, we denote input embedding as E, the final hidden vector of the special [CLS] token as $C \in R^H$, and the final hidden vector for the $i^{th}$ input token as $T_i \in R^H$.
+
+我们使用具有 30,000 个标记词汇的 WordPiece 嵌入。 每个序列的第一个标记始终是一个特殊的分类标记 ([CLS])。 与该标记对应的最终隐藏状态用作分类任务的聚合序列表示。 句子对被打包成一个单一的序列。 我们以两种方式区分句子。 首先，我们用一个特殊的标记（[SEP]）将它们分开。 其次，我们向每个标记添加一个学习嵌入，指示它属于句子“A”还是句子“B”。 如图 1 所示，我们将输入嵌入表示为 E，特殊 [CLS] 标记的最终隐藏向量表示为 $C \in R^H$，以及 $i^{th}$ 输入标记的最终隐藏向量 作为 $T_i \in R^H$。
+
+For a given token, its input representation is constructed by summing the corresponding token, segment, and position embeddings. A visualization of this construction can be seen in Figure 2.
+
+对于给定的标记，其输入表示是通过对相应的标记、段和位置嵌入求和来构造的。 这种结构的可视化可以在图 2 中看到。
+
+![](fig2.png)
+
+【注】可学习参数主要有两块：嵌入层、transformer层。
+
 
 ## 3.1 Pre-training BERT
 
