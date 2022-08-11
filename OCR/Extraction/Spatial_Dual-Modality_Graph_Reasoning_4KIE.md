@@ -122,13 +122,14 @@ Chargrid [13] 将每个文档页面编码为二维字符网格以进行语义分
 
 
 # 3 方法
+![](fig2.png)
 
 Given one document image $I$ of size $H × W$, together with detected text regions ${r_i}$, where $r_i =< x_i, y_i, h_i, w_i, s_i >$ with $(x_i, y_i), h_i, w_i$, and $s_i$ being the top-left corner coordinate, the height, the width, and the recognized text string of $r_i$ respectively, the key information extraction aims at classifying each detected text region $r_i} into one of a predefined category set $Y$. We model the key information extraction as the graph node classification problem via jointly making full use of dual modality features. Namely, visual features and textual ones. Our proposed spatial dual-modality graph reasoning model consists of the dual-modality fusion module, the graph reasoning module and the classification module. `Figure 2` shows its overall architecture.
 
 给定一个大小为 $H × W$ 的文档图像 $I$，以及检测到的文本区域 ${r_i}$，其中 $r_i =< x_i, y_i, h_i, w_i, s_i >$ with $(x_i, y_i)， h_i、w_i$、$s_i$分别为$r_i$的左上角坐标、高度、宽度和识别的文本串，关键信息提取的目的是将每个检测到的文本区域$r_i$归为一个 的预定义类别集 $Y$。 
 我们通过共同充分利用双模态特征将关键信息提取建模为图节点分类问题。
 即，视觉特征和文本特征。 
-我们提出的空间双模态图推理模型由双模态融合模块、图推理模块和分类模块组成。
+我们提出的空间双模态图推理模型由**双模态融合模块**、**图推理模块**和**分类模块**组成。
 `图 2` 显示了它的整体架构。
 
 # 4 WildReceipt
@@ -137,5 +138,14 @@ Given one document image $I$ of size $H × W$, together with detected text regio
 
 # 6 总结
 
+In this paper, we have proposed a novel spatial dual-modality graph reasoning model (termed SDMG-R) for key information extraction from unstructured documents. We have introduced Kronecker product approximated via the block diagonal tensor decomposition to fuse the visual and textual features. SDMG-R naturally learns spatial relations between text regions via dynamical attentions in its graph reasoning module. We have validated the effectiveness of each component of the proposed SDMG-G by extensive experiments. Moreover, a new large key information extraction dataset, named WildReceipt, has been annotated to evaluate the model performance of the key information extraction on document of unseen templates. It is fine grained and captured in the wild, and thus more challenging and realistic than previous public datasets. It will be publicly released for facilitating future research. Experimental results on both SROIE and our WildReceipt databases have shown that our proposed SDMG-R consistently outperforms start-of-the-art key information extraction methods with impressive margins.
+
+在本文中，我们提出了一种新颖的空间双模态图推理模型（称为 SDMG-R），用于从非结构化文档中提取关键信息。
+我们引入了通过块对角张量分解近似的 Kronecker 积，以融合视觉和文本特征。
+SDMG-R 通过其图形推理模块中的动态注意力自然地学习文本区域之间的空间关系。
+我们通过广泛的实验验证了所提出的 SDMG-G 的每个组件的有效性。
+此外，一个名为 WildReceipt 的新的大型关键信息提取数据集已被注释，以评估未见过模板文档的关键信息提取的模型性能。
+它是细粒度的并在野外捕获，因此比以前的公共数据集更具挑战性和现实性。它将公开发布以促进未来的研究。
+SROIE 和我们的 WildReceipt 数据库的实验结果表明，我们提出的 SDMG-R 始终优于最先进的关键信息提取方法，具有可观的利润。
 
 
