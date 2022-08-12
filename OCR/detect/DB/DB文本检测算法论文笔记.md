@@ -1,6 +1,24 @@
-# 0 概述	
-近年来基于分割的文本检测方法非常流行，分割的结果可以更准确的描述不同形状的文本区域。
-​	基于分割的文本检测算法，后处理是必须的，将概率图转成文本框（区域）。DB算法在分割网络中执行一个二值化处理。随着DB模块的优化，分割网络可以自动设置二值化阈值，不仅简化了后处理而且增强了性能。
+
+Real-time Scene Text Detection with Differentiable Binarization
+
+具有可微分二值化的实时场景文本检测
+
+——————————
+
+
+
+# 0 概述
+
+Recently, segmentation-based methods are quite popular in scene text detection, as the segmentation results can more accurately describe scene text of various shapes such as curve text. However, the post-processing of binarization is essential for segmentation-based detection, which converts probability maps produced by a segmentation method into bounding boxes/regions of text. In this paper, we propose a module named Differentiable Binarization (DB), which can perform the binarization process in a segmentation network. Optimized along with a DB module, a segmentation network can adaptively set the thresholds for binarization, which not only simplifies the post-processing but also enhances the performance of text detection. Based on a simple segmentation network, we validate the performance improvements of DB on five benchmark datasets, which consistently achieves state-of-the-art results, in terms of both detection accuracy and speed. In particular, with a light-weight backbone, the performance improvements by DB are significant so that we can look for an ideal tradeoff between detection accuracy and efficiency. Specifically, with a backbone of ResNet-18, our detector achieves an F-measure of 82.8, running at 62 FPS, on the MSRA-TD500 dataset. Code is available at: https://github.com/MhLiao/DB.
+
+最近，基于分割的方法在场景文本检测中非常流行，因为分割结果可以更准确地描述曲线文本等各种形状的场景文本。
+然而，二值化的后处理对于基于分割的检测至关重要，它将分割方法产生的概率图转换为文本的边界框/区域。
+在本文中，我们提出了一个名为Differential Binarization (DB) 的模块，它可以在分割网络中执行二值化过程。
+与 DB 模块一起优化后，分割网络可以**自适应地设置二值化阈值**，这不仅简化了后处理，而且提高了文本检测的性能。
+基于一个简单的分割网络，我们在五个基准数据集上验证了 DB 的性能改进，在检测精度和速度方面始终达到最先进的结果。
+特别是，对于轻量级主干，DB 的性能改进是显着的，因此我们可以在检测精度和效率之间寻找理想的权衡。
+具体来说，借助 ResNet-18 的主干，我们的检测器在 MSRA-TD500 数据集上实现了 82.8 的 F-measure，以 62 FPS 的速度运行。
+代码位于：https://github.com/MhLiao/DB。
 
 补充：F-measure 即：
 $$
