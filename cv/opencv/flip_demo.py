@@ -5,7 +5,8 @@ import cv2
 
 img = cv2.imread('233.jpeg')
 print("image.shape :", img.shape)
-img_n1 = cv2.flip(img, -1)      # 上下、左右都镜像
+
+img_n1 = cv2.flip(img, -1)      # 上下、左右都镜像，相当于旋转180度
 img_0 = cv2.flip(img, 0)        # 上下镜像
 img_1 = cv2.flip(img, 1)        # 左右镜像
 img_tsp = cv2.transpose(img)    # 转置（行列互换）
