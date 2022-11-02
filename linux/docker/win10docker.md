@@ -5,4 +5,4 @@
 注：Hyper-V是微软的一款虚拟化产品，是微软第一个采用类似Vmware和Citrix开源Xen一样的基于hypervisor的技术。
 
 
-[如何在 Windows 10 Home 安裝 Docker ?](https://oomusou.io/docker/toolbox/)
+[如何在 Windows 10 Home 安裝 Docker ?](https://old-oomusou.goodjack.tw/docker/toolbox/)
