@@ -1,8 +1,26 @@
 
 
-![https://github.com/PaddlePaddle/PaddleDetection](https://github.com/PaddlePaddle/PaddleDetection)
+[PaddlePaddle/PaddleDetection](https://github.com/PaddlePaddle/PaddleDetection)
 
+# 配置环境
+```bash
+conda create -n py38_paddle_det python=3.8
 
+conda activate py38_paddle_det
+
+python -m pip install paddlepaddle-gpu==2.3.2.post111 -f https://www.paddlepaddle.org.cn/whl/linux/mkl/avx/stable.html
+
+# 克隆PaddleDetection仓库
+# cd <path/to/clone/PaddleDetection>
+git clone https://github.com/PaddlePaddle/PaddleDetection.git
+
+# 安装其他依赖
+cd PaddleDetection
+pip install -r requirements.txt
+
+# 编译安装paddledet
+python setup.py install
+```
 
 # 使用ppyolo训练coco
 
