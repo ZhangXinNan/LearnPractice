@@ -28,6 +28,7 @@ yum install mesa-libGL.x86_64
 
 ## 方法2
 ```bash
+# docker
 pip uninstall opencv-python
 pip install opencv-python-headless
 ```
