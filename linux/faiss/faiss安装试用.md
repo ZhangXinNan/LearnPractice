@@ -13,7 +13,9 @@ pip3 install torch torchvision torchaudio
 
 # CPU-only version
 # conda install -c faiss-cpu
-pip install faiss-cpu -DFAISS_ENABLE_GPU=OFF -DFAISS_ENABLE_PYTHON=ON -DBUILD_TESTING=ON -DPython_EXECUTABLE=/path/to/python3.7
+# pip install faiss-cpu -DFAISS_ENABLE_GPU=OFF -DFAISS_ENABLE_PYTHON=ON -DBUILD_TESTING=ON
+# -DPython_EXECUTABLE=/path/to/python3.7
+conda install -c pytorch faiss-cpu
 ```
 
 # 2 编译
