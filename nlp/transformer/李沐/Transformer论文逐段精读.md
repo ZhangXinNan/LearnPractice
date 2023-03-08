@@ -14,12 +14,15 @@
 ```
 
 Transformer 是（当前时间2021年10月29日）三年以来深度学习领域最重要的文章之一。
-是继MLP、CNN、RNN之后第四大模型。
+是继MLP、CNN、RNN之后第四大base模型。
 
 # 1 标题和作者
 作者后边都加了*号，代表“同样贡献”。
 
 # 2 摘要 Abstract
+【注】现在常见的模型结果是包含CNN和RNN的encoder-decoder结构，表现好的seq2seq模型都在encoder和decoder之前使用了attention机制。
+我们的transformer模型是第一个仅仅使用了注意力机制的做encoder-decoder的模型，我们在其中使用了multi-head self attention结构等等...
+
 The dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder. The best performing models also connect the encoder and decoder through an attention mechanism. We propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely. Experiments on two machine translation tasks show these models to be superior in quality while being more parallelizable and requiring significantly less time to train. Our model achieves 28.4 BLEU on the WMT 2014 English-to-German translation task, improving over the existing best results, including ensembles, by over 2 BLEU. On the WMT 2014 English-to-French translation task, our model establishes a new single-model state-of-the-art BLEU score of 41.8 after training for 3.5 days on eight GPUs, a small fraction of the training costs of the best models from the literature. We show that the Transformer generalizes well to other tasks by applying it successfully to English constituency parsing both with large and limited training data.
 
 显性序列转导模型基于包括编码器和解码器的复杂递归或卷积神经网络。 性能最佳的模型还通过注意力机制连接编码器和解码器。 我们提出了一种新的简单网络架构，即 Transformer，它**完全基于注意力机制**，完全摒弃了循环和卷积。 对两项机器翻译任务的实验表明，这些模型在性能上更胜一筹，同时可并行化程度更高，并且需要的训练时间明显减少。
@@ -69,9 +72,13 @@ In this work we propose the Transformer, a model architecture eschewing recurren
 
 在这项工作中，我们提出了 Transformer，这是一种避免重复出现的模型架构，而是完全依赖注意力机制来绘制输入和输出之间的全局依赖关系。 Transformer 允许显着提高并行化，并且在八个 P100 GPU 上经过短短 12 小时的训练后，可以达到翻译质量的新水平。
 
+【注】RNN存在的缺点：1、只能串行计算；2、长序列的早期的信息可能会丢失，每一步的历史信息都需要存储，内存开销大；
+attention在RNN上的应用：attention作用是怎么把encoder有效的信息传递给decoder，允许建模 input or output sequence 与距离无关的 dependencies。
+transformer不再使用循环结果，纯attention结构，并行效率高，训练时间短等等...
 
 # 5 相关工作
 【注】卷积只能看局部，如果想看到距离很远的地方之间的关联，需要很多层。但是卷积网络可以做多个输出通道，一个输出通道可以认为是识别不同的模式。作者也想使用多通道，所以提出了Multi-head Attention。
+self attention：不是transformer首先提出来的理论，但是我们是第一个只依赖self attention来实现encoder-decoder架构的模型；
 
 The goal of reducing sequential computation also forms the foundation of the Extended Neural GPU [16], ByteNet [18] and ConvS2S [9], all of which use convolutional neural networks as basic building block, computing hidden representations in parallel for all input and output positions. In these models, the number of operations required to relate signals from two arbitrary input or output positions grows in the distance between positions, linearly for ConvS2S and logarithmically for ByteNet. This makes it more difficult to learn dependencies between distant positions [12]. In the Transformer this is reduced to a constant number of operations, albeit at the cost of reduced effective resolution due to averaging attention-weighted positions, an effect we counteract with Multi-Head Attention as described in section 3.2.
 
@@ -89,14 +96,16 @@ To the best of our knowledge, however, the Transformer is the first transduction
 
 然而，据我们所知，Transformer 是第一个完全依靠自注意力来计算其输入和输出表示而不使用序列对齐 RNN 或卷积的转导模型。 在接下来的部分中，我们将描述 Transformer，激发自注意力并讨论它相对于 [17、18] 和 [9] 等模型的优势。
 
-# 6 模型
+# 6 模型 Model Architecture
+
 
 # 7 实验
 
 # 8 讨论
 
 
-
+# 参考资料
+* [一文浅析transformer--李沐带你深入浅出transformer - 新一的文章 - 知乎](https://zhuanlan.zhihu.com/p/452663865)
 
 
 
