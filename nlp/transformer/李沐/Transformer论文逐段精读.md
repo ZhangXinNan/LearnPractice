@@ -119,16 +119,103 @@ To the best of our knowledge, however, the Transformer is the first transduction
 # 6 模型架构 Model Architecture
 
 Most competitive neural sequence transduction models have an encoder-decoder structure [5, 2, 35].
-Here, the encoder maps an input sequence of symbol representations (x1, ..., xn) to a sequence of continuous representations z = (z1, ..., zn). 
-Given z, the decoder then generates an output sequence (y1, ..., ym) of symbols one element at a time.
+Here, the encoder maps an input sequence of symbol representations $(x_1, ..., x_n)$ to a sequence of continuous representations$z = (z_1, ..., z_n)$.
+Given z, the decoder then generates an output sequence $(y_1, ..., y_m)$ of symbols one element at a time.
 At each step the model is auto-regressive [10], consuming the previously generated symbols as additional input when generating the next.
+
 The Transformer follows this overall architecture using stacked self-attention and point-wise, fully connected layers for both the encoder and decoder, shown in the left and right halves of Figure 1, respectively.
 
 大多数有竞争力的神经序列转导模型都具有编码器-解码器结构 [5、2、35]。
 这里，**编码器**将输入的符号表示序列$(x_1, ..., x_n)$映射到连续表示序列$z = (z_1, ..., z_n)$。
 给定 z，**解码器**然后一次生成一个符号的输出序列$(y_1, ..., y_m)$。
 在每个步骤中，模型都是自回归的(auto-regressive) [10]，在生成下一步时将先前生成的符号作为附加输入使用。
+
 Transformer 遵循这种整体架构，为编码器和解码器使用堆叠式自注意力层和逐点全连接层，分别如图 1 的左半部分和右半部分所示。
+
+![](fig1.png)
+左边是encoder，右边是decoder。
+Outputs (shifted right)是decoder的输入，decoder在做预测时没有输入，实际是decoder在之前时刻的一些输出作为输入。
+
+## 6.1 Encoder and Decoder Stacks
+Encoder: The encoder is composed of a stack of $N = 6$ identical layers. Each layer has two sub-layers. The first is a multi-head self-attention mechanism, and the second is a simple, position-wise fully connected feed-forward network. We employ a residual connection [11] around each of the two sub-layers, followed by layer normalization [1]. That is, the output of each sub-layer is $LayerNorm(x + Sublayer(x))$, where $Sublayer(x)$ is the function implemented by the sub-layer itself. To facilitate these residual connections, all sub-layers in the model, as well as the embedding layers, produce outputs of dimension $d_model = 512$.
+
+![](batch-norm_layer-norm.png)
+编码器：
+编码器由 $N = 6$ 个相同层的堆栈组成。 每一层都有两个子层。 第一个是多头自注意力机制（Multi-Head self-attention），第二个是简单的、按位置的全连接前馈网络（MLP）。 我们在两个子层中的每一个周围都使用了一个残差连接[11]，然后是层归一化[1]。 即每个子层的输出是$LayerNorm(x + Sublayer(x))$，其中$Sublayer(x)$是子层自己实现的函数。 为了促进这些残差连接，模型中的所有子层以及嵌入层都产生维度 $d_model = 512$ 的输出。
+
+【注】为什么在序列模型里，使用layernorm，因为每个样本的序列长度是不一样的。
+
+Decoder: The decoder is also composed of a stack of $N = 6$ identical layers. In addition to the two sub-layers in each encoder layer, the decoder inserts a third sub-layer, which performs multi-head attention over the output of the encoder stack. Similar to the encoder, we employ residual connections around each of the sub-layers, followed by layer normalization. We also modify the self-attention sub-layer in the decoder stack to prevent positions from attending to subsequent positions. This masking, combined with fact that the output embeddings are offset by one position, ensures that the predictions for position $i$ can depend only on the known outputs at positions less than $i$.
+
+解码器：
+解码器也由一堆$N = 6$个相同的层组成。
+除了每个编码器层中的两个子层之外，解码器还插入了第三个子层，它对编码器堆栈的输出执行多头注意力。
+与编码器类似，我们在每个子层周围使用残差连接，然后进行层归一化。
+我们还修改了解码器堆栈中的自我注意子层，以防止位置关注后续位置。
+这种掩蔽与输出嵌入偏移一个位置的事实相结合，确保了位置 $i$ 的预测只能依赖于位置小于 $i$ 的已知输出。
+
+## 6.2 Attention
+
+An attention function can be described as mapping a query and a set of key-value pairs to an output, where the query, keys, values, and output are all vectors. The output is computed as a weighted sum of the values, where the weight assigned to each value is computed by a compatibility function of the query with the corresponding key.
+
+注意力函数可以描述为将查询和一组键值对映射到输出，其中查询、键、值和输出都是向量。
+输出计算为值的加权和，其中分配给每个值的权重由查询与相应键的兼容性函数计算。
+
+![](fig2.png)
+
+### 6.2.1 Scaled Dot-Product Attention
+
+We call our particular attention "Scaled Dot-Product Attention" (Figure 2).
+The input consists of queries and keys of dimension $d_k$, and values of dimension $d_v$.
+We compute the dot products of the query with all keys, divide each by $\sqrt{d_k}$, and apply a softmax function to obtain the weights on the values.
+
+我们将我们的特殊注意力称为“缩放点积注意力”（图 2）。
+输入由维度 $d_k$ 的queries和keys以及维度 $d_v$ 的values组成。
+我们计算查询与所有键的点积，每个键除以 $\sqrt{d_k}$，然后应用 softmax 函数来获得值的权重。
+
+In practice, we compute the attention function on a set of queries simultaneously, packed together into a matrix $Q$.
+The keys and values are also packed together into matrices $K$ and $V$ .
+We compute the matrix of outputs as:
+
+在实践中，我们同时计算一组查询的注意力函数，并将它们打包到一个矩阵 $Q$ 中。
+键和值也一起打包到矩阵 $K$ 和 $V$ 中。
+我们将输出矩阵计算为：
+
+$$
+Attention(Q, K, V ) = softmax(\frac {QK^T} {\sqrt{d_k}})V
+$$
+
+
+The two most commonly used attention functions are additive attention [2], and dot-product (multi-plicative) attention.
+Dot-product attention is identical to our algorithm, except for the scaling factor of $\face 1 {\sqrt{d_k}}$.
+Additive attention computes the compatibility function using a feed-forward network with a single hidden layer.
+While the two are similar in theoretical complexity, dot-product attention is much faster and more space-efficient in practice, since it can be implemented using highly optimized matrix multiplication code.
+
+两种最常用的注意功能是加法注意 [2] 和点积（多重）注意。
+点积注意力与我们的算法相同，除了 $\face 1 {\sqrt{d_k}}$ 的比例因子。
+附加注意使用具有单个隐藏层的前馈网络计算兼容性函数。
+虽然两者在理论上的复杂性相似，但点积注意力在实践中速度更快且空间效率更高，因为它可以使用高度优化的矩阵乘法代码来实现。
+
+While for small values of $d_k$ the two mechanisms perform similarly, additive attention outperforms dot product attention without scaling for larger values of $d_k$ [3].
+We suspect that for large values of $d_k$, the dot products grow large in magnitude, pushing the softmax function into regions where it has extremely small gradients.
+To counteract this effect, we scale the dot products by $\frac 1 {\sqrt{d_k}}$.
+
+虽然对于较小的 $d_k$ 值，这两种机制的表现相似，但加法注意力优于点积注意力，而无需缩放更大的 $d_k$ 值 [3]。
+我们怀疑对于较大的 $d_k$ 值，点积的幅度会变大，将 softmax 函数推入梯度极小的区域。
+为了抵消这种影响，我们将点积缩放 $\frac 1 {\sqrt{d_k}}$。
+
+### 6.2.2 Multi-Head Attention
+
+### 6.2.3 Applications of Attention in our Model
+
+## 6.3 Position-wise Feed-Forward Networks
+
+## 6.4 Embeddings and Softmax
+
+## 6.5 Positional Encoding
+
+
+
 
 # 7 实验
 
