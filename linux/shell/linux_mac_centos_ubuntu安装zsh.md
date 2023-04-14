@@ -21,6 +21,8 @@ chsh -s /bin/zsh
 
 # clone from github
 git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+# or
+git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
 # 复制默认.zshrc
 cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 
@@ -41,6 +43,8 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 1. 安装
 ```bash
 git clone git://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+# or
+git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 ```
 2. 配置
 在~/.zshrc的plugins中加入 zsh-autosuggestions
