@@ -44,7 +44,7 @@ python3 tools/infer/predict_system.py \
 ```bash
 python3 tools/infer/predict_system.py \
     --image_dir="./doc/imgs/" \
-    --draw_img_save_dir="./inference_results/dyg" \
+    --draw_img_save_dir="./inference_results" \
     --det_model_dir="./inference/ch_PP-OCRv3_det_infer" \
     --rec_model_dir="./inference/ch_PP-OCRv3_rec_infer/" \
     --cls_model_dir="./inference/ch_ppocr_mobile_v2.0_cls_infer" \
@@ -53,8 +53,8 @@ python3 tools/infer/predict_system.py \
 
 
 python3 tools/infer/predict_system.py \
-    --image_dir="/Users/zhangxin/gitlab/struct_ocr_service/test/pic" \
-    --draw_img_save_dir="/Users/zhangxin/gitlab/struct_ocr_service/test/pic_result" \
+    --image_dir="/Users/zhangxin/pic/ruguo.png" \
+    --draw_img_save_dir="/Users/zhangxin/pic/pic_result" \
     --det_model_dir="./inference/ch_PP-OCRv3_det_infer" \
     --rec_model_dir="./inference/ch_PP-OCRv3_rec_infer/" \
     --cls_model_dir="./inference/ch_ppocr_mobile_v2.0_cls_infer" \
