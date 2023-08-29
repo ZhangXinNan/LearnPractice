@@ -1,12 +1,17 @@
 
+![](crnn.webp)
+
 # 1 CRNN
 CRNN可分成三个部分。假设输入图像是(32,100,3)，顺序为(height,width,channel)。
 
 ## 1.1 Convlutional Layers
-类似于LeNet5的的卷积网络。输出为(1,25,512)。
+类似于LeNet5的的卷积网络。
+- 输入  (32, 100, 3)
+- 输出  (1, 25, 512)。
 
 ## 1.2 Recurrent Layers
 深层双向LSTM网络。
+由于CNN输出的Feature map是(1,25,512)大小，所以对于RNN最大时间长度 $T=25$ （即有25个时间输入，每个输入 $x_t$ 列向量有 D=512 ）。
 
 ## 1.3 Transcription Layers
 将RNN输出做softmax后，为字符输出。
