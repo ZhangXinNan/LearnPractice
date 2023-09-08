@@ -1,59 +1,74 @@
 #encoding=utf8
+'''
+requirements.txt
+numpy
+scipy
+opencv-python
+pillow
+scikit_image
+matplotlib
+'''
 import time
 import cv2
 import numpy as np
-import scipy
 import PIL
 import skimage
-
+import scipy
 import matplotlib
-
-def test_read_image(imgfile, func, params=None):
-    t0 = time.time()
-    # for i in range(100):
-    img = func(imgfile)
-    return img, time.time() - t0
+# from PIL import Image
+# from skimage import io, transform
+# from scipy import misc, ndimage
+# from matplotlib import image
 
 
-imgfile = './232.jpg'
+imgfile = '../../pic/232.jpg'
 # test_read_image(imgfile)
 
-img, t = test_read_image(imgfile, cv2.imread)
+print("----------opencv----------")
+t0 = time.time()
+img = cv2.imread(imgfile)
+print('cv2.imread :', time.time() - t0, ', shape : ', img.shape)
+
 height, width = img.shape[:2]
 new_height, new_width = height * 2, width * 2 # 将图像放大一倍
 t0 = time.time()
 img2 = cv2.resize(img, (new_width, new_height))
-t1 = time.time() - t0
-print 'cv2.imread :', t, ', shape : ', img.shape, \
-    ', cv2.resize : ', t1, ', shape :', img2.shape
+print('cv2.resize :', time.time() - t0, ', shape :', img2.shape)
 
-from PIL import Image
-img, t = test_read_image(imgfile, Image.open)
+
+print("----------PIL.Image----------")
 t0 = time.time()
-img2 = img.resize((new_width, new_height), Image.BILINEAR)
-t1 = time.time() - t0
-print 'PIL.Image.open :', t, ', size : ', img.size, ', mode: ', img.mode, \
-    ', PIL.Image.resize : ', t1, ' size : ', img2.size #, ', mode: ', img2.mode
-
-from skimage import io, transform
-img, t = test_read_image(imgfile, io.imread)
+img = PIL.Image.open(imgfile)
+print('PIL.Image.open   :', time.time() - t0, ', size : ', img.size, ', mode: ', img.mode)
 t0 = time.time()
-img2 = transform.resize(img, (new_height, new_width), mode='constant')
-t1 = time.time() - t0
-print 'skimage.io.imread :', t, ', shape : ', img.shape, \
-    ', skimage.transform.resize :', t1, ', shape : ', img2.shape
+img2 = img.resize((new_width, new_height), PIL.Image.BILINEAR)
+print('PIL.Image.resize :', time.time() - t0, ', size : ', img2.size, ', mode: ', img2.mode)
 
-from scipy import misc, ndimage
-img, t = test_read_image(imgfile, misc.imread)
-# imresize is deprecated! imresize is deprecated in SciPy 1.0.0, 
-# and will be removed in 1.2.0. Use skimage.transform.resize instead.
-print 'scipy.misc.imread :', t, ', shape : ', img.shape
+print("-----------skimage----------")
+t0 = time.time()
+img = skimage.io.imread(imgfile)
+print('skimage.io.imread :', time.time() - t0, ', shape : ', img.shape)
+t0 = time.time()
+img2 = skimage.transform.resize(img, (new_height, new_width), mode='constant')
+print('skimage.transform.resize :', time.time() - t0, ', shape : ', img2.shape)
 
-img, t = test_read_image(imgfile, ndimage.imread)
-print 'scipy.ndimage.imread :', t, ', shape : ', img.shape
 
-from matplotlib import image
-img, t = test_read_image(imgfile, image.imread)
-print 'matplotlib.image.imread :', t, ', shape : ', img.shape
+'''
+print("----------scipy----------")
+# AttributeError: scipy.misc is deprecated and has no attribute imread.
+t0 = time.time()
+img = scipy.misc.imread(imgfile)
+print('scipy.misc.imread :', time.time() - t0, ', shape : ', img.shape)
+
+t0 = time.time()
+img = scipy.ndimage.imread(imgfile)
+print('scipy.ndimage.imread :', time.time() - t0, ', shape : ', img.shape)
+'''
+
+print("-----------matplotlib-----------")
+import matplotlib.pyplot as plt
+t0 = time.time()
+img = plt.imread(imgfile)
+print('matplotlib.pyplot.imread :', time.time() - t0, ', shape : ', img.shape)
 
 
