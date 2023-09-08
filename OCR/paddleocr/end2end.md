@@ -1,6 +1,6 @@
 
 
-
+# v1.1
 ```bash
 python3 tools/infer/predict_system.py \
     --image_dir="./doc/imgs/" \
@@ -20,7 +20,7 @@ python3 tools/infer/predict_system.py \
     --use_space_char=True
 ```
 
-
+# v2.0
 ```bash
 python3 tools/infer/predict_system.py \
     --image_dir="/Users/zhangxin/gitlab_md/md-data-evaluation/HuaYanDan/20201117/imgs" \
@@ -40,7 +40,7 @@ python3 tools/infer/predict_system.py \
     --use_space_char=True
 ```
 
-
+# v3
 ```bash
 python3 tools/infer/predict_system.py \
     --image_dir="./doc/imgs/" \
@@ -49,6 +49,8 @@ python3 tools/infer/predict_system.py \
     --rec_model_dir="./inference/ch_PP-OCRv3_rec_infer/" \
     --cls_model_dir="./inference/ch_ppocr_mobile_v2.0_cls_infer" \
     --use_angle_cls=true
+
+python3 tools/infer/predict_system.py --image_dir="./doc/imgs/00018069.jpg" --draw_img_save_dir="./inference_results/v3" --det_model_dir="./inference/ch_PP-OCRv3_det_infer/" --cls_model_dir="./inference/ch_ppocr_mobile_v2.0_cls_infer" --rec_model_dir="./inference/ch_PP-OCRv3_rec_infer/" --use_angle_cls=true
 ```
 
 
@@ -59,3 +61,17 @@ python3 tools/infer/predict_system.py \
     --rec_model_dir="./inference/ch_PP-OCRv3_rec_infer/" \
     --cls_model_dir="./inference/ch_ppocr_mobile_v2.0_cls_infer" \
     --use_angle_cls=true
+
+# v4
+```bash
+# 使用方向分类器
+python3 tools/infer/predict_system.py --image_dir="./doc/imgs/00018069.jpg" --draw_img_save_dir="./inference_results/v4" --det_model_dir="./inference/ch_PP-OCRv4_det_infer/" --cls_model_dir="./inference/ch_ppocr_mobile_v2.0_cls_infer" --rec_model_dir="./inference/ch_PP-OCRv4_rec_infer/" --use_angle_cls=true
+
+# 不使用方向分类器
+python3 tools/infer/predict_system.py --image_dir="./doc/imgs/00018069.jpg" --det_model_dir="./ch_PP-OCRv3_det_infer/" --rec_model_dir="./ch_PP-OCRv3_rec_infer/" --use_angle_cls=false
+```
+
+
+
+
+
