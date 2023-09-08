@@ -37,6 +37,7 @@ print("----------PIL.Image----------")
 t0 = time.time()
 for _ in range(n):
     img = PIL.Image.open(imgfile)
+    img.load()
 t = (time.time() - t0)/n
 print('PIL.Image.open   :', t, ', size : ', img.size, ', mode: ', img.mode)
 
