@@ -24,9 +24,8 @@ def load_data():
     training_data = data[:offset]
 
     # 计算训练集的最大值，最小值，平均值
-    maximums, minimums, avgs = training_data.max(axis=0), training_data.min(axis=0), \
-                                 training_data.sum(axis=0) / training_data.shape[0]
-
+    maximums, minimums = training_data.max(axis=0), training_data.min(axis=0)
+    # avgs = training_data.sum(axis=0) / training_data.shape[0]
     # 对数据进行归一化处理
     for i in range(feature_num):
         #print(maximums[i], minimums[i], avgs[i])
