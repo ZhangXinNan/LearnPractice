@@ -1,5 +1,5 @@
 
-- 第一章 asyncio简介
+- 第1章 asyncio简介
     - 1.1 什么是asyncio
     - 1.2 什么是I/O密集型和CPU密集型
     - 1.3 了解并发、并行和多任务
@@ -11,7 +11,7 @@
     - 1.7 事件循环的工作原理
     - 1.8 本章小节
 
-# 第一章 asyncio简介
+# 第1章 asyncio简介
 
 ## 1.1 什么是asyncio
 asyncio 是异步I/O的缩写。
