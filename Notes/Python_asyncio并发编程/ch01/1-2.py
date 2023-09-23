@@ -1,9 +1,7 @@
-# 1-4-2
-
 import os
 import threading
 
-# 进程ID
+# os.getpid()：获取进程ID
 print(f'Python process running with process id : {os.getpid()}')
 
 # 正在进行的线程活动计数
