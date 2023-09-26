@@ -5,6 +5,8 @@
 给你一个字符串 s，找到 s 中最长的回文子串
 */
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 using namespace  std;
 
 
@@ -20,7 +22,7 @@ int check(const string& s, const size_t i, string &result) {
         m -= 1;
         n += 1;
     }
-    std::cout << begin << "," << len << std::endl;
+    // std::cout << begin << "," << len << std::endl;
     result = s.substr(begin, len);
     return len;
 }
@@ -37,7 +39,7 @@ int check2(const string& s, const size_t i, string &result) {
         m -= 1;
         n += 1;
     }
-    std::cout << begin << "," << len << std::endl;
+    // std::cout << begin << "," << len << std::endl;
     result = s.substr(begin, len);
     return len;
 }
@@ -76,6 +78,19 @@ int main() {
     std::cout << s2 << std::endl;
     std::string r2 = solution.longestPalindrome(s2);
     std::cout << r2 << std::endl;
+
+    std::string s3 = "";
+    for (int i = 0; i < 1000000; i++) {
+        s3 += '0' + rand() % 2;
+    }
+    std::cout << s3 << std::endl;
+    std::cout << s3.size() << std::endl;
+    time_t t0 = time(0);
+    std::cout << t0 << endl;
+    std::string r3 = solution.longestPalindrome(s3);
+    time_t t1 = time(0);
+    std::cout << t1 << ", elapse : " << t1 - t0 << endl;
+    std::cout << r3 << std::endl;
     
     return 0;
 }
