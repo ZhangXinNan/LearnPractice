@@ -3,7 +3,7 @@
 ## 1.1 安装驱动
 编辑文件 blacklist.conf
 ```bash
-sudo gedit /etc/modprobe.d/blacklist.conf
+sudo gedit /etc/modprobe.d/blacklist-nouveau.conf
 ```
 
 在文件最后部分插入以下两行内容
