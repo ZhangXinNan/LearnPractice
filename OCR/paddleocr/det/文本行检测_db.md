@@ -27,6 +27,12 @@ python3 tools/infer/predict_det.py \
     --image_dir="./doc/imgs/00018069.jpg" \
     --det_model_dir="inference/ch_ppocr_mobile_v2.0_det_infer"
 
-
-
+# 3.0
+```bash
+# download DB text detection inference model
+wget  https://paddleocr.bj.bcebos.com/PP-OCRv3/chinese/ch_PP-OCRv3_det_infer.tar
+tar xf ch_PP-OCRv3_det_infer.tar
+# run inference
+python3 tools/infer/predict_det.py --image_dir="./doc/imgs/00018069.jpg" --det_model_dir="./ch_PP-OCRv3_det_infer/"
+```
 

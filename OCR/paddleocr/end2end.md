@@ -71,7 +71,32 @@ python3 tools/infer/predict_system.py --image_dir="./doc/imgs/00018069.jpg" --dr
 python3 tools/infer/predict_system.py --image_dir="./doc/imgs/00018069.jpg" --det_model_dir="./ch_PP-OCRv3_det_infer/" --rec_model_dir="./ch_PP-OCRv3_rec_infer/" --use_angle_cls=false
 ```
 
+```bash
+# use direction classifier
+python3 tools/infer/predict_system.py \
+    --image_dir="./doc/imgs/" \
+    --det_model_dir="./inference/ch_PP-OCRv3_det_infer/" \
+    --cls_model_dir="./inference/ch_ppocr_mobile_v2.0_cls_infer/" \
+    --rec_model_dir="./inference/ch_PP-OCRv3_rec_infer/" \
+    --use_angle_cls=true \
+    --draw_img_save_dir="./inference_results/v3/"
 
+python3 tools/infer/predict_system.py \
+    --image_dir="./doc/imgs/" \
+    --det_model_dir="./inference/ch_PP-OCRv4_det_infer/" \
+    --cls_model_dir="./inference/ch_ppocr_mobile_v2.0_cls_infer/" \
+    --rec_model_dir="./inference/ch_PP-OCRv4_rec_infer/" \
+    --use_angle_cls=true \
+    --draw_img_save_dir="./inference_results/v4/"
+
+
+# not use use direction classifier
+python3 tools/infer/predict_system.py --image_dir="./doc/imgs/00018069.jpg" --det_model_dir="./ch_PP-OCRv3_det_infer/" --rec_model_dir="./ch_PP-OCRv3_rec_infer/" --use_angle_cls=false
+# use multi-process
+python3 tools/infer/predict_system.py --image_dir="./doc/imgs/00018069.jpg" --det_model_dir="./ch_PP-OCRv3_det_infer/" --rec_model_dir="./ch_PP-OCRv3_rec_infer/" --use_angle_cls=false --use_mp=True --total_process_num=6
+# use PDF files, you can infer the first few pages by using the `page_num` parameter, the default is 0, which means infer all pages
+python3 tools/infer/predict_system.py --image_dir="./xxx.pdf" --det_model_dir="./ch_PP-OCRv3_det_infer/" --cls_model_dir="./cls/" --rec_model_dir="./ch_PP-OCRv3_rec_infer/" --use_angle_cls=true --page_num=2
+```
 
 
 
