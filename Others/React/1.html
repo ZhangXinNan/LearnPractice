@@ -1,0 +1,17 @@
+<!-- 存放人员列表的容器 -->
+<ul id="list"> </ul>
+
+<script type="text/javascript">
+    let personArr = [
+        {id: "001", name:"鹿晗", age:18},
+        {id: "002", name:"李现", age:19}
+    ]
+    // 定义人员列表的html字符串
+    let htmlStr = ''
+    // 用数据生成人员列表
+    personArr.forEach((person)=>{
+        htmlStr += `<li>${person.name}-${person.age}</li>`
+    })
+    // 操作dom呈现界面
+    document.getElementById('list').innerHTML = htmlStr
+</script>
