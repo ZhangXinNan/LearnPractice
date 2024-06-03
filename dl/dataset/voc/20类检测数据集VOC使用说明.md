@@ -15,6 +15,40 @@ ls train/VOCdevkit/VOC2012/JPEGImages/ | wc -l
 17125
 ls test/VOCdevkit/VOC2007/JPEGImages/ | wc -l
 4952
+
+ls test/VOCdevkit/VOC2007/Annotations/ | wc -l
+4952
+ls test/VOCdevkit/VOC2007/ImageSets/ | wc -l
+3
+ls test/VOCdevkit/VOC2007/JPEGImages/ | wc -l
+4952
+ls test/VOCdevkit/VOC2007/SegmentationClass/ | wc -l
+210
+ls test/VOCdevkit/VOC2007/SegmentationObject/ | wc -l
+210
+
+
+ls VOCdevkit/VOC2007/Annotations/ | wc -l
+5011
+ls VOCdevkit/VOC2007/ImageSets/ | wc -l
+3
+ls VOCdevkit/VOC2007/JPEGImages/ | wc -l
+5011
+ls VOCdevkit/VOC2007/SegmentationClass | wc -l
+422
+ls VOCdevkit/VOC2007/SegmentationObject | wc -l
+422
+
+ls -alh VOCdevkit/VOC2012/Annotations/* | wc -l
+17125
+ls -alh VOCdevkit/VOC2012/ImageSets/* | wc -l
+121
+ls -alh VOCdevkit/VOC2012/JPEGImages/* | wc -l
+17125
+ls -alh VOCdevkit/VOC2012/SegmentationClass/ | wc -l
+2916
+ls -alh VOCdevkit/VOC2012/SegmentationObject/ | wc -l
+2916
 ```
 
 目录结构为：
