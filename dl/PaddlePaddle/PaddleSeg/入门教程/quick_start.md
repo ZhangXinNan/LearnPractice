@@ -1,3 +1,9 @@
+快速体检
+_________________________________
+
+https://github.com/PaddlePaddle/PaddleSeg/blob/release/2.9/docs/quick_start_cn.md
+
+
 # 1 准备数据
 ```bash
 cd PaddleSeg
@@ -42,4 +48,4 @@ python tools/predict.py \
        --save_dir output/result
 ```
 
-
+预测完成，可以在PaddleSeg/output/result目录下查看预测结果，如下图。
