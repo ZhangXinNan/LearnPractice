@@ -84,26 +84,35 @@ Formally, during training, we define a multi-task loss on each sampled RoI as $L
 
 正式地，在训练期间，我们在每个采样的 RoI 上定义一个多任务损失 $L = L_{cls} + L_{box} + L_{mask}$。分类损失 $L_{cls}$ 和边界框损失 $L_{box}$ 与 [12] 中定义的相同。掩码分支对每个 RoI 都有一个 $Km^2$ 维输出，它编码了 K 个分辨率为 m × m 的二进制掩码，每个 K 个类别一个。对此，我们应用一个逐像素 S 型函数，并将 $L_{mask}$ 定义为平均二进制交叉熵损失。对于与真实类别 k 相关的 RoI，Lmask 仅在第 $k$ 个掩码上定义（其他掩码输出不会导致损失）。
 
-Our definition of Lmask allows the network to generate masks for every class without competition among classes; we rely on the dedicated classification branch to predict the class label used to select the output mask. This decouples mask and class prediction. This is different from common practice when applying FCNs [30] to semantic segmentation, which typically uses a per-pixel softmax and a multinomial cross-entropy loss. In that case, masks across classes compete; in our case, with a per-pixel sigmoid and a binary loss, they do not. We show by experiments that this formulation is key for good instance segmentation results.
+Our definition of $L_{mask}$ allows the network to generate masks for every class without competition among classes; we rely on the dedicated classification branch to predict the class label used to select the output mask. This decouples mask and class prediction. This is different from common practice when applying FCNs [30] to semantic segmentation, which typically uses a per-pixel softmax and a multinomial cross-entropy loss. In that case, masks across classes compete; in our case, with a per-pixel sigmoid and a binary loss, they do not. We show by experiments that this formulation is key for good instance segmentation results.
+
+我们对 $L_{mask}$ 的定义允许网络为每个类生成掩码，而无需类之间竞争；我们依靠专用的分类分支来预测用于选择输出掩码的类标签。这将掩码和类预测分离。这与将 FCN [30] 应用于语义分割时的常见做法不同，后者通常使用逐像素 softmax 和多项式交叉熵损失。在这种情况下，跨类的掩码会竞争；在我们的例子中，使用逐像素 sigmoid 和二元损失，它们不会竞争。我们通过实验表明，这种公式是获得良好实例分割结果的关键。
 
 Mask Representation: A mask encodes an input object’s spatial layout. Thus, unlike class labels or box offsets that are inevitably collapsed into short output vectors by fully-connected (fc) layers, extracting the spatial structure of masks can be addressed naturally by the pixel-to-pixel correspondence provided by convolutions.
 
+掩码表示：掩码对输入对象的空间布局进行编码。因此，与不可避免地被全连接 (fc) 层折叠成短输出向量的类标签或框偏移不同，提取掩码的空间结构可以通过卷积提供的像素到像素对应关系自然解决。
 
-Specifically, we predict an m × m mask from each RoI using an FCN [30]. This allows each layer in the mask branch to maintain the explicit m × m object spatial layout without collapsing it into a vector representation that lacks spatial dimensions. Unlike previous methods that resort to fc layers for mask prediction [33, 34, 10], our fully convolutional representation requires fewer parameters, and is more accurate as demonstrated by experiments.
+Specifically, we predict an $m × m$ mask from each RoI using an FCN [30]. This allows each layer in the mask branch to maintain the explicit $m × m$ object spatial layout without collapsing it into a vector representation that lacks spatial dimensions. Unlike previous methods that resort to fc layers for mask prediction [33, 34, 10], our fully convolutional representation requires fewer parameters, and is more accurate as demonstrated by experiments.
+
+具体来说，我们使用 FCN [30] 从每个 RoI 预测一个 $m×m$ 大小的掩码。这样，掩码分支中的每一层都可以保持显式的 $m×m$ 对象空间布局，而不会将其折叠为缺乏空间维度的矢量表示。与之前使用 fc 层进行掩码预测的方法 [33、34、10] 不同，我们的全卷积表示需要的参数更少，而且实验证明其准确性更高。
 
 
 This pixel-to-pixel behavior requires our RoI features, which themselves are small feature maps, to be well aligned to faithfully preserve the explicit per-pixel spatial correspondence. This motivated us to develop the following RoIAlign layer that plays a key role in mask prediction.
 
+这种像素到像素的行为要求我们的 RoI 特征（它们本身就是小特征图）能够很好地对齐，以忠实地保留明确的每像素空间对应关系。这促使我们开发了以下在掩码预测中起关键作用的 RoIAlign 层。
 
 RoIAlign: RoIPool [12] is a standard operation for extracting a small feature map (e.g., 7×7) from each RoI. RoIPool first quantizes a floating-number RoI to the discrete granularity of the feature map, this quantized RoI is then subdivided into spatial bins which are themselves quantized, and finally feature values covered by each bin are aggregated (usually by max pooling). Quantization is performed, e.g., on a continuous coordinate x by computing [x/16], where 16 is a feature map stride and [·] is rounding; likewise, quantization is performed when dividing into bins (e.g., 7×7). These quantizations introduce misalignments between the RoI and the extracted features. While this may not impact classification, which is robust to small translations, it has a large negative effect on predicting pixel-accurate masks.
 
+RoIAlign：RoIPool [12] 是从每个 RoI 中提取小特征图（例如 7×7）的标准操作。RoIPool 首先将浮点数 RoI 量化为特征图的离散粒度，然后将量化的 RoI 细分为空间箱，这些空间箱本身也经过量化，最后聚合每个箱覆盖的特征值（通常通过最大池化）。量化是通过计算 [x/16] 对连续坐标 x 执行的，其中 16 是特征图步长，[·] 是舍入；同样，在划分为箱（例如 7×7）时执行量化。这些量化会导致 RoI 和提取的特征之间出现错位。虽然这可能不会影响对小平移具有鲁棒性的分类，但它对预测像素精确掩码有很大的负面影响。
 
 
 To address this, we propose an RoIAlign layer that removes the harsh quantization of RoIPool, properly aligning the extracted features with the input. Our proposed change is simple: we avoid any quantization of the RoI boundaries or bins (i.e., we use x/16 instead of [x/16]). We use bilinear interpolation [22] to compute the exact values of the input features at four regularly sampled locations in each RoI bin, and aggregate the result (using max or average), see Figure 3 for details. We note that the results are not sensitive to the exact sampling locations, or how many points are sampled, as long as no quantization is performed.
 
+为了解决这个问题，我们提出了一个 RoIAlign 层，它消除了 RoIPool 的严格量化，将提取的特征与输入正确对齐。我们提出的改变很简单：我们避免对 RoI 边界或箱体进行任何量化（即，我们使用 x/16 而不是 [x/16]）。我们使用双线性插值 [22] 来计算每个 RoI 箱体中四个规则采样位置的输入特征的精确值，并汇总结果（使用最大值或平均值），有关详细信息，请参见图 3。我们注意到，只要不执行量化，结果就不会对精确的采样位置或采样的点数敏感。
 
 RoIAlign leads to large improvements as we show in §4.2. We also compare to the RoIWarp operation proposed in [10]. Unlike RoIAlign, RoIWarp overlooked the alignment issue and was implemented in [10] as quantizing RoI just like RoIPool. So even though RoIWarp also adopts bilinear resampling motivated by [22], it performs on par with RoIPool as shown by experiments (more details in Table 2c), demonstrating the crucial role of alignment.
 
+RoIAlign 可以带来巨大的改进，正如我们在 §4.2 中展示的那样。我们还将其与 [10] 中提出的 RoIWarp 操作进行了比较。与 RoIAlign 不同，RoIWarp 忽略了对齐问题，并在 [10] 中实现为像 RoIPool 一样量化 RoI。因此，尽管 RoIWarp 也采用了 [22] 启发的双线性重采样，但实验表明它的性能与 RoIPool 相当（更多详细信息见表 2c），证明了对齐的关键作用。
 
 Network Architecture: To demonstrate the generality of our approach, we instantiate Mask R-CNN with multiple architectures. For clarity, we differentiate between: (i) the convolutional backbone architecture used for feature extraction over an entire image, and (ii) the network head for bounding-box recognition (classification and regression) and mask prediction that is applied separately to each RoI.
 
