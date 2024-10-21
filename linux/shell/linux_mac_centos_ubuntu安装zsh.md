@@ -20,9 +20,9 @@ which zsh
 chsh -s /bin/zsh
 
 # clone from github
-git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+git clone git@github.com:ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
 # or
-git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
+# git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
 # 复制默认.zshrc
 cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 
@@ -33,7 +33,7 @@ cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 # 1 语法高亮插件
 1. 安装
 ```bash
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+git clone git@github.com:zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 ```
 2. 配置
 在~/.zshrc的plugins中加入 zsh-syntax-highlighting 。
@@ -42,9 +42,9 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 # 2 自动补全插件
 1. 安装
 ```bash
-git clone git://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone git@github.com:zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 # or
-git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+# git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 ```
 2. 配置
 在~/.zshrc的plugins中加入 zsh-autosuggestions
