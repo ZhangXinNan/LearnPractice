@@ -18,6 +18,8 @@ which zsh
 # 更换sh
 # chsh -s /usr/bin/zsh
 chsh -s /bin/zsh
+# 如果没有权限，可以在.bashrc最后加上 bash -c zsh
+
 
 # clone from github
 git clone git@github.com:ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
