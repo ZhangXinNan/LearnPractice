@@ -6,6 +6,9 @@ ImportError: libGL.so.1: cannot open shared object file: No such file or directo
 # 2 解决办法
 sudo yum install mesa-libGL
 
+apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
+pip install opencv-python-headless
+
 
 # 3 新的问题
 
