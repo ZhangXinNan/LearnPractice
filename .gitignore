@@ -38,6 +38,7 @@
 *.pyo
 *.gz
 
+*.pdb
 *.log
 
 .ipynb_checkpoints/
