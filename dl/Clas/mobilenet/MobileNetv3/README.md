@@ -1,0 +1,25 @@
+
+# Abstract
+We present the next generation of MobileNets based on a combination of complementary search techniques as well as a novel architecture design. MobileNetV3 is tuned to mobile phone CPUs through a combination of hardware-aware network architecture search (NAS) complemented by the NetAdapt algorithm and then subsequently improved through novel architecture advances. This paper starts the exploration of how automated search algorithms and network design can work together to harness complementary approaches improving the overall state of the art. Through this process we create two new MobileNet models for release: MobileNetV3-Large and MobileNetV3-Small which are targeted for high and low resource use cases. These models are then adapted and applied to the tasks of object detection and semantic segmentation. For the task of semantic segmentation (or any dense pixel prediction), we propose a new efficient segmentation decoder Lite Reduced Atrous Spatial Pyramid Pooling (LR-ASPP). We achieve new state of the art results for mobile classification, detection and segmentation. MobileNetV3-Large is 3.2% more accurate on ImageNet classification while reducing latency by 20% compared to MobileNetV2. MobileNetV3-Small is 6.6% more accurate compared to a MobileNetV2 model with comparable latency. MobileNetV3-Large detection is over 25% faster at roughly the same accuracy as MobileNetV2 on COCO detection. MobileNetV3-Large LR-ASPP is 34% faster than MobileNetV2 R-ASPP at similar accuracy for Cityscapes segmentation.
+
+我们基于互补搜索技术以及新颖的架构设计，提出了下一代 MobileNets。MobileNetV3 通过结合硬件感知网络架构搜索 (NAS) 和 NetAdapt 算法，针对手机 CPU 进行了调优，并通过新颖的架构改进进行了改进。本文探讨了如何将自动搜索算法与网络设计协同工作，以利用互补方法提升整体最佳水平。在此过程中，我们创建了两个新的 MobileNet 模型：MobileNetV3-Large 和 MobileNetV3-Small，分别针对高资源和低资源用例。然后，这些模型经过调整并应用于对象检测和语义分割任务。对于语义分割（或任何密集像素预测）任务，我们提出了一种新的高效分割解码器 Lite Reduced Atrous Spatial Pyramid Pooling (LR-ASPP)。我们在移动分类、检测和分割方面取得了新的最佳结果。与 MobileNetV2 相比，MobileNetV3-Large 在 ImageNet 分类上的准确率提高了 3.2%，同时延迟降低了 20%。与延迟相当的 MobileNetV2 模型相比，MobileNetV3-Small 的准确率提高了 6.6%。在 COCO 检测中，MobileNetV3-Large 的检测速度比 MobileNetV2 快 25% 以上，准确率大致相同。在城市景观分割方面，MobileNetV3-Large LR-ASPP 比 MobileNetV2 R-ASPP 快 34%，准确率相近。
+
+# 3 Efficient Mobile Building Blocks
+Mobile models have been built on increasingly more efficient building blocks. MobileNetV1 [19] introduced **depthwise separable convolutions** as an efficient replacement for traditional convolution layers. Depthwise separable convolutions effectively factorize traditional convolution by separating spatial filtering from the feature generation mechanism. Depthwise separable convolutions are defined by two separate layers: light weight depthwise convolution for spatial filtering and heavier 1x1 pointwise convolutions for feature generation.
+
+移动端模型的构建基础日益高效。MobileNetV1 [19] 引入了**深度可分离卷积**，作为传统卷积层的有效替代方案。深度可分离卷积通过将空间滤波与特征生成机制分离，有效地分解了传统卷积。深度可分离卷积由两个独立的层定义：用于空间滤波的轻量级深度卷积和用于特征生成的更重的 1x1 逐点卷积。
+
+MobileNetV2 [39] introduced the **linear bottleneck** and **inverted residual structure** in order to make even more efficient layer structures by leveraging the low rank nature of the problem. This structure is shown on Figure 3 and is defined by a 1x1 expansion convolution followed by depthwise convolutions and a 1x1 projection layer. The input and output are connected with a residual connection if and only if they have the same number of channels. This structure maintains a compact representation at the input and the output while expanding to a higher-dimensional feature space internally to increase the expressiveness of nonlinear perchannel transformations.
+
+MobileNetV2 [39] 引入了**线性瓶颈层**和**反向残差结构**，以便利用问题的低秩特性构建更高效的层结构。该结构如图 3 所示，由一个 1x1 扩展卷积、随后的深度卷积和一个 1x1 投影层定义。当且仅当输入和输出具有相同数量的通道时，它们才通过残差连接进行连接。该结构在输入和输出端保持紧凑的表示，同时内部扩展到更高维的特征空间，从而提升非线性单通道变换的表达能力。
+
+MnasNet [43] built upon the MobileNetV2 structure by introducing **lightweight attention** modules based on **squeeze and excitation** into the bottleneck structure. Note that the squeeze and excitation module are integrated in a different location than ResNet based modules proposed in [20]. The module is placed after the depthwise filters in the expansion in order for attention to be applied on the largest representation as shown on Figure 4.
+
+MnasNet [43] 在 MobileNetV2 结构的基础上，在瓶颈结构中引入了**基于压缩和激励的轻量级注意力**模块。需要注意的是，压缩和激励模块的集成位置与 [20] 中提出的基于 ResNet 的模块不同。该模块在扩展过程中位于深度滤波器之后，以便将注意力应用于最大的表示，如图 4 所示。
+
+For MobileNetV3, we use a combination of these layers as building blocks in order to build the most effective models. Layers are also upgraded with **modified swish nonlinearities** [36, 13, 16]. Both squeeze and excitation as well as the swish nonlinearity use the sigmoid which can be inefficient to compute as well challenging to maintain accuracy in fixed point arithmetic so we replace this with the **hard sigmoid** [2, 11] as discussed in section 5.2.
+
+
+对于 MobileNetV3，我们将这些层组合起来作为构建块，以构建最有效的模型。此外，我们还通过改进的 **Swish 非线性函数**对各层进行了升级 [36, 13, 16]。挤压和激励以及 swish 非线性都使用了 S 形函数，这不仅计算效率低下，而且在定点运算中保持精度也很困难，因此我们用**硬 S 形函数** [2, 11] 代替它，如第 5.2 节所述。
+
+
