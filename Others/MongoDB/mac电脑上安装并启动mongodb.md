@@ -19,7 +19,7 @@ brew tap mongodb/brew
 3. **安装 MongoDB 社区版**
 
 ```bash
-brew install mongodb-community@7.0
+brew install mongodb-community@8.0
 ```
 
 > 注：你也可以安装其他版本，如 `@6.0` 或 `@5.0`，根据需要修改版本号。
