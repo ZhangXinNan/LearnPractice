@@ -10,11 +10,24 @@
                 // 使用传统方法来获取输入框
                 // obj1 是DOM对象
                 var obj1 = document.getElementById("test");
-                window.alert(obj1.value);
+                window.alert("DOM对象：ojb1.value=" + obj1.value);
 
                 // 如果是jQuery对象，规定jquery对象名是$开头
                 var $obj2 = $('#test');
-                alert($obj2.val());
+                alert("jQuery对象：$obj2.val()" + $obj2.val());
+
+                // dom->jquery对象
+                var $obj3 = $(obj1);
+                alert("dom->jquery: $obj3.val()" + $obj3.val());
+
+                // jQuery->dom对象
+                // 在jquery开发中，把一个对象当作集合处理。有两种方法
+                // 第1种方法
+                var obj4 = $obj2[0];
+                alert("obj4 value="+obj4.value);
+                // 第2种方法
+                var obj5 = $obj2.get(0);
+                alert("obj5 value="+obj5.value);
             }
         </script>
     </head>

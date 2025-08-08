@@ -40,4 +40,14 @@ JavaScript库封装了很多预定义的对象和实用函数。能帮助使用�
   - `var $variable = jQuery对象`
   - `var variable = DOM对象`
 
+![img.png](img.png)
+
+# 5 jQuery对象转DOM对象
+1. jQuery对象是一个对象数组，可以通过[index]的方法，来得到DOM对象。
+2. jQuery本身提供，通过.get(index)方法，得到相应的DOM对象。
+
+
+
+
+
 

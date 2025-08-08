@@ -1,0 +1,55 @@
+
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <script src="https://code.jquery.com/jquery-3.3.1.js"
+                integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+                crossorigin="anonymous">
+        </script>
+        <div class="background"></div>
+    </head>
+
+    <body>
+        <input type="button" value="改变id为one的元素颜色为#0000FF" id="b1"/>
+        <input type="button" value="改变class为mini的所有元素背景为#FF0033" id="b2"/>
+        <input type="button" value="改变元素名为<div>的所有元素的背景色为#00FFFF" id="b3"/>
+        <input type="button" value="改变所有元素的背景色为#00FF33" id="b4"/>
+        <input type="button" value="改变span元素和ID为two的所有元素的背景色为#3399FF" id="b5"/>
+        <br><br>
+        <div id="one" class="mini">one</div>
+        <div id="two" class="mini">two</div>
+        <div id="three" class="mini">three</div>
+        <span id="four" class="mini">four</span>
+        <span id="five" class="mini">five</span>
+        <script lang="text/javascript">
+            //jQuery的id选择器，和按钮绑定一个事件
+            // 选中这个控件
+            // 给b1这个按钮绑定事件
+            $('#b1').click(function () {
+                // window.alert('YES');
+                $("#one").css("background", "#0000ff");
+            });
+
+            $('#b2').click(function () {
+                // 类选择器
+                $(".mini").css("background", "#FF0033");
+            });
+
+            $('#b3').click(function () {
+                // element选择器
+                $("div").css("background", "#00FFFF");
+            });
+
+            $('#b4').click(function () {
+                // 选择器
+                $("*").css("background", "#00FF33");
+            });
+
+            $('#b5').click(function () {
+                // 选择器
+                $("span,#two").css("background", "#3399FF");
+            });
+        </script>
+    </body>
+</html>
