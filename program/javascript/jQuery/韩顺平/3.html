@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script
+       src="https://code.jquery.com/jquery-3.3.1.js"
+       integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+       crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            function testing() {
+                // 使用传统方法来获取输入框
+                // obj1 是DOM对象
+                var obj1 = document.getElementById("test");
+                window.alert(obj1.value);
+
+                // 如果是jQuery对象，规定jquery对象名是$开头
+                var $obj2 = $('#test');
+                alert($obj2.val());
+            }
+        </script>
+    </head>
+
+<body>
+    <input type="text" id="test" value="test"/>
+    <input type="button" onclick="testing()" value="点击"/>
+</body>
+</html>
