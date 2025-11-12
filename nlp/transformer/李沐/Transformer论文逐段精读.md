@@ -14,7 +14,7 @@
 ```
 
 Transformer 是（当前时间2021年10月29日）三年以来深度学习领域最重要的文章之一。
-是继MLP、CNN、RNN之后第四大base模型。
+是继MLP、CNN、RNN之后第四大base基础模型。
 
 # 1 标题和作者
 Attention Is All You Need
@@ -101,6 +101,8 @@ The goal of reducing sequential computation also forms the foundation of the Ext
 
 【注】卷积只能看局部，如果想看到距离很远的地方之间的关联，需要很多层。但是卷积网络可以做多个输出通道，一个输出通道可以认为是识别不同的模式。作者也想使用多通道，所以提出了Multi-head Attention。
 self attention：不是transformer首先提出来的理论，但是我们是第一个只依赖self attention来实现encoder-decoder架构的模型；
+
+
 
 Self-attention, sometimes called intra-attention is an attention mechanism relating different positions of a single sequence in order to compute a representation of the sequence. Self-attention has been used successfully in a variety of tasks including reading comprehension, abstractive summarization, textual entailment and learning task-independent sentence representations [4, 27, 28, 22].
 
