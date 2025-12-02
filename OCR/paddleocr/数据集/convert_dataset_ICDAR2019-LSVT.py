@@ -6,14 +6,18 @@ import json
 
 def get_args():
     parser = argparse.ArgumentParser()
+    parser.add_argument('--in_dir',
+                        default="/Users/zhangxin/data_public/OCR/1_ICDAR2019-LSVT"
+                        )
     parser.add_argument('--num', type=int, default=100)
     return parser.parse_args()
 
 
 def main(args):
-    in_dir = "/Users/zhangxin/data_public/OCR/1_ICDAR2019-LSVT"
+    # in_dir = "/Users/zhangxin/data_public/OCR/1_ICDAR2019-LSVT"
     # t1 = os.path.join(in_dir, "test_part1_images")
     # t2 = os.path.join(in_dir, "test_part2_images")
+    in_dir = args.in_dir
     t1 = "train_full_images_0"
     t2 = "train_full_images_1"
     fo = open(os.path.join(in_dir, f'train_{args.num}.txt'), 'w', encoding='utf-8')
