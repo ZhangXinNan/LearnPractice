@@ -9,7 +9,7 @@ def get_args():
     parser.add_argument('--in_dir',
                         default="/Users/zhangxin/data_public/OCR/1_ICDAR2019-LSVT"
                         )
-    parser.add_argument('--num', type=int, default=100)
+    parser.add_argument('--num', type=int, default=1000)
     return parser.parse_args()
 
 
@@ -38,7 +38,7 @@ def main(args):
                 if os.path.isfile(img_path):
                     fo.write(os.path.join(t2, k + ".jpg") + "\t" + json.dumps(v) + "\n")
                     n += 1
-            if n > args.num:
+            if n >= args.num:
                 break
 
     fo.close()
