@@ -5,8 +5,10 @@ conda create -n py310_paddleocr python=3.10
 conda activate py310_paddleocr
 
 python -m pip install paddlepaddle-gpu==3.2.2 -i https://www.paddlepaddle.org.cn/packages/stable/cu126/
+python -m pip install paddlepaddle-gpu==3.2.2 -i https://www.paddlepaddle.org.cn/packages/stable/cu130/
 
 python -m pip install paddleocr
+pip install -r requirements.txt
 ```
 
 # 1. ICDAR2019-LSVT

@@ -1,0 +1,76 @@
+
+```bash
+conda create -n py310_torchocr python=3.10
+conda activate py310_torchocr
+pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu130
+pip install -r requirements.txt
+pip install numpy==1.26.4
+```
+
+# 1. ICDAR2019-LSVT
+
+## 1.1 PP-OCRv4_mobile_det
+ls -alh weights/ch_PP-OCRv4_det_train/best_accuracy.pth
+14M
+```bash
+python tools/eval.py -c configs/det/ch_PP-OCRv4/ch_PP-OCRv4_det_student_zx.yml \
+    -o Global.pretrained_model=weights/ch_PP-OCRv4_det_train/best_accuracy.pth \
+    Global.use_gpu=True
+```
+[2025/12/02 08:39:45] torchocr INFO: precision:0.7479452054794521
+[2025/12/02 08:39:45] torchocr INFO: recall:0.7165354330708661
+[2025/12/02 08:39:45] torchocr INFO: hmean:0.7319034852546917
+[2025/12/02 08:39:45] torchocr INFO: fps:1.2231537317767183
+- 192.168.18.178 gpu 100个样本  与PaddleOCR低0.2%
+[2025/12/17 11:11:54] torchocr INFO: precision:0.746922024623803
+[2025/12/17 11:11:54] torchocr INFO: recall:0.7165354330708661
+[2025/12/17 11:11:54] torchocr INFO: hmean:0.7314132618888145
+[2025/12/17 11:11:54] torchocr INFO: fps:18.03294455788872
+- 192.168.18.178 gpu 1000个样本 与PaddleOCR低0.2%
+[2025/12/17 11:21:28] torchocr INFO: precision:0.7350975310326013
+[2025/12/17 11:21:28] torchocr INFO: recall:0.6793142569015505
+[2025/12/17 11:21:28] torchocr INFO: hmean:0.7061058700209644
+[2025/12/17 11:21:28] torchocr INFO: fps:75.46508510221719
+
+[2025/12/17 11:44:44] torchocr INFO: precision:0.7352981307136035
+[2025/12/17 11:44:44] torchocr INFO: recall:0.6793142569015505
+[2025/12/17 11:44:44] torchocr INFO: hmean:0.7061984012580265
+[2025/12/17 11:44:44] torchocr INFO: fps:75.9563110103279
+
+[2025/12/17 11:45:59] torchocr INFO: precision:0.7354345749761223
+[2025/12/17 11:45:59] torchocr INFO: recall:0.6794403126181773
+[2025/12/17 11:45:59] torchocr INFO: hmean:0.7063294456820863
+[2025/12/17 11:45:59] torchocr INFO: fps:76.33578116711098
+
+
+## 1.2 PP-OCRv4_server_det
+ls -alh weights/ch_PP-OCRv4_det_server_train/best_accuracy.pth
+109M
+```bash
+python tools/eval.py -c configs/det/ch_PP-OCRv4/ch_PP-OCRv4_det_teacher_zx.yml \
+    -o Global.pretrained_model=weights/ch_PP-OCRv4_det_server_train/best_accuracy.pth \
+    Global.use_gpu=True
+```
+
+[2025/12/02 08:37:07] torchocr INFO: precision:0.8550932568149211
+[2025/12/02 08:37:07] torchocr INFO: recall:0.7821522309711286
+[2025/12/02 08:37:07] torchocr INFO: hmean:0.8169979437971213
+[2025/12/02 08:37:07] torchocr INFO: fps:0.619422585012035
+- 192.168.18.178 gpu 100个样本 与PaddleOCR在CPU下结果一致
+[2025/12/17 11:14:07] torchocr INFO: precision:0.8550932568149211
+[2025/12/17 11:14:07] torchocr INFO: recall:0.7821522309711286
+[2025/12/17 11:14:07] torchocr INFO: hmean:0.8169979437971213
+[2025/12/17 11:14:07] torchocr INFO: fps:3.7846982156590583
+- 192.168.18.178 gpu 1000个样本 与PaddleOCR低0.3% 结果不稳定
+[2025/12/17 11:26:51] torchocr INFO: precision:0.8305249965185907
+[2025/12/17 11:26:51] torchocr INFO: recall:0.7517962939619312
+[2025/12/17 11:26:51] torchocr INFO: hmean:0.7892020643112347
+[2025/12/17 11:26:51] torchocr INFO: fps:21.66514208978694
+
+[2025/12/17 11:55:47] torchocr INFO: precision:0.8304093567251462
+[2025/12/17 11:55:47] torchocr INFO: recall:0.7517962939619312
+[2025/12/17 11:55:47] torchocr INFO: hmean:0.7891498511412505
+[2025/12/17 11:55:47] torchocr INFO: fps:21.623592960468528
+
+
+

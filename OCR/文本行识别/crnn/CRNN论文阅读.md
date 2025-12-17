@@ -2,6 +2,12 @@
 An End-to-End Trainable Neural Network for Image-based Sequence Recognition and Its Application to Scene Text Recognition
 
 用于基于图像的序列识别的端到端可训练神经网络及其在场景文本识别中的应用
+
+Baoguang Shi, Xiang Bai and Cong Yao
+School of Electronic Information and Communications
+Huazhong University of Science and Technology, Wuhan, China
+fshibaoguang,xbaig@hust.edu.cn, yaocong2010@gmail.com
+
 _____
 
 # 0 Abstract
@@ -17,10 +23,30 @@ Image-based sequence recognition has been a longstanding research topic in compu
 
 
 # 1. Introduction
-Recently, the community has seen a strong revival of neural networks, which is mainly stimulated by the great success of deep neural network models, specifically Deep Convolutional Neural Networks (DCNN), in various vision tasks. However, majority of the recent works related to deep neural networks have devoted to detection or classification of object categories [12, 25]. In this paper, we are concerned with a classic problem in computer vision: imagebased sequence recognition. In real world, a stable of visual objects, such as scene text, handwriting and musical score, tend to occur in the form of sequence, not in isolation. Unlike general object recognition, recognizing such sequence-like objects often requires the system to predict a series of object labels, instead of a single label. Therefore, recognition of such objects can be naturally cast as a sequence recognition problem. Another unique property of sequence-like objects is that their lengths may vary drastically. For instance, English words can either consist of 2 characters such as “OK” or 15 characters such as “congratulations”. Consequently, the most popular deep models like DCNN [25, 26] cannot be directly applied to sequence prediction, since DCNN models often operate on inputs and outputs with fixed dimensions, and thus are incapable of producing a variable-length label sequence.
+Recently, the community has seen a strong revival of neural networks, which is mainly stimulated by the great success of deep neural network models, specifically Deep Convolutional Neural Networks (DCNN), in various vision tasks.
+However, majority of the recent works related to deep neural networks have devoted to detection or classification of object categories [12, 25].
+In this paper, we are concerned with a classic problem in computer vision: image-based sequence recognition.
+In real world, a stable of visual objects, such as scene text, handwriting and musical score, tend to occur in the form of sequence, not in isolation.
+Unlike general object recognition, recognizing such sequence-like objects often requires the system to predict a series of object labels, instead of a single label.
+Therefore, recognition of such objects can be naturally cast as a sequence recognition problem. Another unique property of sequence-like objects is that their lengths may vary drastically.
+For instance, English words can either consist of 2 characters such as “OK” or 15 characters such as “congratulations”.
+Consequently, the most popular deep models like DCNN [25, 26] cannot be directly applied to sequence prediction, since DCNN models often operate on inputs and outputs with fixed dimensions, and thus are incapable of producing a variable-length label sequence.
 
 
-最近，社区看到了神经网络的强劲复兴，这主要是受到深度神经网络模型，特别是深度卷积神经网络（DCNN）在各种视觉任务中取得巨大成功的刺激。 然而，最近与深度神经网络相关的大多数工作都致力于对象类别的检测或分类 [12, 25]。 在本文中，我们关注计算机视觉中的一个经典问题：基于图像的序列识别。 在现实世界中，稳定的视觉对象，例如场景文本、笔迹和乐谱，往往以序列的形式出现，而不是孤立的。 与一般的对象识别不同，识别此类序列对象通常需要系统预测一系列对象标签，而不是单个标签。 因此，此类物体的识别可以自然地转化为序列识别问题。 类序列对象的另一个独特属性是它们的长度可能变化很大。 例如，英语单词可以由 2 个字符（如“OK”）组成，也可以由 15 个字符（如“congratulations”）组成。 因此，像 DCNN [25, 26] 这样最流行的深度模型不能直接应用于序列预测，因为 DCNN 模型通常对固定维度的输入和输出进行操作，因此无法生成可变长度的标签序列。
+最近，社区看到了神经网络的强劲复兴，这主要是受到深度神经网络模型，特别是深度卷积神经网络（DCNN）在各种视觉任务中取得巨大成功的刺激。
+然而，最近与深度神经网络相关的大多数工作都致力于对象类别的检测或分类 [12, 25]。
+在本文中，我们关注计算机视觉中的一个经典问题：基于图像的序列识别。
+在现实世界中，稳定的视觉对象，例如场景文本、笔迹和乐谱，往往以序列的形式出现，而不是孤立的。
+与一般的对象识别不同，识别此类序列对象通常需要系统预测一系列对象标签，而不是单个标签。
+因此，此类物体的识别可以自然地转化为序列识别问题。
+类序列对象的另一个独特属性是它们的长度可能变化很大。
+例如，英语单词可以由 2 个字符（如“OK”）组成，也可以由 15 个字符（如“congratulations”）组成。
+因此，像 DCNN [25, 26] 这样最流行的深度模型不能直接应用于序列预测，因为 DCNN 模型通常对固定维度的输入和输出进行操作，因此无法生成可变长度的标签序列。
+
+总结：
+- 过去 DCNN 致力于解决图像分类和目标检测，这篇论文涉及图像序列的识别。
+- 序列识别需要预测一系列的标签，而不是单个标签。
+- 另一个问题是序列长度变化大。
 
 Some attempts have been made to address this problem for a specific sequence-like object (e.g. scene text). For example, the algorithms in [35, 8] firstly detect individual characters and then recognize these detected characters with DCNN models, which are trained using labeled character images. Such methods often require training a strong character detector for accurately detecting and cropping each character out from the original word image. Some other approaches (such as [22]) treat scene text recognition as an image classification problem, and assign a class label to each English word (90K words in total). It turns out a large trained model with a huge number of classes, which is difficult to be generalized to other types of sequencelike objects, such as Chinese texts, musical scores, etc., because the numbers of basic combinations of such kind of sequences can be greater than 1 million. In summary, current systems based on DCNN can not be directly used for image-based sequence recognition.
 
