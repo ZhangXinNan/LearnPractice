@@ -7,11 +7,14 @@ pip install -r requirements.txt
 pip install numpy==1.26.4
 ```
 
+ls -alh weights/ch_PP-OCRv4_det_train/best_accuracy.pth
+14M
+ls -alh weights/ch_PP-OCRv4_det_server_train/best_accuracy.pth
+109M
+
 # 1. ICDAR2019-LSVT
 
 ## 1.1 PP-OCRv4_mobile_det
-ls -alh weights/ch_PP-OCRv4_det_train/best_accuracy.pth
-14M
 ```bash
 python tools/eval.py -c configs/det/ch_PP-OCRv4/ch_PP-OCRv4_det_student_zx.yml \
     -o Global.pretrained_model=weights/ch_PP-OCRv4_det_train/best_accuracy.pth \
@@ -44,8 +47,6 @@ python tools/eval.py -c configs/det/ch_PP-OCRv4/ch_PP-OCRv4_det_student_zx.yml \
 
 
 ## 1.2 PP-OCRv4_server_det
-ls -alh weights/ch_PP-OCRv4_det_server_train/best_accuracy.pth
-109M
 ```bash
 python tools/eval.py -c configs/det/ch_PP-OCRv4/ch_PP-OCRv4_det_teacher_zx.yml \
     -o Global.pretrained_model=weights/ch_PP-OCRv4_det_server_train/best_accuracy.pth \
