@@ -73,5 +73,34 @@ python tools/eval.py -c configs/det/ch_PP-OCRv4/ch_PP-OCRv4_det_teacher_zx.yml \
 [2025/12/17 11:55:47] torchocr INFO: hmean:0.7891498511412505
 [2025/12/17 11:55:47] torchocr INFO: fps:21.623592960468528
 
+## 1.3 PP-OCRv4_mobile_det
+```bash
+python tools/eval.py -c configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_student.yml \
+    -o Global.pretrained_model=weights/ch_PP-OCRv3_det_distill/student.pth \
+    Global.use_gpu=True \
+    Eval.dataset.data_dir="/home/zhangxin/data_public/OCR/1_ICDAR2019-LSVT" \
+    Eval.dataset.label_file_list="['/home/zhangxin/data_public/OCR/1_ICDAR2019-LSVT/train_1000.txt']"
+```
+[2025/12/22 16:05:26] torchocr INFO: precision:0.7802960222016652
+[2025/12/22 16:05:26] torchocr INFO: recall:0.6379679818479768
+[2025/12/22 16:05:26] torchocr INFO: hmean:0.7019904292946806
+[2025/12/22 16:05:26] torchocr INFO: fps:80.90832826824881
 
+
+
+## 1.4 PP-OCRv4_server_det
+```bash
+# configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_dml.yml       指标为0
+# configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_student.yml   指标为0
+python tools/eval.py -c configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_cml.yml \
+    -o Global.pretrained_model=weights/ch_PP-OCRv3_det_distill/best_accuracy.pth \
+    Global.use_gpu=True \
+    Eval.dataset.data_dir="/home/zhangxin/data_public/OCR/1_ICDAR2019-LSVT" \
+    Eval.dataset.label_file_list="['/home/zhangxin/data_public/OCR/1_ICDAR2019-LSVT/train_1000.txt']"
+```
+
+[2025/12/22 16:25:45] torchocr INFO: precision:0.7802960222016652
+[2025/12/22 16:25:45] torchocr INFO: recall:0.6379679818479768
+[2025/12/22 16:25:45] torchocr INFO: hmean:0.7019904292946806
+[2025/12/22 16:25:45] torchocr INFO: fps:23.343504367634903
 
