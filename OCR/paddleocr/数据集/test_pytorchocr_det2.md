@@ -47,7 +47,7 @@ python tools/eval.py -c configs/det/ch_PP-OCRv4/ch_PP-OCRv4_det_teacher.yml \
 [2025/12/17 12:58:20] torchocr INFO: hmean:0.6455486542443064
 [2025/12/17 12:58:20] torchocr INFO: fps:5.693781364434131
 
-## 2.3 PP-OCRv4_mobile_det
+## 2.3 PP-OCRv3_mobile_det
 ```bash
 python tools/eval.py -c configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_student.yml \
     -o Global.pretrained_model=weights/ch_PP-OCRv3_det_distill/student.pth \
@@ -61,7 +61,7 @@ python tools/eval.py -c configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_student.yml \
 [2025/12/22 16:34:13] torchocr INFO: fps:26.19551303510169
 
 
-## 1.4 PP-OCRv4_server_det
+## 1.4 PP-OCRv3_server_det
 ```bash
 # configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_dml.yml       指标为0
 # configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_student.yml   指标为0
