@@ -48,9 +48,11 @@ python tools/eval.py -c configs/det/ch_PP-OCRv4/ch_PP-OCRv4_det_student_zx.yml \
 
 ## 1.2 PP-OCRv4_server_det
 ```bash
-python tools/eval.py -c configs/det/ch_PP-OCRv4/ch_PP-OCRv4_det_teacher_zx.yml \
+python tools/eval.py -c configs/det/ch_PP-OCRv4/ch_PP-OCRv4_det_teacher.yml \
     -o Global.pretrained_model=weights/ch_PP-OCRv4_det_server_train/best_accuracy.pth \
-    Global.use_gpu=True
+    Global.use_gpu=True \
+    Eval.dataset.data_dir="/home/zhangxin/data_public/OCR/1_ICDAR2019-LSVT" \
+    Eval.dataset.label_file_list="['/home/zhangxin/data_public/OCR/1_ICDAR2019-LSVT/train_1000.txt']"
 ```
 
 [2025/12/02 08:37:07] torchocr INFO: precision:0.8550932568149211

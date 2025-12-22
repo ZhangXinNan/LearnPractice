@@ -6,9 +6,11 @@ Eval.dataset.label_file_list='[/home/zhangxin/data_public/OCR/2_ICDAR2017-RCTW-1
 
 ## 2.1 PP-OCRv4_mobile_det
 ```bash
-python tools/eval.py -c configs/det/ch_PP-OCRv4/ch_PP-OCRv4_det_student_zx2.yml \
+python tools/eval.py -c configs/det/ch_PP-OCRv4/ch_PP-OCRv4_det_student.yml \
     -o Global.pretrained_model=weights/ch_PP-OCRv4_det_train/best_accuracy.pth \
-    Global.use_gpu=True
+    Global.use_gpu=True \
+    Eval.dataset.data_dir="/home/zhangxin/data_public/OCR/2_ICDAR2017-RCTW-17/RCTW" \
+    Eval.dataset.label_file_list="['/home/zhangxin/data_public/OCR/2_ICDAR2017-RCTW-17/RCTW/train_2048_1000.txt']"
 ```
 [2025/12/17 12:28:12] torchocr INFO: precision:0.4240389294403893
 [2025/12/17 12:28:12] torchocr INFO: recall:0.5185052957277163
@@ -27,9 +29,11 @@ python tools/eval.py -c configs/det/ch_PP-OCRv4/ch_PP-OCRv4_det_student_zx2.yml 
 
 ## 2.2 PP-OCRv4_server_det
 ```bash
-python tools/eval.py -c configs/det/ch_PP-OCRv4/ch_PP-OCRv4_det_teacher_zx2.yml \
+python tools/eval.py -c configs/det/ch_PP-OCRv4/ch_PP-OCRv4_det_teacher.yml \
     -o Global.pretrained_model=weights/ch_PP-OCRv4_det_server_train/best_accuracy.pth \
-    Global.use_gpu=True
+    Global.use_gpu=True \
+    Eval.dataset.data_dir="/home/zhangxin/data_public/OCR/2_ICDAR2017-RCTW-17/RCTW" \
+    Eval.dataset.label_file_list="['/home/zhangxin/data_public/OCR/2_ICDAR2017-RCTW-17/RCTW/train_2048_1000.txt']"
 ```
 
 - 192.168.18.178 gpu train_1024_1000.txt
