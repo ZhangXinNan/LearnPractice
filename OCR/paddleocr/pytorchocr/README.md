@@ -30,6 +30,16 @@ ls -alh weights/ch_PP-OCRv4_det_server_train/best_accuracy.pth
 # 109M
 python tools/infer_det.py -c configs/det/ch_PP-OCRv4/ch_PP-OCRv4_det_teacher.yml -o Global.pretrained_model=weights/ch_PP-OCRv4_det_server_train/best_accuracy.pth Global.infer_img=doc/imgs/11.jpg
 
+
+
+ls -alh /Users/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_mobile_det.pth
+# 14M
+python tools/infer_det.py -c configs/det/PP-OCRv5/PP-OCRv5_mobile_det.yml -o Global.pretrained_model=/Users/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_mobile_det.pth Global.infer_img=doc/imgs/11.jpg
+
+ls -alh /Users/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_server_det.pth
+# 101M
+python tools/infer_det.py -c configs/det/PP-OCRv5/PP-OCRv5_server_det.yml -o Global.pretrained_model=/Users/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_server_det.pth Global.infer_img=doc/imgs/11.jpg
+# AssertionError: when model typs is det, backbone only support ['MobileNetV3', 'ResNet_vd', 'PPLCNetV3', 'PPHGNet_small']
 ```
 
 
@@ -51,6 +61,17 @@ ls -alh weights/ch_PP-OCRv4_rec_server_train/best_accuracy.pth
 # 151M
 python tools/infer_rec.py -c configs/rec/PP-OCRv4/ch_PP-OCRv4_rec_hgnet.yml -o Global.pretrained_model=weights/ch_PP-OCRv4_rec_server_train/best_accuracy.pth Global.infer_img=doc/imgs_words/ch/word_2.jpg
 
+
+ls -alh /Users/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_mobile_rec.pth
+# 31M
+python tools/infer_rec.py -c configs/rec/PP-OCRv5/PP-OCRv5_mobile_rec.yml -o Global.pretrained_model=/Users/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_mobile_rec.pth Global.infer_img=doc/imgs_words/ch/word_2.jpg
+# [2025/12/25 00:39:55] torchocr INFO: ignore loading parameter: head.ctc_encoder.encoder.conv4.conv.weight, because of size mismatch, current size: torch.Size([60, 960, 1, 3]), pretrained size: torch.Size([60, 960, 3, 3])
+
+
+ls -alh /Users/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_server_rec.pth
+# 128M
+python tools/infer_rec.py -c configs/rec/PP-OCRv5/PP-OCRv5_server_rec.yml -o Global.pretrained_model=/Users/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_server_rec.pth Global.infer_img=doc/imgs_words/ch/word_2.jpg
+# AssertionError: when model typs is rec, backbone only support ['MobileNetV1Enhance', 'ResNet31', 'MobileNetV3', 'PPLCNetV3', 'PPHGNet_small', 'ResNet', 'MTB']
 ```
 
 
