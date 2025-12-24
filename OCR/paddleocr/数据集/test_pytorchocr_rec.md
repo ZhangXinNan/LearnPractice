@@ -107,3 +107,29 @@ python tools/eval.py \
 
 
 
+
+## 1.6 PP-OCRv5_mobile_rec
+```bash
+python tools/eval.py -c configs/rec/PP-OCRv5/PP-OCRv5_mobile_rec.yml \
+    -o Global.pretrained_model=/home/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_mobile_rec.pth \
+    Global.use_gpu=True \
+    Global.device=gpu \
+    Global.use_tensorboard=false \
+    Global.character_dict_path=torchocr/utils/dict/ppocrv5_dict.txt \
+    Eval.dataset.data_dir="/home/zhangxin/data_public/OCR/3_Chinese-Street-View-Text-Recognition" \
+    Eval.dataset.label_file_list="['/home/zhangxin/data_public/OCR/3_Chinese-Street-View-Text-Recognition/train_10000.txt']"
+```
+
+
+## 1.7 PP-OCRv5_server_rec
+```bash
+python tools/eval.py -c configs/rec/PP-OCRv5/PP-OCRv5_server_rec.yml \
+    -o Global.pretrained_model=/home/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_server_rec.pth \
+    Global.use_gpu=True \
+    Global.device=gpu \
+    Global.use_tensorboard=false \
+    Eval.dataset.data_dir="/home/zhangxin/data_public/OCR/3_Chinese-Street-View-Text-Recognition" \
+    Eval.dataset.label_file_list="['/home/zhangxin/data_public/OCR/3_Chinese-Street-View-Text-Recognition/train_10000.txt']"
+```
+
+

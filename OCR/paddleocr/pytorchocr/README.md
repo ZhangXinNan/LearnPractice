@@ -1,5 +1,6 @@
 
-
+# 1 创建虚拟环境
+```bash
 conda create -n py310_pytorchocr python=3.10
 
 conda activate py310_pytorchocr
@@ -7,5 +8,50 @@ conda activate py310_pytorchocr
 
 pip3 install torch torchvision
 pip install torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2
+```
+
+
+# 2 检测
+```bash
+ls -alh weights/ch_PP-OCRv3_det_distill
+# -rw-------@  1 zhangxin  staff   131M Nov 28 17:03 best_accuracy.pth
+# -rw-------@  1 zhangxin  staff   2.5M Nov 28 17:03 student.pth
+# mobile
+python tools/infer_det.py -c configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_student.yml -o Global.pretrained_model=weights/ch_PP-OCRv3_det_distill/student.pth Global.infer_img=doc/imgs/11.jpg
+
+# best_accuracy.pth 【【【没有server模型】】】
+python tools/infer_det.py -c configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_teacher.yml -o Global.pretrained_model=weights/ch_PP-OCRv3_det_distill/best_accuracy.pth Global.infer_img=doc/imgs/11.jpg
+
+ls -alh weights/ch_PP-OCRv4_det_train/best_accuracy.pth
+# 14M
+python tools/infer_det.py -c configs/det/ch_PP-OCRv4/ch_PP-OCRv4_det_student.yml -o Global.pretrained_model=weights/ch_PP-OCRv4_det_train/best_accuracy.pth Global.infer_img=doc/imgs/11.jpg
+
+ls -alh weights/ch_PP-OCRv4_det_server_train/best_accuracy.pth
+# 109M
+python tools/infer_det.py -c configs/det/ch_PP-OCRv4/ch_PP-OCRv4_det_teacher.yml -o Global.pretrained_model=weights/ch_PP-OCRv4_det_server_train/best_accuracy.pth Global.infer_img=doc/imgs/11.jpg
+
+```
+
+
+# 3 识别
+```bash
+ls -alh weights/ch_PP-OCRv3_rec/best_accuracy.pth
+# 210M
+python tools/infer_rec.py -c configs/rec/PP-OCRv3/ch_PP-OCRv3_rec_distillation.yml -o Global.pretrained_model=weights/ch_PP-OCRv3_rec/best_accuracy.pth Global.infer_img=doc/imgs_words/ch/word_2.jpg
+
+ls -alh weights/ch_PP-OCRv3_rec/student.pth
+# 105M
+python tools/infer_rec.py -c configs/rec/PP-OCRv3/ch_PP-OCRv3_rec.yml -o Global.pretrained_model=weights/ch_PP-OCRv3_rec/student.pth Global.infer_img=doc/imgs_words/ch/word_2.jpg
+
+ls -alh weights/ch_PP-OCRv4_rec_train/student.pth
+# 88M
+python tools/infer_rec.py -c configs/rec/PP-OCRv4/ch_PP-OCRv4_rec.yml -o Global.pretrained_model=weights/ch_PP-OCRv4_rec_train/student.pth Global.infer_img=doc/imgs_words/ch/word_2.jpg
+
+ls -alh weights/ch_PP-OCRv4_rec_server_train/best_accuracy.pth
+# 151M
+python tools/infer_rec.py -c configs/rec/PP-OCRv4/ch_PP-OCRv4_rec_hgnet.yml -o Global.pretrained_model=weights/ch_PP-OCRv4_rec_server_train/best_accuracy.pth Global.infer_img=doc/imgs_words/ch/word_2.jpg
+
+```
+
 
 

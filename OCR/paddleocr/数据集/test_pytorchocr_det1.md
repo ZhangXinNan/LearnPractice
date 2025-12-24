@@ -79,6 +79,8 @@ python tools/eval.py -c configs/det/ch_PP-OCRv4/ch_PP-OCRv4_det_teacher.yml \
 
 ## 1.3 PP-OCRv3_mobile_det
 ```bash
+ls weights/ch_PP-OCRv3_det_distill/student.pth
+# 2.5M
 python tools/eval.py -c configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_student.yml \
     -o Global.pretrained_model=weights/ch_PP-OCRv3_det_distill/student.pth \
     Global.use_gpu=True \
@@ -94,6 +96,8 @@ python tools/eval.py -c configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_student.yml \
 
 ## 1.4 PP-OCRv3_server_det
 ```bash
+ls -alh weights/ch_PP-OCRv3_det_distill/best_accuracy.pth
+# 131M
 # configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_dml.yml       指标为0
 # configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_student.yml   指标为0
 python tools/eval.py -c configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_cml.yml \
@@ -107,4 +111,34 @@ python tools/eval.py -c configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_cml.yml \
 [2025/12/22 16:25:45] torchocr INFO: recall:0.6379679818479768
 [2025/12/22 16:25:45] torchocr INFO: hmean:0.7019904292946806
 [2025/12/22 16:25:45] torchocr INFO: fps:23.343504367634903
+> 【这个结果有问题】
+
+## 1.5 PP-OCRv5_mobile_det
+```bash
+python tools/eval.py -c configs/det/PP-OCRv5/PP-OCRv5_mobile_det.yml \
+    -o Global.pretrained_model=/home/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_mobile_det.pth \
+    Global.use_gpu=True \
+    Global.device=gpu \
+    Global.use_tensorboard=false \
+    Eval.dataset.data_dir="/home/zhangxin/data_public/OCR/1_ICDAR2019-LSVT" \
+    Eval.dataset.label_file_list="['/home/zhangxin/data_public/OCR/1_ICDAR2019-LSVT/train_1000.txt']"
+```
+[2025/12/24 11:49:30] torchocr INFO: precision:0.7350534054653904
+[2025/12/24 11:49:30] torchocr INFO: recall:0.6679692424051431
+[2025/12/24 11:49:30] torchocr INFO: hmean:0.699907541936336
+[2025/12/24 11:49:30] torchocr INFO: fps:76.99832001989842
+
+
+## 1.6 PP-OCRv5_server_det
+```bash
+python tools/eval.py -c configs/det/PP-OCRv5/PP-OCRv5_server_det.yml \
+    -o Global.pretrained_model=/home/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_server_det.pth \
+    Global.use_gpu=True \
+    Global.device=gpu \
+    Global.use_tensorboard=false \
+    Eval.dataset.data_dir="/home/zhangxin/data_public/OCR/1_ICDAR2019-LSVT" \
+    Eval.dataset.label_file_list="['/home/zhangxin/data_public/OCR/1_ICDAR2019-LSVT/train_1000.txt']"
+```
+
+
 
