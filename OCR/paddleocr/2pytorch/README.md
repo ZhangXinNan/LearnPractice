@@ -40,6 +40,6 @@ python ./tools/infer/predict_rec.py --image_dir ./doc/imgs_words/ch --rec_model_
 python ./tools/infer/predict_rec.py --rec_yaml_path configs/rec/PP-OCRv5/PP-OCRv5_mobile_rec.yml --rec_image_shape='3,48,320' --rec_char_dict_path ./pytorchocr/utils/dict/ppocrv5_dict.txt --rec_model_path models/ptocrv5/ptocr_v5_mobile_rec.pth --image_dir ./doc/imgs_words/ch
 
 # PP-OCRv5/PP-OCRv5_server_rec
-python ./tools/infer/predict_rec.py --use_gpu false --rec_yaml_path configs/rec/PP-OCRv5/PP-OCRv5_server_rec.yml --rec_image_shape='3,48,320' --rec_char_dict_path ./pytorchocr/utils/dict/ppocrv5_dict.txt --rec_model_path ./ptocr_v5_server_rec.pth --image_dir ./doc/imgs_words/ch
+python ./tools/infer/predict_rec.py --use_gpu false --rec_yaml_path configs/rec/PP-OCRv5/PP-OCRv5_server_rec.yml --rec_image_shape='3,48,320' --rec_char_dict_path ./pytorchocr/utils/dict/ppocrv5_dict.txt --rec_model_path models/ptocrv5/ptocr_v5_server_rec.pth --image_dir ./doc/imgs_words/ch
 ```
 
