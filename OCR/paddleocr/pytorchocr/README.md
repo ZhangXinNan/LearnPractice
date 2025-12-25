@@ -55,7 +55,11 @@ python tools/infer_rec.py -c configs/rec/PP-OCRv3/ch_PP-OCRv3_rec.yml -o Global.
 
 ls -alh weights/ch_PP-OCRv4_rec_train/student.pth
 # 88M
-python tools/infer_rec.py -c configs/rec/PP-OCRv4/ch_PP-OCRv4_rec.yml -o Global.pretrained_model=weights/ch_PP-OCRv4_rec_train/student.pth Global.infer_img=doc/imgs_words/ch/word_2.jpg
+python tools/infer_rec.py -c configs/rec/PP-OCRv4/ch_PP-OCRv4_rec.yml -o Global.pretrained_model=weights/ch_PP-OCRv4_rec_train/student.pth Global.infer_img=doc/imgs_words/ch
+
+ls -alh /Users/zhangxin/github/PaddleOCR2Pytorch/models/ch_ptocr_v4_rec_infer.pth
+# 26M
+python tools/infer_rec.py -c configs/rec/PP-OCRv4/ch_PP-OCRv4_rec2.yml -o Global.pretrained_model=/Users/zhangxin/github/PaddleOCR2Pytorch/models/ch_ptocr_v4_rec_infer.pth Global.infer_img=doc/imgs_words/ch
 
 ls -alh weights/ch_PP-OCRv4_rec_server_train/best_accuracy.pth
 # 151M
@@ -64,8 +68,7 @@ python tools/infer_rec.py -c configs/rec/PP-OCRv4/ch_PP-OCRv4_rec_hgnet.yml -o G
 
 ls -alh /Users/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_mobile_rec.pth
 # 31M
-python tools/infer_rec.py -c configs/rec/PP-OCRv5/PP-OCRv5_mobile_rec.yml -o Global.pretrained_model=/Users/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_mobile_rec.pth Global.infer_img=doc/imgs_words/ch/word_2.jpg
-# [2025/12/25 00:39:55] torchocr INFO: ignore loading parameter: head.ctc_encoder.encoder.conv4.conv.weight, because of size mismatch, current size: torch.Size([60, 960, 1, 3]), pretrained size: torch.Size([60, 960, 3, 3])
+python tools/infer_rec.py -c configs/rec/PP-OCRv5/PP-OCRv5_mobile_rec.yml -o Global.pretrained_model=/Users/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_mobile_rec.pth Global.infer_img=doc/imgs_words/ch
 
 
 ls -alh /Users/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_server_rec.pth

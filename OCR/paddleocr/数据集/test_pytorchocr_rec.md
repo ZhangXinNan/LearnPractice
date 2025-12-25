@@ -119,6 +119,9 @@ python tools/eval.py -c configs/rec/PP-OCRv5/PP-OCRv5_mobile_rec.yml \
     Eval.dataset.data_dir="/home/zhangxin/data_public/OCR/3_Chinese-Street-View-Text-Recognition" \
     Eval.dataset.label_file_list="['/home/zhangxin/data_public/OCR/3_Chinese-Street-View-Text-Recognition/train_10000.txt']"
 ```
+[2025/12/25 18:10:48] torchocr INFO: acc:0.4507999995492
+[2025/12/25 18:10:48] torchocr INFO: norm_edit_dis:0.6048595113310833
+[2025/12/25 18:10:48] torchocr INFO: fps:6177.860588430239
 
 
 ## 1.7 PP-OCRv5_server_rec
