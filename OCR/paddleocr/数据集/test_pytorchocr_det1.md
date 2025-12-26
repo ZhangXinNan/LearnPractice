@@ -137,6 +137,9 @@ python tools/eval.py -c configs/det/PP-OCRv5/PP-OCRv5_server_det.yml \
     Eval.dataset.data_dir="/home/zhangxin/data_public/OCR/1_ICDAR2019-LSVT" \
     Eval.dataset.label_file_list="['/home/zhangxin/data_public/OCR/1_ICDAR2019-LSVT/train_1000.txt']"
 ```
-
+[2025/12/26 16:33:54] torchocr INFO: precision:0.8182070496808216
+[2025/12/26 16:33:54] torchocr INFO: recall:0.7432245052313122
+[2025/12/26 16:33:54] torchocr INFO: hmean:0.7789153841072726
+[2025/12/26 16:33:54] torchocr INFO: fps:22.428419558429475
 
 
