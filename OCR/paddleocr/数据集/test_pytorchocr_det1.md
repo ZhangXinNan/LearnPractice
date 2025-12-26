@@ -1,21 +1,48 @@
 
-```bash
-conda create -n py310_torchocr python=3.10
-conda activate py310_torchocr
-pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu130
-pip install -r requirements.txt
-pip install numpy==1.26.4
-```
-
-ls -alh weights/ch_PP-OCRv4_det_train/best_accuracy.pth
-14M
-ls -alh weights/ch_PP-OCRv4_det_server_train/best_accuracy.pth
-109M
 
 # 1. ICDAR2019-LSVT
 
-## 1.1 PP-OCRv4_mobile_det
+
+## 1.1 PP-OCRv3_mobile_det
 ```bash
+ls -alh weights/ch_PP-OCRv3_det_distill/student.pth
+# 2.5M
+python tools/eval.py -c configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_student.yml \
+    -o Global.pretrained_model=weights/ch_PP-OCRv3_det_distill/student.pth \
+    Global.use_gpu=True \
+    Eval.dataset.data_dir="/home/zhangxin/data_public/OCR/1_ICDAR2019-LSVT" \
+    Eval.dataset.label_file_list="['/home/zhangxin/data_public/OCR/1_ICDAR2019-LSVT/train_1000.txt']"
+```
+[2025/12/22 16:05:26] torchocr INFO: precision:0.7802960222016652
+[2025/12/22 16:05:26] torchocr INFO: recall:0.6379679818479768
+[2025/12/22 16:05:26] torchocr INFO: hmean:0.7019904292946806
+[2025/12/22 16:05:26] torchocr INFO: fps:80.90832826824881
+
+
+
+## 1.2 PP-OCRv3_server_det
+```bash
+ls -alh weights/ch_PP-OCRv3_det_distill/best_accuracy.pth
+# 131M
+# configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_dml.yml       指标为0
+# configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_student.yml   指标为0
+python tools/eval.py -c configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_cml.yml \
+    -o Global.pretrained_model=weights/ch_PP-OCRv3_det_distill/best_accuracy.pth \
+    Global.use_gpu=True \
+    Eval.dataset.data_dir="/home/zhangxin/data_public/OCR/1_ICDAR2019-LSVT" \
+    Eval.dataset.label_file_list="['/home/zhangxin/data_public/OCR/1_ICDAR2019-LSVT/train_1000.txt']"
+```
+
+[2025/12/22 16:25:45] torchocr INFO: precision:0.7802960222016652
+[2025/12/22 16:25:45] torchocr INFO: recall:0.6379679818479768
+[2025/12/22 16:25:45] torchocr INFO: hmean:0.7019904292946806
+[2025/12/22 16:25:45] torchocr INFO: fps:23.343504367634903
+> 【这个结果有问题】
+
+## 1.3 PP-OCRv4_mobile_det
+```bash
+ls -alh weights/ch_PP-OCRv4_det_train/best_accuracy.pth
+# 14M
 python tools/eval.py -c configs/det/ch_PP-OCRv4/ch_PP-OCRv4_det_student.yml \
     -o Global.pretrained_model=weights/ch_PP-OCRv4_det_train/best_accuracy.pth \
     Global.use_gpu=True \
@@ -48,8 +75,10 @@ python tools/eval.py -c configs/det/ch_PP-OCRv4/ch_PP-OCRv4_det_student.yml \
 [2025/12/17 11:45:59] torchocr INFO: fps:76.33578116711098
 
 
-## 1.2 PP-OCRv4_server_det
+## 1.4 PP-OCRv4_server_det
 ```bash
+ls -alh weights/ch_PP-OCRv4_det_server_train/best_accuracy.pth
+# 109M
 python tools/eval.py -c configs/det/ch_PP-OCRv4/ch_PP-OCRv4_det_teacher.yml \
     -o Global.pretrained_model=weights/ch_PP-OCRv4_det_server_train/best_accuracy.pth \
     Global.use_gpu=True \
@@ -77,44 +106,11 @@ python tools/eval.py -c configs/det/ch_PP-OCRv4/ch_PP-OCRv4_det_teacher.yml \
 [2025/12/17 11:55:47] torchocr INFO: hmean:0.7891498511412505
 [2025/12/17 11:55:47] torchocr INFO: fps:21.623592960468528
 
-## 1.3 PP-OCRv3_mobile_det
-```bash
-ls weights/ch_PP-OCRv3_det_distill/student.pth
-# 2.5M
-python tools/eval.py -c configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_student.yml \
-    -o Global.pretrained_model=weights/ch_PP-OCRv3_det_distill/student.pth \
-    Global.use_gpu=True \
-    Eval.dataset.data_dir="/home/zhangxin/data_public/OCR/1_ICDAR2019-LSVT" \
-    Eval.dataset.label_file_list="['/home/zhangxin/data_public/OCR/1_ICDAR2019-LSVT/train_1000.txt']"
-```
-[2025/12/22 16:05:26] torchocr INFO: precision:0.7802960222016652
-[2025/12/22 16:05:26] torchocr INFO: recall:0.6379679818479768
-[2025/12/22 16:05:26] torchocr INFO: hmean:0.7019904292946806
-[2025/12/22 16:05:26] torchocr INFO: fps:80.90832826824881
-
-
-
-## 1.4 PP-OCRv3_server_det
-```bash
-ls -alh weights/ch_PP-OCRv3_det_distill/best_accuracy.pth
-# 131M
-# configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_dml.yml       指标为0
-# configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_student.yml   指标为0
-python tools/eval.py -c configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_cml.yml \
-    -o Global.pretrained_model=weights/ch_PP-OCRv3_det_distill/best_accuracy.pth \
-    Global.use_gpu=True \
-    Eval.dataset.data_dir="/home/zhangxin/data_public/OCR/1_ICDAR2019-LSVT" \
-    Eval.dataset.label_file_list="['/home/zhangxin/data_public/OCR/1_ICDAR2019-LSVT/train_1000.txt']"
-```
-
-[2025/12/22 16:25:45] torchocr INFO: precision:0.7802960222016652
-[2025/12/22 16:25:45] torchocr INFO: recall:0.6379679818479768
-[2025/12/22 16:25:45] torchocr INFO: hmean:0.7019904292946806
-[2025/12/22 16:25:45] torchocr INFO: fps:23.343504367634903
-> 【这个结果有问题】
 
 ## 1.5 PP-OCRv5_mobile_det
 ```bash
+ls -alh /home/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_mobile_det.pth
+# 14M
 python tools/eval.py -c configs/det/PP-OCRv5/PP-OCRv5_mobile_det.yml \
     -o Global.pretrained_model=/home/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_mobile_det.pth \
     Global.use_gpu=True \
@@ -131,6 +127,8 @@ python tools/eval.py -c configs/det/PP-OCRv5/PP-OCRv5_mobile_det.yml \
 
 ## 1.6 PP-OCRv5_server_det
 ```bash
+ls -alh /home/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_server_det.pth
+# 101M
 python tools/eval.py -c configs/det/PP-OCRv5/PP-OCRv5_server_det.yml \
     -o Global.pretrained_model=/home/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_server_det.pth \
     Global.use_gpu=True \

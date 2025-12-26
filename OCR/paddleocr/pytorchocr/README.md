@@ -1,13 +1,19 @@
 
 # 1 创建虚拟环境
-```bash
-conda create -n py310_pytorchocr python=3.10
 
+```bash
+conda create -n py310_torchocr python=3.10
+conda activate py310_torchocr
+
+conda create -n py310_pytorchocr python=3.10
 conda activate py310_pytorchocr
 
+# pip install torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2
+pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu126
+pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu130
 
-pip3 install torch torchvision
-pip install torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2
+pip install -r requirements.txt
+pip install numpy==1.26.4
 ```
 
 
