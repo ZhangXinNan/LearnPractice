@@ -1,4 +1,5 @@
 
+# 3 PaddleOCR
 ## 3.1 ch_PP-OCRv3_rec
 ```bash
 ls -alh weights/ch_PP-OCRv3_rec/student.pth
@@ -107,7 +108,7 @@ python tools/eval.py \
 
 
 
-## 1.5 PP-OCRv5_mobile_rec
+## 3.5 PP-OCRv5_mobile_rec
 ```bash
 ls -alh /home/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_mobile_rec.pth
 # 32M
@@ -125,8 +126,10 @@ python tools/eval.py -c configs/rec/PP-OCRv5/PP-OCRv5_mobile_rec.yml \
 [2025/12/25 18:10:48] torchocr INFO: fps:6177.860588430239
 
 
-## 1.6 PP-OCRv5_server_rec
+## 3.6 PP-OCRv5_server_rec
 ```bash
+ls -alh /home/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_server_rec.pth
+# 129M
 python tools/eval.py -c configs/rec/PP-OCRv5/PP-OCRv5_server_rec.yml \
     -o Global.pretrained_model=/home/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_server_rec.pth \
     Global.use_gpu=True \
@@ -135,5 +138,7 @@ python tools/eval.py -c configs/rec/PP-OCRv5/PP-OCRv5_server_rec.yml \
     Eval.dataset.data_dir="/home/zhangxin/data_public/OCR/3_Chinese-Street-View-Text-Recognition" \
     Eval.dataset.label_file_list="['/home/zhangxin/data_public/OCR/3_Chinese-Street-View-Text-Recognition/train_10000.txt']"
 ```
-
+[2025/12/26 18:25:58] torchocr INFO: acc:0.5384999994615001
+[2025/12/26 18:25:58] torchocr INFO: norm_edit_dis:0.6633685283809352
+[2025/12/26 18:25:58] torchocr INFO: fps:3942.8562296655396
 
