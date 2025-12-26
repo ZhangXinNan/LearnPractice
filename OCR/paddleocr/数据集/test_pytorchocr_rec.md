@@ -1,16 +1,30 @@
-ls -alh weights/ch_PP-OCRv3_rec/best_accuracy.pth
-211M
+
+## 3.1 ch_PP-OCRv3_rec
+```bash
 ls -alh weights/ch_PP-OCRv3_rec/student.pth
-106M
-ls -alh weights/ch_PP-OCRv4_rec_train/student.pth
-89M
-ls -alh weights/ch_PP-OCRv4_rec_server_train/best_accuracy.pth
-151M
+# 106M
+python tools/eval.py \
+    -c configs/rec/PP-OCRv3/ch_PP-OCRv3_rec.yml \
+    -o Global.checkpoints=weights/ch_PP-OCRv3_rec/student.pth \
+    Global.use_gpu=False \
+    Eval.dataset.data_dir=/home/zhangxin/data_public/OCR/3_Chinese-Street-View-Text-Recognition \
+    Eval.dataset.label_file_list="['/home/zhangxin/data_public/OCR/3_Chinese-Street-View-Text-Recognition/train_10000.txt']"
+```
+[2025/12/01 18:49:44] torchocr INFO: metric eval ***************
+[2025/12/01 18:49:44] torchocr INFO: acc:0.4665334618727926
+[2025/12/01 18:49:44] torchocr INFO: norm_edit_dis:0.603722111875189
+[2025/12/01 18:49:44] torchocr INFO: fps:17.535619453890845
+- 192.168.18.178 gpu 10000
+[2025/12/17 14:12:52] torchocr INFO: acc:0.474999999525
+[2025/12/17 14:12:52] torchocr INFO: norm_edit_dis:0.61852884967915
+[2025/12/17 14:12:52] torchocr INFO: fps:8468.686202998311
 
 
-## 3.1 ch_PP-OCRv3_rec_distillation
+## 3.2 ch_PP-OCRv3_rec_distillation
 
 ```bash
+ls -alh weights/ch_PP-OCRv3_rec/best_accuracy.pth
+# 211M
 python tools/eval.py \
     -c configs/rec/PP-OCRv3/ch_PP-OCRv3_rec_distillation.yml \
     -o Global.checkpoints=weights/ch_PP-OCRv3_rec/best_accuracy.pth \
@@ -32,41 +46,10 @@ python tools/eval.py \
 [2025/12/17 14:10:58] torchocr INFO: fps:7319.471786737848
 
 
-## 3.2 ch_PP-OCRv3_rec
+## 3.3 ch_PP-OCRv4_rec
 ```bash
-python tools/eval.py \
-    -c configs/rec/PP-OCRv3/ch_PP-OCRv3_rec.yml \
-    -o Global.checkpoints=weights/ch_PP-OCRv3_rec/student.pth \
-    Global.use_gpu=False \
-    Eval.dataset.data_dir=/home/zhangxin/data_public/OCR/3_Chinese-Street-View-Text-Recognition \
-    Eval.dataset.label_file_list="['/home/zhangxin/data_public/OCR/3_Chinese-Street-View-Text-Recognition/train_10000.txt']"
-```
-[2025/12/01 18:49:44] torchocr INFO: metric eval ***************
-[2025/12/01 18:49:44] torchocr INFO: acc:0.4665334618727926
-[2025/12/01 18:49:44] torchocr INFO: norm_edit_dis:0.603722111875189
-[2025/12/01 18:49:44] torchocr INFO: fps:17.535619453890845
-- 192.168.18.178 gpu 10000
-[2025/12/17 14:12:52] torchocr INFO: acc:0.474999999525
-[2025/12/17 14:12:52] torchocr INFO: norm_edit_dis:0.61852884967915
-[2025/12/17 14:12:52] torchocr INFO: fps:8468.686202998311
-
-## 3.3 ch_PP-OCRv4_rec_distill
-```bash
-# weights/ch_PP-OCRv4_rec_train/student.pth                 模型不对
-# weights/ch_PP-OCRv4_rec_server_train/best_accuracy.pth    模型不对
-python tools/eval.py \
-    -c configs/rec/PP-OCRv4/ch_PP-OCRv4_rec_distill.yml \
-    -o Global.checkpoints= \
-    Global.use_gpu=False \
-    Eval.dataset.data_dir=/home/zhangxin/data_public/OCR/3_Chinese-Street-View-Text-Recognition \
-    Eval.dataset.label_file_list="['/home/zhangxin/data_public/OCR/3_Chinese-Street-View-Text-Recognition/train_10000.txt']"
-```
-没找到转换好的模型。
-
-
-
-## 3.4 
-```bash
+ls -alh weights/ch_PP-OCRv4_rec_train/student.pth
+# 89M
 python tools/eval.py \
     -c configs/rec/PP-OCRv4/ch_PP-OCRv4_rec.yml \
     -o Global.checkpoints=weights/ch_PP-OCRv4_rec_train/student.pth \
@@ -83,13 +66,25 @@ python tools/eval.py \
 [2025/12/17 14:20:26] torchocr INFO: norm_edit_dis:0.6449092859863765
 [2025/12/17 14:20:26] torchocr INFO: fps:6026.165513004454
 
-## 3.5
+## 3.4 ch_PP-OCRv4_rec_hgnet
 ```bash
+# weights/ch_PP-OCRv4_rec_train/student.pth                 模型不对
+# weights/ch_PP-OCRv4_rec_server_train/best_accuracy.pth    模型不对
+python tools/eval.py \
+    -c configs/rec/PP-OCRv4/ch_PP-OCRv4_rec_distill.yml \
+    -o Global.checkpoints= \
+    Global.use_gpu=False \
+    Eval.dataset.data_dir=/home/zhangxin/data_public/OCR/3_Chinese-Street-View-Text-Recognition \
+    Eval.dataset.label_file_list="['/home/zhangxin/data_public/OCR/3_Chinese-Street-View-Text-Recognition/train_10000.txt']"
+# 没找到转换好的模型。
+
+ls -alh weights/ch_PP-OCRv4_rec_server_train/best_accuracy.pth
+# 151M
 python tools/eval.py \
     -c configs/rec/PP-OCRv4/ch_PP-OCRv4_rec_hgnet.yml \
     -o Global.checkpoints=weights/ch_PP-OCRv4_rec_server_train/best_accuracy.pth \
-    Global.use_gpu=True \
-    Eval.dataset.data_dir='/home/zhangxin/data_public/OCR/3_Chinese-Street-View-Text-Recognition' \
+    Global.use_gpu=False \
+    Eval.dataset.data_dir=/home/zhangxin/data_public/OCR/3_Chinese-Street-View-Text-Recognition \
     Eval.dataset.label_file_list="['/home/zhangxin/data_public/OCR/3_Chinese-Street-View-Text-Recognition/train_10000.txt']"
 ```
 
@@ -104,12 +99,18 @@ python tools/eval.py \
 [2025/12/17 14:21:39] torchocr INFO: acc:0.5467999994532
 [2025/12/17 14:21:39] torchocr INFO: norm_edit_dis:0.670459106335054
 [2025/12/17 14:21:39] torchocr INFO: fps:3301.2878182178524
+- 192.168.0.115 gtx1070 10000
+[2025/12/26 14:52:34] torchocr INFO: acc:0.5467999994532
+[2025/12/26 14:52:34] torchocr INFO: norm_edit_dis:0.670459106335054
+[2025/12/26 14:52:34] torchocr INFO: fps:994.4350997344453
 
 
 
 
-## 1.6 PP-OCRv5_mobile_rec
+## 1.5 PP-OCRv5_mobile_rec
 ```bash
+ls -alh /home/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_mobile_rec.pth
+# 32M
 python tools/eval.py -c configs/rec/PP-OCRv5/PP-OCRv5_mobile_rec.yml \
     -o Global.pretrained_model=/home/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_mobile_rec.pth \
     Global.use_gpu=True \
@@ -124,7 +125,7 @@ python tools/eval.py -c configs/rec/PP-OCRv5/PP-OCRv5_mobile_rec.yml \
 [2025/12/25 18:10:48] torchocr INFO: fps:6177.860588430239
 
 
-## 1.7 PP-OCRv5_server_rec
+## 1.6 PP-OCRv5_server_rec
 ```bash
 python tools/eval.py -c configs/rec/PP-OCRv5/PP-OCRv5_server_rec.yml \
     -o Global.pretrained_model=/home/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_server_rec.pth \
