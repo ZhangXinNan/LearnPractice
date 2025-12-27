@@ -1,18 +1,19 @@
 Global:
   model_name: PP-OCRv5_mobile_det # To use static model for inference.
   debug: false
-  use_gpu: false
-  device: cpu
-  use_tensorboard: false
-  epoch_num: &epoch_num 500
+  use_gpu: true
+  device: gpu
+  use_tensorboard: true
+  epoch_num: &epoch_num 100
   log_smooth_window: 20
   print_batch_step: 100
-  save_model_dir: ./output/PP-OCRv5_mobile_det_1_ICDAR2019-LSVT
+  save_model_dir:
+  output_dir: ./output/PP-OCRv5_mobile_det_1_ICDAR2019-LSVT
   save_epoch_step: 10
   eval_batch_step:
   - 0
   - 1500
-  cal_metric_during_train: true
+  cal_metric_during_train: false
   checkpoints:
   pretrained_model: https://paddleocr.bj.bcebos.com/pretrained/PPLCNetV3_x0_75_ocr_det.pdparams
   save_inference_dir: null
@@ -80,9 +81,9 @@ Metric:
 Train:
   dataset:
     name: SimpleDataSet
-    data_dir: /Users/zhangxin/data_public/OCR/1_ICDAR2019-LSVT
+    data_dir: /home/zhangxin/data_public/OCR/1_ICDAR2019-LSVT
     label_file_list:
-      - /Users/zhangxin/data_public/OCR/1_ICDAR2019-LSVT/train.txt
+      - /home/zhangxin/data_public/OCR/1_ICDAR2019-LSVT/train.txt
     ratio_list: [1.0]
     transforms:
     - DecodeImage:
@@ -148,9 +149,9 @@ Train:
 Eval:
   dataset:
     name: SimpleDataSet
-    data_dir: /Users/zhangxin/data_public/OCR/1_ICDAR2019-LSVT
+    data_dir: /home/zhangxin/data_public/OCR/1_ICDAR2019-LSVT
     label_file_list:
-      - /Users/zhangxin/data_public/OCR/1_ICDAR2019-LSVT/val.txt
+      - /home/zhangxin/data_public/OCR/1_ICDAR2019-LSVT/val.txt
     transforms:
     - DecodeImage:
         img_mode: BGR

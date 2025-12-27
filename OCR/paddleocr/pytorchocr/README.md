@@ -9,6 +9,8 @@ conda create -n py310_pytorchocr python=3.10
 conda activate py310_pytorchocr
 
 # pip install torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2
+# CUDA 11.8
+pip install torch==2.7.1 torchvision==0.22.1 torchaudio==2.7.1 --index-url https://download.pytorch.org/whl/cu118
 pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu126
 pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu130
 
