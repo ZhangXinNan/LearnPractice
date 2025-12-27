@@ -125,6 +125,35 @@ python tools/eval.py -c configs/det/PP-OCRv5/PP-OCRv5_mobile_det.yml \
 [2025/12/24 11:49:30] torchocr INFO: fps:76.99832001989842
 
 
+```bash
+python tools/eval.py -c configs/det/PP-OCRv5/PP-OCRv5_mobile_det.yml \
+    -o Global.pretrained_model=/Users/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_mobile_det.pth \
+    Global.use_gpu=false \
+    Global.device=cpu \
+    Global.use_tensorboard=false \
+    Eval.dataset.data_dir="/Users/zhangxin/data_public/OCR/1_ICDAR2019-LSVT" \
+    Eval.dataset.label_file_list="['/Users/zhangxin/data_public/OCR/1_ICDAR2019-LSVT/train_1000.txt']"
+```
+- cpu macbpookpro
+[2025/12/28 01:50:44] torchocr INFO: precision:0.7354328523862376
+[2025/12/28 01:50:44] torchocr INFO: recall:0.6682213538383965
+[2025/12/28 01:50:44] torchocr INFO: hmean:0.7002179512581731
+[2025/12/28 01:50:44] torchocr INFO: fps:1.222927491794297
+```bash
+python tools/eval.py -c configs/det/PP-OCRv5/PP-OCRv5_mobile_det.yml \
+    -o Global.pretrained_model=/Users/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_mobile_det.pth \
+    Global.use_gpu=false \
+    Global.device=mps \
+    Global.use_tensorboard=false \
+    Eval.dataset.data_dir="/Users/zhangxin/data_public/OCR/1_ICDAR2019-LSVT" \
+    Eval.dataset.label_file_list="['/Users/zhangxin/data_public/OCR/1_ICDAR2019-LSVT/train_1000.txt']"
+```
+[2025/12/28 02:06:56] torchocr INFO: precision:0.7354328523862376
+[2025/12/28 02:06:56] torchocr INFO: recall:0.6682213538383965
+[2025/12/28 02:06:56] torchocr INFO: hmean:0.7002179512581731
+[2025/12/28 02:06:56] torchocr INFO: fps:31.8428260921157
+
+
 ## 1.6 PP-OCRv5_server_det
 ```bash
 ls -alh /home/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_server_det.pth
@@ -141,5 +170,20 @@ python tools/eval.py -c configs/det/PP-OCRv5/PP-OCRv5_server_det.yml \
 [2025/12/26 16:33:54] torchocr INFO: recall:0.7432245052313122
 [2025/12/26 16:33:54] torchocr INFO: hmean:0.7789153841072726
 [2025/12/26 16:33:54] torchocr INFO: fps:22.428419558429475
+
+
+```bash
+python tools/eval.py -c configs/det/PP-OCRv5/PP-OCRv5_server_det.yml \
+    -o Global.pretrained_model=/Users/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_server_det.pth \
+    Global.use_gpu=false \
+    Global.device=mps \
+    Global.use_tensorboard=false \
+    Eval.dataset.data_dir="/Users/zhangxin/data_public/OCR/1_ICDAR2019-LSVT" \
+    Eval.dataset.label_file_list="['/Users/zhangxin/data_public/OCR/1_ICDAR2019-LSVT/train_1000.txt']"
+```
+[2025/12/28 02:11:55] torchocr INFO: precision:0.817223686035224
+[2025/12/28 02:11:55] torchocr INFO: recall:0.742846338081432
+[2025/12/28 02:11:55] torchocr INFO: hmean:0.7782620179609088
+[2025/12/28 02:11:55] torchocr INFO: fps:14.726046019792618
 
 

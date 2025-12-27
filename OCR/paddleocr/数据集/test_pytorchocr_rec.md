@@ -125,6 +125,20 @@ python tools/eval.py -c configs/rec/PP-OCRv5/PP-OCRv5_mobile_rec.yml \
 [2025/12/25 18:10:48] torchocr INFO: norm_edit_dis:0.6048595113310833
 [2025/12/25 18:10:48] torchocr INFO: fps:6177.860588430239
 
+```bash
+python tools/eval.py -c configs/rec/PP-OCRv5/PP-OCRv5_mobile_rec.yml \
+    -o Global.pretrained_model=/Users/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_mobile_rec.pth \
+    Global.use_gpu=false \
+    Global.device=mps \
+    Global.use_tensorboard=false \
+    Global.character_dict_path=torchocr/utils/dict/ppocrv5_dict.txt \
+    Eval.dataset.data_dir="/Users/zhangxin/data_public/OCR/3_Chinese-Street-View-Text-Recognition" \
+    Eval.dataset.label_file_list="['/Users/zhangxin/data_public/OCR/3_Chinese-Street-View-Text-Recognition/train_10000.txt']"
+```
+[2025/12/28 02:26:10] torchocr INFO: acc:0.4507999995492
+[2025/12/28 02:26:10] torchocr INFO: norm_edit_dis:0.6047854485883446
+[2025/12/28 02:26:10] torchocr INFO: fps:622.637999327944
+
 
 ## 3.6 PP-OCRv5_server_rec
 ```bash
@@ -141,4 +155,19 @@ python tools/eval.py -c configs/rec/PP-OCRv5/PP-OCRv5_server_rec.yml \
 [2025/12/26 18:25:58] torchocr INFO: acc:0.5384999994615001
 [2025/12/26 18:25:58] torchocr INFO: norm_edit_dis:0.6633685283809352
 [2025/12/26 18:25:58] torchocr INFO: fps:3942.8562296655396
+
+```bash
+python tools/eval.py -c configs/rec/PP-OCRv5/PP-OCRv5_server_rec.yml \
+    -o Global.pretrained_model=/Users/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_server_rec.pth \
+    Global.use_gpu=false \
+    Global.device=mps \
+    Global.use_tensorboard=false \
+    Eval.dataset.data_dir="/Users/zhangxin/data_public/OCR/3_Chinese-Street-View-Text-Recognition" \
+    Eval.dataset.label_file_list="['/Users/zhangxin/data_public/OCR/3_Chinese-Street-View-Text-Recognition/train_10000.txt']"
+```
+[2025/12/28 02:28:15] torchocr INFO: acc:0.5385999994614
+[2025/12/28 02:28:15] torchocr INFO: norm_edit_dis:0.6633985283809052
+[2025/12/28 02:28:15] torchocr INFO: fps:1522.810807702177
+
+
 
