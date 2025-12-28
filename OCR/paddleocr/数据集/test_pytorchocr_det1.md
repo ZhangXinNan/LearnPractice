@@ -117,13 +117,18 @@ python tools/eval.py -c configs/det/PP-OCRv5/PP-OCRv5_mobile_det.yml \
     Global.device=gpu \
     Global.use_tensorboard=false \
     Eval.dataset.data_dir="/home/zhangxin/data_public/OCR/1_ICDAR2019-LSVT" \
-    Eval.dataset.label_file_list="['/home/zhangxin/data_public/OCR/1_ICDAR2019-LSVT/train_1000.txt']"
+    Eval.dataset.label_file_list="['/home/zhangxin/data_public/OCR/1_ICDAR2019-LSVT/test.txt']"
 ```
+- train_1000.txt
 [2025/12/24 11:49:30] torchocr INFO: precision:0.7350534054653904
 [2025/12/24 11:49:30] torchocr INFO: recall:0.6679692424051431
 [2025/12/24 11:49:30] torchocr INFO: hmean:0.699907541936336
 [2025/12/24 11:49:30] torchocr INFO: fps:76.99832001989842
-
+- test.txt
+[2025/12/28 14:56:37] torchocr INFO: precision:0.719674355495251
+[2025/12/28 14:56:37] torchocr INFO: recall:0.6625031226580065
+[2025/12/28 14:56:37] torchocr INFO: hmean:0.6899063475546307
+[2025/12/28 14:56:37] torchocr INFO: fps:70.65181394901943
 
 ```bash
 python tools/eval.py -c configs/det/PP-OCRv5/PP-OCRv5_mobile_det.yml \
@@ -164,13 +169,18 @@ python tools/eval.py -c configs/det/PP-OCRv5/PP-OCRv5_server_det.yml \
     Global.device=gpu \
     Global.use_tensorboard=false \
     Eval.dataset.data_dir="/home/zhangxin/data_public/OCR/1_ICDAR2019-LSVT" \
-    Eval.dataset.label_file_list="['/home/zhangxin/data_public/OCR/1_ICDAR2019-LSVT/train_1000.txt']"
+    Eval.dataset.label_file_list="['/home/zhangxin/data_public/OCR/1_ICDAR2019-LSVT/test.txt']"
 ```
+- train_1000.txt
 [2025/12/26 16:33:54] torchocr INFO: precision:0.8182070496808216
 [2025/12/26 16:33:54] torchocr INFO: recall:0.7432245052313122
 [2025/12/26 16:33:54] torchocr INFO: hmean:0.7789153841072726
 [2025/12/26 16:33:54] torchocr INFO: fps:22.428419558429475
-
+- test.txt
+[2025/12/28 14:51:21] torchocr INFO: precision:0.8170982326346075
+[2025/12/28 14:51:21] torchocr INFO: recall:0.7449412940294778
+[2025/12/28 14:51:21] torchocr INFO: hmean:0.7793531525645214
+[2025/12/28 14:51:21] torchocr INFO: fps:19.33500649996818
 
 ```bash
 python tools/eval.py -c configs/det/PP-OCRv5/PP-OCRv5_server_det.yml \
@@ -179,11 +189,13 @@ python tools/eval.py -c configs/det/PP-OCRv5/PP-OCRv5_server_det.yml \
     Global.device=mps \
     Global.use_tensorboard=false \
     Eval.dataset.data_dir="/Users/zhangxin/data_public/OCR/1_ICDAR2019-LSVT" \
-    Eval.dataset.label_file_list="['/Users/zhangxin/data_public/OCR/1_ICDAR2019-LSVT/train_1000.txt']"
+    Eval.dataset.label_file_list="['/Users/zhangxin/data_public/OCR/1_ICDAR2019-LSVT/test.txt']"
 ```
+- train_1000.txt
 [2025/12/28 02:11:55] torchocr INFO: precision:0.817223686035224
 [2025/12/28 02:11:55] torchocr INFO: recall:0.742846338081432
 [2025/12/28 02:11:55] torchocr INFO: hmean:0.7782620179609088
 [2025/12/28 02:11:55] torchocr INFO: fps:14.726046019792618
+- test.txt
 
 
