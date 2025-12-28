@@ -1,4 +1,6 @@
 
+
+# 检测模型
 python tools/train.py \
     -c /Users/zhangxin/github/LearnPractice/OCR/paddleocr/数据集/1_ICDAR2019-LSVT/PP-OCRv5_mobile_det.yml
 
@@ -30,3 +32,5 @@ nohup python tools/train.py \
     Eval.dataset.data_dir=/home/zhangxin/data_public/OCR/1_ICDAR2019-LSVT \
     Eval.dataset.label_file_list="['/home/zhangxin/data_public/OCR/1_ICDAR2019-LSVT/val.txt']" \
     >nohup.train.PP-OCRv5_server_det.1_ICDAR2019-LSVT.out &
+
+
