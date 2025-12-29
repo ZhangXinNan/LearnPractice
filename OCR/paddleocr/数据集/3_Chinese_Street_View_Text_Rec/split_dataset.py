@@ -36,13 +36,13 @@ def main(args):
             if i < args.test_num:
                 fo_test.write(f"{x[0]}\t{x[1]}\n")
             elif i < args.test_num + args.val_num:
-                fo_val.write(f"{os.path.join('train_images', arr[2])}\t{arr[3]}\n")
+                fo_val.write(f"{x[0]}\t{x[1]}\n")
             else:
-                fo_train.write(f"{os.path.join('train_images', arr[2])}\t{arr[3]}\n")
+                fo_train.write(f"{x[0]}\t{x[1]}\n")
 
     fo_train.close()
     fo_test.close()
-    fo_val.close()  
+    fo_val.close()
 
 
 if __name__ == '__main__':
