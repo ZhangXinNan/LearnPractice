@@ -20,6 +20,18 @@ python tools/eval.py \
 [2025/12/17 14:12:52] torchocr INFO: norm_edit_dis:0.61852884967915
 [2025/12/17 14:12:52] torchocr INFO: fps:8468.686202998311
 
+```bash
+python tools/eval.py \
+    -c configs/rec/PP-OCRv3/ch_PP-OCRv3_rec.yml \
+    -o Global.checkpoints=weights/ch_PP-OCRv3_rec/student.pth \
+    Global.device=mps \
+    Eval.dataset.data_dir=/Users/zhangxin/data_public/OCR/3_Chinese-Street-View-Text-Recognition \
+    Eval.dataset.label_file_list="['/Users/zhangxin/data_public/OCR/3_Chinese-Street-View-Text-Recognition/train_10000.txt']"
+```
+[2025/12/30 17:45:18] torchocr INFO: acc:0.474999999525
+[2025/12/30 17:45:18] torchocr INFO: norm_edit_dis:0.6183878110440133
+[2025/12/30 17:45:18] torchocr INFO: fps:9227.691187357615
+
 
 ## 3.2 ch_PP-OCRv3_rec_distillation
 
@@ -67,6 +79,18 @@ python tools/eval.py \
 [2025/12/17 14:20:26] torchocr INFO: norm_edit_dis:0.6449092859863765
 [2025/12/17 14:20:26] torchocr INFO: fps:6026.165513004454
 
+```bash
+python tools/eval.py \
+    -c configs/rec/PP-OCRv4/ch_PP-OCRv4_rec.yml \
+    -o Global.checkpoints=weights/ch_PP-OCRv4_rec_train/student.pth \
+    Global.device=mps \
+    Eval.dataset.data_dir='/Users/zhangxin/data_public/OCR/3_Chinese-Street-View-Text-Recognition' \
+    Eval.dataset.label_file_list="['/Users/zhangxin/data_public/OCR/3_Chinese-Street-View-Text-Recognition/train_10000.txt']"
+```
+[2025/12/30 17:47:18] torchocr INFO: acc:0.5065999994934001
+[2025/12/30 17:47:18] torchocr INFO: norm_edit_dis:0.6450618195637576
+[2025/12/30 17:47:18] torchocr INFO: fps:632.7923697711437
+
 ## 3.4 ch_PP-OCRv4_rec_hgnet
 ```bash
 # weights/ch_PP-OCRv4_rec_train/student.pth                 模型不对
@@ -105,8 +129,17 @@ python tools/eval.py \
 [2025/12/26 14:52:34] torchocr INFO: norm_edit_dis:0.670459106335054
 [2025/12/26 14:52:34] torchocr INFO: fps:994.4350997344453
 
-
-
+```bash
+python tools/eval.py \
+    -c configs/rec/PP-OCRv4/ch_PP-OCRv4_rec_hgnet.yml \
+    -o Global.checkpoints=weights/ch_PP-OCRv4_rec_server_train/best_accuracy.pth \
+    Global.device=mps \
+    Eval.dataset.data_dir=/Users/zhangxin/data_public/OCR/3_Chinese-Street-View-Text-Recognition \
+    Eval.dataset.label_file_list="['/Users/zhangxin/data_public/OCR/3_Chinese-Street-View-Text-Recognition/train_10000.txt']"
+```
+[2025/12/30 17:49:48] torchocr INFO: acc:0.5467999994532
+[2025/12/30 17:49:48] torchocr INFO: norm_edit_dis:0.670459106335054
+[2025/12/30 17:49:48] torchocr INFO: fps:2810.503256704313
 
 ## 3.5 PP-OCRv5_mobile_rec
 ```bash
