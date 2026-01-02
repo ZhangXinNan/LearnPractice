@@ -13,6 +13,9 @@ nohup python tools/train.py \
     Eval.dataset.label_file_list="['/home/zhangxin/data_public/OCR/3_Chinese-Street-View-Text-Recognition/val.txt']" \
     >nohup.train.PP-OCRv5_mobile_rec.3_Chinese-Street-View-Text-Recognition.out &
 ```
+![alt text](ppocrv5_mobile_rec_eval.png)
+
+![alt text](ppocrv5_mobile_rec_train.png)
 
 ```bash
 nohup python tools/train.py \
@@ -27,3 +30,9 @@ nohup python tools/train.py \
     Eval.dataset.label_file_list="['/home/zhangxin/data_public/OCR/3_Chinese-Street-View-Text-Recognition/val.txt']" \
     >nohup.train.PP-OCRv5_server_rec.3_Chinese-Street-View-Text-Recognition.out &
 ```
+
+
+![alt text](ppocrv5_server_rec_eval.png)
+
+![alt text](ppocrv5_server_rec_train.png)
+
