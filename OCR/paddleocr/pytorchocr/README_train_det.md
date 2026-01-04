@@ -25,8 +25,8 @@ nohup python tools/train.py \
 
 tensorboard --logdir output/PP-OCRv5_mobile_det_1_ICDAR2019-LSVT
 
-![alt text](ppocrv5_mobile_det_eval.png)
-![alt text](ppocrv5_mobile_det_train.png)
+![alt text](asset/ppocrv5_mobile_det_eval.png)
+![alt text](asset/ppocrv5_mobile_det_train.png)
 
 ```bash
 nohup python tools/train.py \
@@ -46,8 +46,8 @@ nohup python tools/train.py \
 
 tensorboard --logdir output/PP-OCRv5_server_det_1_ICDAR2019-LSVT
 
-![alt text](ppocrv5_server_det_eval.png)
+![alt text](asset/ppocrv5_server_det_eval.png)
 
-![alt text](ppocrv5_server_det_train.png)
+![alt text](asset/ppocrv5_server_det_train.png)
 
 
