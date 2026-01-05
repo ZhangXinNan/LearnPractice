@@ -57,11 +57,11 @@ python tools/infer_det.py -c configs/det/PP-OCRv5/PP-OCRv5_server_det.yml -o Glo
 ```bash
 ls -alh weights/ch_PP-OCRv3_rec/best_accuracy.pth
 # 210M
-python tools/infer_rec.py -c configs/rec/PP-OCRv3/ch_PP-OCRv3_rec_distillation.yml -o Global.pretrained_model=weights/ch_PP-OCRv3_rec/best_accuracy.pth Global.infer_img=doc/imgs_words/ch/word_2.jpg
+python tools/infer_rec.py -c configs/rec/PP-OCRv3/ch_PP-OCRv3_rec_distillation.yml -o Global.pretrained_model=weights/ch_PP-OCRv3_rec/best_accuracy.pth Global.infer_img=doc/imgs_words/ch
 
 ls -alh weights/ch_PP-OCRv3_rec/student.pth
 # 105M
-python tools/infer_rec.py -c configs/rec/PP-OCRv3/ch_PP-OCRv3_rec.yml -o Global.pretrained_model=weights/ch_PP-OCRv3_rec/student.pth Global.infer_img=doc/imgs_words/ch/word_2.jpg
+python tools/infer_rec.py -c configs/rec/PP-OCRv3/ch_PP-OCRv3_rec.yml -o Global.pretrained_model=weights/ch_PP-OCRv3_rec/student.pth Global.infer_img=doc/imgs_words/ch
 
 # v4
 ls -alh weights/ch_PP-OCRv4_rec_train/student.pth
@@ -74,7 +74,7 @@ python tools/infer_rec.py -c configs/rec/PP-OCRv4/ch_PP-OCRv4_rec2.yml -o Global
 
 ls -alh weights/ch_PP-OCRv4_rec_server_train/best_accuracy.pth
 # 151M
-python tools/infer_rec.py -c configs/rec/PP-OCRv4/ch_PP-OCRv4_rec_hgnet.yml -o Global.pretrained_model=weights/ch_PP-OCRv4_rec_server_train/best_accuracy.pth Global.infer_img=doc/imgs_words/ch/word_2.jpg
+python tools/infer_rec.py -c configs/rec/PP-OCRv4/ch_PP-OCRv4_rec_hgnet.yml -o Global.pretrained_model=weights/ch_PP-OCRv4_rec_server_train/best_accuracy.pth Global.infer_img=doc/imgs_words/ch
 
 # v5
 ls -alh /Users/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_mobile_rec.pth
@@ -84,7 +84,7 @@ python tools/infer_rec.py -c configs/rec/PP-OCRv5/PP-OCRv5_mobile_rec.yml -o Glo
 
 ls -alh /Users/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_server_rec.pth
 # 128M
-python tools/infer_rec.py -c configs/rec/PP-OCRv5/PP-OCRv5_server_rec.yml -o Global.pretrained_model=/Users/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_server_rec.pth Global.infer_img=doc/imgs_words/ch/word_2.jpg
+python tools/infer_rec.py -c configs/rec/PP-OCRv5/PP-OCRv5_server_rec.yml -o Global.pretrained_model=/Users/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_server_rec.pth Global.infer_img=doc/imgs_words/ch
 # AssertionError: when model typs is rec, backbone only support ['MobileNetV1Enhance', 'ResNet31', 'MobileNetV3', 'PPLCNetV3', 'PPHGNet_small', 'ResNet', 'MTB']
 ```
 
@@ -101,14 +101,9 @@ python tools/infer_cls.py -c configs/cls/cls_mv3.yml -o Global.pretrained_model=
 python tools/export.py -c configs/cls/cls_mv3.yml -o Global.pretrained_model=weights/ch_ppocr_mobile_v2.0_cls_train/best_accuracy.pth
 # ./output/cls/mv3/export/model.onnx
 
-
 # det
 python tools/export.py -c configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_student.yml -o Global.pretrained_model=weights/ch_PP-OCRv3_det_distill/student.pth
 # ./output/det/ch_PP-OCR_V3_det/export/model.onnx
-
-# python tools/export.py -c configs/rec/PP-OCRv3/ch_PP-OCRv3_rec_distillation.yml -o Global.pretrained_model=weights/ch_PP-OCRv3_rec/best_accuracy.pth
-# 生成了Teacher和Student模型，Stduent模型与下边的一致
-# ./output/rec/rec_ppocr_v3_distillation/export/Student/model.onnx
 
 python tools/export.py -c configs/det/ch_PP-OCRv4/ch_PP-OCRv4_det_student.yml -o Global.pretrained_model=weights/ch_PP-OCRv4_det_train/best_accuracy.pth
 # ./output/det/ch_PP-OCRv4/export/model.onnx
@@ -124,6 +119,10 @@ python tools/export.py -c configs/det/PP-OCRv5/PP-OCRv5_server_det.yml -o Global
 
 
 # rec
+# python tools/export.py -c configs/rec/PP-OCRv3/ch_PP-OCRv3_rec_distillation.yml -o Global.pretrained_model=weights/ch_PP-OCRv3_rec/best_accuracy.pth
+# 生成了Teacher和Student模型，Stduent模型与下边的一致
+# ./output/rec/rec_ppocr_v3_distillation/export/Student/model.onnx
+
 python tools/export.py -c configs/rec/PP-OCRv3/ch_PP-OCRv3_rec.yml -o Global.pretrained_model=weights/ch_PP-OCRv3_rec/student.pth
 # ./output/rec/rec_ppocr_v3/export/model.onnx
 
@@ -140,7 +139,7 @@ python tools/export.py -c configs/rec/PP-OCRv5/PP-OCRv5_server_rec.yml -o Global
 # ./output/rec/PP-OCRv5_server_rec/export/model.onnx
 ```
 
-
+# 6 predict
 ```bash
 # cls
 python tools/infer/predict_cls.py --cls_model_dir=./output/cls/mv3/export --image_dir=doc/imgs_words/en
