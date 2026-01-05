@@ -133,9 +133,9 @@ python tools/export.py -c configs/det/PP-OCRv5/PP-OCRv5_mobile_det.yml -o Global
 python tools/export.py -c configs/det/PP-OCRv5/PP-OCRv5_server_det.yml -o Global.pretrained_model=/Users/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_server_det.pth
 # ./output/det/PP-OCRv5_server_det/export/model.onnx
 python tools/export.py -c configs/rec/PP-OCRv5/PP-OCRv5_mobile_rec.yml -o Global.pretrained_model=/Users/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_mobile_rec.pth
-# ./output/PP-OCRv5_mobile_rec/export/model.onnx
+# ./output/rec/PP-OCRv5_mobile_rec/export/model.onnx
 python tools/export.py -c configs/rec/PP-OCRv5/PP-OCRv5_server_rec.yml -o Global.pretrained_model=/Users/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_server_rec.pth
-# ./output/PP-OCRv5_server_rec/export/model.onnx
+# ./output/rec/PP-OCRv5_server_rec/export/model.onnx
 ```
 
 
@@ -152,11 +152,11 @@ python tools/infer/predict_det.py --det_model_dir=./output/det/PP-OCRv5_server_d
 
 
 # rec
-python tools/infer/predict_rec.py --rec_model_dir=./output/rec/rec_ppocr_v3_distillation/export/Student/ --image_dir=doc/imgs_words/ch/word_1.jpg
-python tools/infer/predict_rec.py --rec_model_dir=./output/rec/rec_ppocr_v4/export --image_dir=doc/imgs_words/ch/word_1.jpg
-python tools/infer/predict_rec.py --rec_model_dir=./output/rec/rec_ppocr_v4_hgnet/export --image_dir=doc/imgs_words/ch/word_1.jpg
-python tools/infer/predict_rec.py --rec_model_dir=./output/rec/PP-OCRv5_mobile_rec/export --image_dir=doc/imgs_words/ch/word_1.jpg
-python tools/infer/predict_rec.py --rec_model_dir=./output/rec/PP-OCRv5_server_rec/export --image_dir=doc/imgs_words/ch/word_1.jpg
+python tools/infer/predict_rec.py --rec_model_dir=./output/rec/rec_ppocr_v3_distillation/export/Student/ --image_dir=doc/imgs_words/ch --rec_batch_num=1
+python tools/infer/predict_rec.py --rec_model_dir=./output/rec/rec_ppocr_v4/export --image_dir=doc/imgs_words/ch --rec_batch_num=1
+python tools/infer/predict_rec.py --rec_model_dir=./output/rec/rec_ppocr_v4_hgnet/export --image_dir=doc/imgs_words/ch --rec_batch_num=1
+python tools/infer/predict_rec.py --rec_model_dir=./output/rec/PP-OCRv5_mobile_rec/export --image_dir=doc/imgs_words/ch --rec_batch_num=1
+python tools/infer/predict_rec.py --rec_model_dir=./output/rec/PP-OCRv5_server_rec/export --image_dir=doc/imgs_words/ch --rec_batch_num=1
 
 # det + cls + rec
 python tools/infer/predict_system.py \
