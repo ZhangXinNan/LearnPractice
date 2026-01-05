@@ -101,25 +101,31 @@ python tools/infer_cls.py -c configs/cls/cls_mv3.yml -o Global.pretrained_model=
 python tools/export.py -c configs/cls/cls_mv3.yml -o Global.pretrained_model=weights/ch_ppocr_mobile_v2.0_cls_train/best_accuracy.pth
 # ./output/cls/mv3/export/model.onnx
 
-# v3
+
+# det
 python tools/export.py -c configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_student.yml -o Global.pretrained_model=weights/ch_PP-OCRv3_det_distill/student.pth
 # ./output/det/ch_PP-OCR_V3_det/export/model.onnx
 
-
-python tools/export.py -c configs/rec/PP-OCRv3/ch_PP-OCRv3_rec_distillation.yml -o Global.pretrained_model=weights/ch_PP-OCRv3_rec/best_accuracy.pth
+# python tools/export.py -c configs/rec/PP-OCRv3/ch_PP-OCRv3_rec_distillation.yml -o Global.pretrained_model=weights/ch_PP-OCRv3_rec/best_accuracy.pth
 # 生成了Teacher和Student模型，Stduent模型与下边的一致
 # ./output/rec/rec_ppocr_v3_distillation/export/Student/model.onnx
 
-python tools/export.py -c configs/rec/PP-OCRv3/ch_PP-OCRv3_rec.yml -o Global.pretrained_model=weights/ch_PP-OCRv3_rec/student.pth
-# ./output/rec/rec_ppocr_v3/export/model.onnx
-
-
-# v4
 python tools/export.py -c configs/det/ch_PP-OCRv4/ch_PP-OCRv4_det_student.yml -o Global.pretrained_model=weights/ch_PP-OCRv4_det_train/best_accuracy.pth
 # ./output/det/ch_PP-OCRv4/export/model.onnx
 
 python tools/export.py -c configs/det/ch_PP-OCRv4/ch_PP-OCRv4_det_teacher.yml -o Global.pretrained_model=weights/ch_PP-OCRv4_det_server_train/best_accuracy.pth
-# ./output/det/h_PP-OCRv4_hgnet/export/model.onn
+# ./output/det/h_PP-OCRv4_hgnet/export/model.onnx
+
+python tools/export.py -c configs/det/PP-OCRv5/PP-OCRv5_mobile_det.yml -o Global.pretrained_model=/Users/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_mobile_det.pth  Global.output_dir=./output/det/PP-OCRv5_mobile_det
+# ./output/det/PP-OCRv5_mobile_det/export/model.onnx
+
+python tools/export.py -c configs/det/PP-OCRv5/PP-OCRv5_server_det.yml -o Global.pretrained_model=/Users/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_server_det.pth Global.output_dir=./output/det/PP-OCRv5_server_det
+# ./output/det/PP-OCRv5_server_det/export/model.onnx
+
+
+# rec
+python tools/export.py -c configs/rec/PP-OCRv3/ch_PP-OCRv3_rec.yml -o Global.pretrained_model=weights/ch_PP-OCRv3_rec/student.pth
+# ./output/rec/rec_ppocr_v3/export/model.onnx
 
 python tools/export.py -c configs/rec/PP-OCRv4/ch_PP-OCRv4_rec.yml -o Global.pretrained_model=weights/ch_PP-OCRv4_rec_train/student.pth
 # ./output/rec/rec_ppocr_v4/export/model.onnx
@@ -127,14 +133,10 @@ python tools/export.py -c configs/rec/PP-OCRv4/ch_PP-OCRv4_rec.yml -o Global.pre
 python tools/export.py -c configs/rec/PP-OCRv4/ch_PP-OCRv4_rec_hgnet.yml -o Global.pretrained_model=weights/ch_PP-OCRv4_rec_server_train/best_accuracy.pth
 # ./output/rec/rec_ppocr_v4_hgnet/export/model.onnx
 
-# v5
-python tools/export.py -c configs/det/PP-OCRv5/PP-OCRv5_mobile_det.yml -o Global.pretrained_model=/Users/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_mobile_det.pth
-# ./output/det/PP-OCRv5_mobile_det/export/model.onnx
-python tools/export.py -c configs/det/PP-OCRv5/PP-OCRv5_server_det.yml -o Global.pretrained_model=/Users/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_server_det.pth
-# ./output/det/PP-OCRv5_server_det/export/model.onnx
-python tools/export.py -c configs/rec/PP-OCRv5/PP-OCRv5_mobile_rec.yml -o Global.pretrained_model=/Users/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_mobile_rec.pth
+python tools/export.py -c configs/rec/PP-OCRv5/PP-OCRv5_mobile_rec.yml -o Global.pretrained_model=/Users/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_mobile_rec.pth Global.output_dir=./output/rec/PP-OCRv5_mobile_rec
 # ./output/rec/PP-OCRv5_mobile_rec/export/model.onnx
-python tools/export.py -c configs/rec/PP-OCRv5/PP-OCRv5_server_rec.yml -o Global.pretrained_model=/Users/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_server_rec.pth
+
+python tools/export.py -c configs/rec/PP-OCRv5/PP-OCRv5_server_rec.yml -o Global.pretrained_model=/Users/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_server_rec.pth Global.output_dir=./output/rec/PP-OCRv5_server_rec
 # ./output/rec/PP-OCRv5_server_rec/export/model.onnx
 ```
 
@@ -152,7 +154,8 @@ python tools/infer/predict_det.py --det_model_dir=./output/det/PP-OCRv5_server_d
 
 
 # rec
-python tools/infer/predict_rec.py --rec_model_dir=./output/rec/rec_ppocr_v3_distillation/export/Student/ --image_dir=doc/imgs_words/ch --rec_batch_num=1
+# python tools/infer/predict_rec.py --rec_model_dir=./output/rec/rec_ppocr_v3_distillation/export/Student/ --image_dir=doc/imgs_words/ch --rec_batch_num=1
+python tools/infer/predict_rec.py --rec_model_dir=./output/rec/rec_ppocr_v3/export --image_dir=doc/imgs_words/ch --rec_batch_num=1
 python tools/infer/predict_rec.py --rec_model_dir=./output/rec/rec_ppocr_v4/export --image_dir=doc/imgs_words/ch --rec_batch_num=1
 python tools/infer/predict_rec.py --rec_model_dir=./output/rec/rec_ppocr_v4_hgnet/export --image_dir=doc/imgs_words/ch --rec_batch_num=1
 python tools/infer/predict_rec.py --rec_model_dir=./output/rec/PP-OCRv5_mobile_rec/export --image_dir=doc/imgs_words/ch --rec_batch_num=1
@@ -160,10 +163,12 @@ python tools/infer/predict_rec.py --rec_model_dir=./output/rec/PP-OCRv5_server_r
 
 # det + cls + rec
 python tools/infer/predict_system.py \
-    --det_model_dir=/Users/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_mobile_det.pth  \
-    --rec_model_dir=/Users/zhangxin/github/PaddleOCR2Pytorch/models/ptocrv5/ptocr_v5_mobile_rec.pth \
+    --cls_model_dir=./output/cls/mv3/export \
+    --det_model_dir=./output/det/PP-OCRv5_mobile_det/export  \
+    --rec_model_dir=./output/rec/PP-OCRv5_mobile_rec/export \
     --image_dir=doc/imgs/1.jpg \
-    --use_angle_cls=false
+    --use_angle_cls=true \
+    --rec_batch_num=1
 
 ```
 
