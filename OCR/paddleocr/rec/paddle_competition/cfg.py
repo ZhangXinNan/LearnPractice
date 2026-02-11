@@ -1,0 +1,36 @@
+
+'''
+cfg = {
+    "input_size": (3, 48, 256),
+    "epoch": 1,
+    "batch_size": 64,
+    "learning_rate": 0.0001,
+    
+    "label_max_len": -1,
+    "classify_num": -1,
+    "train_list": "/home/aistudio/data/train_label.txt",
+    "label_list": "/home/aistudio/data/label_list.txt",
+    "data_path": "/home/aistudio/data/train_images",
+    "infer_data_path": "/home/aistudio/data/test_images",
+    "checkpoint_path": "/home/aistudio/work/output/final",
+    "save_dir": "/home/aistudio/work/output",
+}
+'''
+
+import os
+in_dir = '/media/zhangxin/DATA/data_public/OCR/paddle_competition'
+cfg = {
+    "input_size": (3, 48, 256),
+    "epoch": 100,
+    "batch_size": 64,
+    "learning_rate": 0.0001,
+
+    "label_max_len": 100,
+    "classify_num": 3096,
+    "train_list": os.path.join(in_dir, 'train', "train_label.txt"),
+    "label_list": os.path.join(in_dir, 'train', "label_list.txt"),
+    "data_path": os.path.join(in_dir, 'train', "train_images"),
+    "infer_data_path": os.path.join(in_dir, 'test', "test_images"),
+    "checkpoint_path": os.path.join(in_dir, "work/output/final"),
+    "save_dir": os.path.join(in_dir, "work/output"),
+}
