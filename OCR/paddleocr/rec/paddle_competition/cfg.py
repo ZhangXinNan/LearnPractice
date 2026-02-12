@@ -18,7 +18,8 @@ cfg = {
 '''
 
 import os
-in_dir = '/media/zhangxin/DATA/data_public/OCR/paddle_competition'
+# in_dir = '/media/zhangxin/DATA/data_public/OCR/paddle_competition'
+in_dir = "/home/zhangxin/data_public/OCR/paddle_competition"
 cfg = {
     "input_size": (3, 48, 256),
     "epoch": 100,
@@ -27,10 +28,10 @@ cfg = {
 
     "label_max_len": 100,
     "classify_num": 3096,
-    "train_list": os.path.join(in_dir, 'train', "train_label.txt"),
-    "label_list": os.path.join(in_dir, 'train', "label_list.txt"),
-    "data_path": os.path.join(in_dir, 'train', "train_images"),
-    "infer_data_path": os.path.join(in_dir, 'test', "test_images"),
+    "train_list": os.path.join(in_dir, "SkLXRq6Q/train_label.txt"),
+    "label_list": os.path.join(in_dir, "SkLXRq6Q/label_list.txt"),
+    "data_path": os.path.join(in_dir, "SkLXRq6Q/train_images"),
+    "infer_data_path": os.path.join(in_dir, '51vG7A8E/test_images'),
     "checkpoint_path": os.path.join(in_dir, "work/output/final"),
     "save_dir": os.path.join(in_dir, "work/output"),
 }

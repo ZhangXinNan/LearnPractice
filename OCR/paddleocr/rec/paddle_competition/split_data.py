@@ -2,13 +2,13 @@
 import os
 import argparse
 import csv
-
+import random
 
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--in_dir', default='/media/zhangxin/DATA/data_public/OCR/paddle_competition/train')
-    parser.add_argument('--out_dir', default='./')
+    parser.add_argument('--in_dir', default='/home/zhangxin/data_public/OCR/paddle_competition/SkLXRq6Q')
+    # parser.add_argument('--out_dir', default='./')
     return parser.parse_args()
 
 
@@ -20,10 +20,19 @@ def main(args):
             print(line)
             break
     '''
-    with open(csv_file, newline='') as csvfile:
-        reader = csv.reader(csvfile)
-        for row in reader:
-            print(row)
+    input_file = os.path.join(args.in_dir, 'train_label.txt')
+    with open(input_file, newline='') as fi:
+        lines = fi.readlines()
+        random.shuffle(lines)
+        val_num = int(len(lines) * 0.2)
+        print(len(lines), val_num)
+    with open(os.path.join(args.in_dir, 'val.txt'), 'w', encoding='utf-8') as fo:
+        for line in lines[:val_num]:
+            fo.write(line)
+    with open(os.path.join(args.in_dir, 'train.txt'), 'w', encoding='utf-8') as fo:
+        for line in lines[val_num:]:
+            fo.write(line)
+
 
 
 if __name__ == '__main__':

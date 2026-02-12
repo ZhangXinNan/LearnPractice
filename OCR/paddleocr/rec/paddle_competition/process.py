@@ -1,3 +1,5 @@
+
+import os
 import pandas as pd
 from cfg import cfg
 
@@ -48,7 +50,9 @@ def del_other(s):
 
 
 # df = pd.read_csv("/home/aistudio/data/train_label.csv", encoding="gbk")
-csv_file = '/media/zhangxin/DATA/data_public/OCR/paddle_competition/train/train_label.csv'
+# csv_file = '/media/zhangxin/DATA/data_public/OCR/paddle_competition/train/train_label.csv'
+csv_file = "/home/zhangxin/data_public/OCR/paddle_competition/SkLXRq6Q/train_label.csv"
+# csv_file = os.path.join(cfg['data_path'], 'train_label.csv')
 df = pd.read_csv(csv_file, encoding="gbk")
 name, value = list(df.name), list(df.value)
 for i, label in enumerate(value):
