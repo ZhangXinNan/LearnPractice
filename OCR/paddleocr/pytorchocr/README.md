@@ -4,6 +4,7 @@
 ```bash
 conda create -n py310_torchocr python=3.10
 conda activate py310_torchocr
+conda env remove -n py310_torchocr
 
 conda create -n py310_pytorchocr python=3.10
 conda activate py310_pytorchocr
@@ -13,6 +14,7 @@ conda activate py310_pytorchocr
 pip install torch==2.7.1 torchvision==0.22.1 torchaudio==2.7.1 --index-url https://download.pytorch.org/whl/cu118
 pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu126
 pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu130
+pip3 install torch torchvision
 
 pip install -r requirements.txt
 pip install numpy==1.26.4

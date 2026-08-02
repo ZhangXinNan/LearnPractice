@@ -19,6 +19,26 @@ python tools/eval.py -c configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_student.yml \
 [2025/12/22 16:34:13] torchocr INFO: fps:26.19551303510169
 
 
+```bash
+python tools/eval.py -c configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_student.yml \
+    -o Global.pretrained_model=weights/ch_PP-OCRv3_det_distill/student.pth \
+    Global.device=mps \
+    Eval.dataset.data_dir="/Users/zhangxin/data_public/OCR/2_ICDAR2017-RCTW-17/RCTW" \
+    Eval.dataset.label_file_list="['/Users/zhangxin/data_public/OCR/2_ICDAR2017-RCTW-17/RCTW/train_1024_1000.txt']"
+```
+- 1024
+[2026/08/02 12:40:33] torchocr INFO: precision:0.7679275934091436
+[2026/08/02 12:40:33] torchocr INFO: recall:0.3937879328811139
+[2026/08/02 12:40:33] torchocr INFO: hmean:0.5206104468219005
+[2026/08/02 12:40:33] torchocr INFO: fps:50.52267605698781
+- 2048
+[2026/08/02 12:06:39] torchocr INFO: precision:0.6514798802793482
+[2026/08/02 12:06:39] torchocr INFO: recall:0.46626204926811854
+[2026/08/02 12:06:39] torchocr INFO: hmean:0.5435250052021919
+[2026/08/02 12:06:39] torchocr INFO: fps:31.319063414020174
+
+
+
 ## 2.2 PP-OCRv3_server_det
 ```bash
 # configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_dml.yml       指标为0
@@ -57,6 +77,25 @@ python tools/eval.py -c configs/det/ch_PP-OCRv4/ch_PP-OCRv4_det_student.yml \
 [2025/12/17 13:02:08] torchocr INFO: hmean:0.5568842274033001
 [2025/12/17 13:02:08] torchocr INFO: fps:29.631491988741725
 
+
+```bash
+python tools/eval.py -c configs/det/ch_PP-OCRv4/ch_PP-OCRv4_det_student.yml \
+    -o Global.pretrained_model=weights/ch_PP-OCRv4_det_train/best_accuracy.pth \
+    Global.device=mps \
+    Eval.dataset.data_dir="/Users/zhangxin/data_public/OCR/2_ICDAR2017-RCTW-17/RCTW" \
+    Eval.dataset.label_file_list="['/Users/zhangxin/data_public/OCR/2_ICDAR2017-RCTW-17/RCTW/train_1024_1000.txt']"
+```
+- 1024
+[2026/08/02 12:38:42] torchocr INFO: precision:0.7480832420591457
+[2026/08/02 12:38:42] torchocr INFO: recall:0.4064024753064382
+[2026/08/02 12:38:42] torchocr INFO: hmean:0.5266810610734115
+[2026/08/02 12:38:42] torchocr INFO: fps:36.53963512548125
+- 2048
+[2026/08/02 12:09:42] torchocr INFO: precision:0.6343170063888044
+[2026/08/02 12:09:42] torchocr INFO: recall:0.4962513388075687
+[2026/08/02 12:09:42] torchocr INFO: hmean:0.5568538425585899
+[2026/08/02 12:09:42] torchocr INFO: fps:14.716511515796995
+
 ## 2.4 PP-OCRv4_server_det
 ```bash
 python tools/eval.py -c configs/det/ch_PP-OCRv4/ch_PP-OCRv4_det_teacher.yml \
@@ -77,6 +116,24 @@ python tools/eval.py -c configs/det/ch_PP-OCRv4/ch_PP-OCRv4_det_teacher.yml \
 [2025/12/17 12:58:20] torchocr INFO: hmean:0.6455486542443064
 [2025/12/17 12:58:20] torchocr INFO: fps:5.693781364434131
 
+
+```bash
+python tools/eval.py -c configs/det/ch_PP-OCRv4/ch_PP-OCRv4_det_teacher.yml \
+    -o Global.pretrained_model=weights/ch_PP-OCRv4_det_server_train/best_accuracy.pth \
+    Global.device=mps \
+    Eval.dataset.data_dir="/Users/zhangxin/data_public/OCR/2_ICDAR2017-RCTW-17/RCTW" \
+    Eval.dataset.label_file_list="['/Users/zhangxin/data_public/OCR/2_ICDAR2017-RCTW-17/RCTW/train_1024_1000.txt']"
+```
+- 1024
+[2026/08/02 12:36:10] torchocr INFO: precision:0.8283011272141707
+[2026/08/02 12:36:10] torchocr INFO: recall:0.4897060573604665
+[2026/08/02 12:36:10] torchocr INFO: hmean:0.6155111809139182
+[2026/08/02 12:36:10] torchocr INFO: fps:12.105851515902529
+- 2048
+[2026/08/02 12:17:53] torchocr INFO: precision:0.7677662891843099
+[2026/08/02 12:17:53] torchocr INFO: recall:0.5567059383553493
+[2026/08/02 12:17:53] torchocr INFO: hmean:0.6454194260485652
+[2026/08/02 12:17:53] torchocr INFO: fps:3.778316414385232
 
 
 ## 2.5 PP-OCRv5_mobile_det
@@ -101,8 +158,14 @@ python tools/eval.py -c configs/det/PP-OCRv5/PP-OCRv5_mobile_det.yml \
     Global.device=mps \
     Global.use_tensorboard=false \
     Eval.dataset.data_dir="/Users/zhangxin/data_public/OCR/2_ICDAR2017-RCTW-17/RCTW" \
-    Eval.dataset.label_file_list="['/Users/zhangxin/data_public/OCR/2_ICDAR2017-RCTW-17/RCTW/train_2048_1000.txt']"
+    Eval.dataset.label_file_list="['/Users/zhangxin/data_public/OCR/2_ICDAR2017-RCTW-17/RCTW/train_1024_1000.txt']"
 ```
+- 1024
+[2026/08/02 12:32:57] torchocr INFO: precision:0.7443527367506516
+[2026/08/02 12:32:57] torchocr INFO: recall:0.4078305367130787
+[2026/08/02 12:32:57] torchocr INFO: hmean:0.526947028523103
+[2026/08/02 12:32:57] torchocr INFO: fps:36.92994281274863
+- 2048
 [2025/12/28 02:15:11] torchocr INFO: precision:0.6000600060006
 [2025/12/28 02:15:11] torchocr INFO: recall:0.47602046888016186
 [2025/12/28 02:15:11] torchocr INFO: hmean:0.5308912336585042
@@ -130,8 +193,14 @@ python tools/eval.py -c configs/det/PP-OCRv5/PP-OCRv5_server_det.yml \
     Global.device=mps \
     Global.use_tensorboard=false \
     Eval.dataset.data_dir="/Users/zhangxin/data_public/OCR/2_ICDAR2017-RCTW-17/RCTW" \
-    Eval.dataset.label_file_list="['/Users/zhangxin/data_public/OCR/2_ICDAR2017-RCTW-17/RCTW/train_2048_1000.txt']"
+    Eval.dataset.label_file_list="['/Users/zhangxin/data_public/OCR/2_ICDAR2017-RCTW-17/RCTW/train_1024_1000.txt']"
 ```
+- 1024
+[2026/08/02 12:28:45] torchocr INFO: precision:0.8217117300264282
+[2026/08/02 12:28:45] torchocr INFO: recall:0.48101868380340357
+[2026/08/02 12:28:45] torchocr INFO: hmean:0.6068157934244107
+[2026/08/02 12:28:45] torchocr INFO: fps:14.263587748774954
+- 2048
 [2025/12/28 02:21:44] torchocr INFO: precision:0.7350780532598714
 [2025/12/28 02:21:44] torchocr INFO: recall:0.5715815780078544
 [2025/12/28 02:21:44] torchocr INFO: hmean:0.6431010243020686
